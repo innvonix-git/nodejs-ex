@@ -1,0 +1,177 @@
+<% include template/head %>
+<script src="<%-base_url%>/assets/js/app.js"></script>
+<% include template/subheader %>
+	<!-- Page header -->
+	<div class="page-header page-header-light">
+		<div class="page-header-content header-elements-md-inline">
+			<div class="page-title d-flex">
+				<h4> <span class="font-weight-semibold">Admin</span> - Dashboard</h4>
+				<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+			</div>
+
+			<div class="header-elements d-none">
+			</div>
+		</div>
+
+		<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+			<div class="d-flex">
+				<div class="breadcrumb">
+					<a href="home" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+					<span class="breadcrumb-item active">Dashboard</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /page header -->
+
+
+	<!-- Content area -->
+	<div class="content cont-pad">
+
+		<!-- Simple statistics -->				
+
+		<div class="row">
+			<div class="col-sm-6 col-xl-3">
+				<div class="card card-body bg-blue-400 has-bg-image">
+					<div class="media">
+						<div class="media-body">
+							<h3 class="mb-0"><%= property_count %></h3>
+							<span class="text-uppercase font-size-xs">Locations</span>
+						</div>
+
+						<div class="ml-3 align-self-center">
+							<i class="icon-office icon-3x opacity-75"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-6 col-xl-3">
+				<div class="card card-body bg-danger-400 has-bg-image">
+					<div class="media">
+						<div class="media-body">
+							<h3 class="mb-0"><%= business_count %></h3>
+							<span class="text-uppercase font-size-xs">Businesses</span>
+						</div>
+
+						<div class="ml-3 align-self-center">
+							<i class="icon-briefcase icon-3x opacity-75"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-6 col-xl-3">
+				<div class="card card-body bg-success-400 has-bg-image">
+					<div class="media">
+						<div class="mr-3 align-self-center">
+							<i class="icon-users4 icon-3x opacity-75"></i>
+						</div>
+
+						<div class="media-body text-right">
+							<h3 class="mb-0"><%= user_count %></h3>
+							<span class="text-uppercase font-size-xs">Users</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-6 col-xl-3">
+				<div class="card card-body bg-indigo-400 has-bg-image">
+					<div class="media">
+						<div class="mr-3 align-self-center">
+							<i class="icon-spam icon-3x opacity-75"></i>
+						</div>
+
+						<div class="media-body text-right">
+							<h3 class="mb-0"><%= review_count %></h3>
+							<span class="text-uppercase font-size-xs">Flagged Reviews</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /simple statistics -->
+
+		<!-- Last 5 User statistics -->
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header bg-info text-white header-elements-inline">
+						<h6 class="card-title"><i class="icon-bell2"></i>  Recently Joined Regular Users  (Last 5)</h6>
+
+						<div class="header-elements">
+							<div class="list-icons">
+		                		<a class="list-icons-item" data-action="collapse"></a>
+		                	</div>
+	                	</div>
+					</div>
+					<div class="card-body">
+						<ul class="media-list">
+							<% if (regular_users) {
+			                    regular_users.forEach((user) => { 
+			                    %>
+							<li class="media">
+								<a href="/admin/userdetails?id=<%=user.id%>" class="mr-3">
+									<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+								</a>
+
+								<div class="media-body">
+									<div class="font-weight-semibold"><%= user.first_name %> <%= user.last_name %></div>
+									<span class="font-size-sm text-muted"><%= user.mail %></span>
+								</div>
+							</li>
+							<%
+				              })
+				            } %>
+					        <li class="media">
+								<div class="media-body">
+									<div class="font-weight-semibold text-center"><a href="users">View All User</a></div>											
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header bg-info text-white header-elements-inline">
+						<h6 class="card-title"><i class="icon-bell2"></i>  Recently Joined Business Users (Last 5)</h6>
+						<div class="header-elements">
+							<div class="list-icons">
+		                		<a class="list-icons-item" data-action="collapse"></a>
+		                	</div>
+	                	</div>
+					</div>
+
+					<div class="card-body">
+						<ul class="media-list">
+							<% if (business_users) {
+			                    business_users.forEach((user) => {                    
+			                    %>
+							<li class="media">
+								<a href="#" class="mr-3">
+									<img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+								</a>
+
+								<div class="media-body">
+									<div class="font-weight-semibold"><%= user.first_name %> <%= user.last_name %></div>
+									<span class="font-size-sm text-muted"><%= user.mail %></span>
+								</div>
+							</li>
+							<%
+				              })
+				            } %>
+					        <li class="media">
+								<div class="media-body">
+									<div class="font-weight-semibold text-center"><a href="business-users">View All User</a></div>	
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>		
+	</div>	
+<% include template/subfooter %>
+<% include template/footer %>

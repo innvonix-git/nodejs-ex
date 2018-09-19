@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Revstance | Member Login</title>
+    <% include frontend/template/head %>
+  </head>
+  <body>
+    <!-- Navigation -->
+   <% include frontend/template/subnav %>
+    <!-- Masthead -->
+    <div class="container-fluid register-page fluid-container" id="forgot-password">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 left-divn">
+                <div class=" custom-container-bottom align-center">
+                    <div class=" padding-all-40 rev_advantages left-inner div-center">
+                        <h3 class="color-revs">Advantages of Revstance</h3>
+                        <ul class="list-icon color-revs-blue">
+                            <li>Fast</li>
+                            <li>Easy</li>
+                            <li>Transparent</li>
+                            <li>Secure</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 right-divn">
+                <div class="row custom-container-bottom padding-all-20 reg-div">
+                     <div class="inner">
+                      <form role="form" action="/sendforgotlink" role="form" method="post" class="login-form form-validate" name="forgotpasswordform">
+
+                        <% include frontend/template/error %>
+                        <div class="text-center">
+                            <h3 class="content-group color-revs-title ltr-space"><b>FORGOT PASSWORD</b>
+                            </h3>
+                        </div>
+                            <div class="form-group form-group-material  login-input ">
+                                <label class="control-label animate">E-Mail Address*</label>
+                                <input type="text" id="email" name="email" value="" class="form-username form-control" placeholder="E-Mail Address*" required>
+                            </div>
+                            
+
+                            <div class="form-group text-center margin-tb-20">
+                                <button type="submit" class="btn btn-revs-rounded legitRipple form-control btn-login">
+                                   SUBMIT
+                                </button>
+                            </div>
+                            <!-- <div class="text-center terms-links">
+                                <a href="forgotpassword" class="color-revs">Forgot Password ?</a>
+                            </div> -->
+                         
+                            <hr class="content-divider text-muted section-divider">
+                            <div class="form-group text-center color-revs terms-links">
+                               <b><span> New to Revstance ?</span> </b>
+                            </div>
+                             <div class="form-group text-center">
+                                <a href="/signup"><button type="button" class="btn btn-revs-rounded legitRipple form-control btn-login">SIGN UP</button>
+                                </a>
+                            </div>
+                        </form>
+
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <!-- Footer -->
+    <% include frontend/template/subfooter %>
+    <script src="/js/validation/forgotpasswordvalidation.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var availableHeight = $(window).height() - $('.fluid-container').offset().top - ($('#navbar').outerHeight() + $(".footer-section").outerHeight());
+            $('.fluid-container').css('min-height', availableHeight + 'px');
+        });
+        </script>
+  </body>
+</html>

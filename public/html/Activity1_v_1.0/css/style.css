@@ -1,0 +1,509 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+body{
+	margin: 0px;
+	padding: 0px;
+	font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+    color: #212529 !important;
+
+}
+ul li{
+	list-style: none;
+
+}
+
+img{
+	margin: 0px;
+	padding: 0px;
+	max-width: 100%;
+	height: auto;
+}
+.no_padding{
+	margin: 0px;
+	padding: 0px;
+}
+/*location-page-daital css strat*/
+
+.location-page-daital{
+	margin: 0px;
+	padding: 40px 0;
+}
+
+
+
+.location-page-daital .main {
+  margin: 0px;
+  padding: 0px;
+}
+.location-page-daital h3 {
+    background: #000;
+    color: #3498db;
+    font-size: 36px;
+    line-height: 100px;
+    padding: 0%;
+    position: relative;
+    text-align: center;
+    margin: 0px 3px;
+}
+
+
+.location-page-daital .slick-next:before, .slick-prev:before {
+    font-size: 20px;
+    line-height: 1;
+    opacity: .75;
+    color: red;
+}
+
+.location-page-daital  .slick-dots {
+    bottom: -45px;
+    width: 100%;
+    list-style: none;
+    text-align: center;
+    display: none !important;
+}
+
+
+
+
+
+.lombart-sec{
+	margin: 0px;
+	padding: 0px 0;
+
+}
+
+
+.lombart-sec .lombart-text{
+	margin: 0px;
+	padding: 0px;
+	
+}
+
+.lombart-sec .lombart-text h2{
+	margin: 0px;
+	padding: 0px;
+	font-size: 20px;
+	font-weight: 600;
+	color: #000;
+	text-transform: capitalize;
+	
+}
+
+
+.reviews-text{
+	margin: 0px;
+	padding: 0px;
+
+}
+
+
+.reviews-text {
+    margin: 20px 0 20px 0;
+    padding: 14px 0;
+    border-bottom: solid 1px #ccc;
+    border-top: solid 1px #ccc;
+}
+
+
+.reviews-text ul{
+	margin: 0px;
+	padding: 0px;
+	
+}
+.reviews-text ul li{
+	margin: 0 6px;
+	padding: 0px;
+	list-style: none;
+	display: inline-block;
+	color: #ccc;
+	
+}
+
+.reviews-text ul li span{
+	margin: 0px;
+    padding: 5px 6px;
+    background: #6b84ff;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 4px;
+	
+}.reviews-text ul li span i{
+	margin: 0 0px 0 4px;
+    padding: 0px;
+    font-size: 10px;
+    color: #fff;
+	
+}
+
+.reviews-text ul li p{
+	margin: 0px;
+    padding: 2px 12px;
+    border: solid 1px #ccc;
+    color: #ccc;
+    font-size: 16px;
+    border-radius: 4px;
+
+	
+}
+
+
+.reviews-text ul li a{
+	margin: 0px;
+	padding: 0px;
+	color: #fff;
+	font-size: 16px;
+		
+}
+
+
+.reviews-text ul li:last-child{
+	float: right;
+	margin: 0px;
+    padding: 2px 12px;
+    background: #6b84ff;
+    border-radius: 4px;
+}
+
+
+.location_bt{
+	margin: 0px;
+	padding: 0px;
+}
+
+.location_bt ul{
+	margin: 0px;
+	padding: 0px;
+}
+.location_bt ul li span{
+	margin: 0px;
+	padding: 0px;
+}
+.location_bt ul li span i{
+	margin: 0px;
+	padding: 0px;
+}
+.location_bt ul li {
+    margin: 10px 0;
+    padding: 0px;
+    list-style: none;
+    display: block;
+    font-size: 18px;
+    color: #333;
+    text-transform: capitalize;
+}
+.location_bt ul li:last-child {
+    float: right;
+    margin: -80px 0 0 0;
+    padding: 0;
+}
+.location_bt ul li img{
+	margin: 0px;
+	padding: 0px;
+	float: right;
+}
+
+.location-check {
+    margin: 50px 0 0 0;
+    padding: 0px;
+}
+
+.location-check .in-check-bt{
+	margin: 0px 8px;
+    padding: 4px 15px;
+    background: #6b84ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+
+}
+
+
+.location-check .in-check-bt span i{
+	font-size: 10px;
+}
+
+
+/*location-page-daital css end*/
+
+/*description-sec css strat*/
+
+
+.description-sec{
+	margin: 0px;
+	padding: 0px;
+}
+
+.description-sec .title-ds{
+	margin: 0px;
+	padding: 0x;
+}
+
+
+.description-sec .title-ds h2{
+	margin: 0 0 20px 0;
+    padding: 10px 0;
+    font-size: 22px;
+    color: #000;
+    font-weight: 500;
+    text-transform: capitalize;
+   
+}
+
+
+.description-sec .title-ds p{
+	margin: 0px;
+	padding: 0px;
+	font-size: 14px;
+	color: #333;
+
+}
+
+/*description-sec css end*/
+
+
+/*our_products-sec css strat*/
+.our_products-sec {
+    margin: 0px;
+    padding: 40px 0;
+}
+
+.our_products-sec .back-bt{
+	margin: 0px;
+	padding: 0px;
+}
+.our_products-sec .back-bt a{
+	margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: capitalize;
+    color: #2d60ef;}
+
+.our_products-sec .title-ds h2{
+	padding: 10px 0;
+	margin: 20px 0;
+}
+
+.Products-post {
+    margin: 0 0 20px 0;
+    padding: 0px;
+    border: solid 2px #ccc;
+    border-radius: 4px;
+    background: #fff;
+}
+
+
+.Products-post h2{
+	margin: 0px;
+    padding: 20px 0px 0 10px;
+    font-size: 20px;
+    text-transform: capitalize;
+    font-weight: 500;
+    color: #000;
+}
+
+
+
+
+.Products-post p{
+	margin: 0px;
+    padding: 20px 10px;
+    font-size: 14px;
+    color: #4994f1;
+    text-transform: capitalize;
+}
+
+.Products-post p span{
+	margin: 0px;
+	padding: 0px;
+	float: right;
+	text-transform: uppercase;
+}
+/*our_products-sec css end*/
+
+
+ /*check_ins section css strat */
+
+.check_ins{
+	margin: 0px;
+	padding: 20px 0;
+
+}
+.margin_bottom{
+	margin: 0px;
+	padding: 0px;
+}
+.check_ins .title-ds h2{
+	margin: 0px;
+	padding: 0 0 20px 0;
+}
+
+.check_ins .search-bt{
+	margin: 0px;
+	padding: 0px;
+	 border-bottom: solid 1px #ccc;
+}
+
+.check_ins .search-bt input {
+    margin: 0px;
+    padding: 0 0 0 20px;
+    outline: 0;
+   
+    
+}
+
+.check_ins .search-bt span i{
+	margin: 0;
+    padding: 0 0 0 0;
+    float: left;
+    line-height: 30px;
+    font-size: 20px;
+    color: #9e9c9c;
+}
+
+.check_ins .stylish-input-group .input-group-addon{
+    background: white !important; 
+}
+.check_ins .stylish-input-group .form-control{
+	border: none;
+    box-shadow: none;
+    font-size: 15px;
+    margin: 0px;
+    padding: 8px 0 0 10px;
+}
+
+ .check_ins .select_reviews{
+	margin: 0px;
+	padding: 0px;
+}
+.check_ins .select_reviews .form-control {
+   margin: 7px 0 0 0;
+    padding: 0px;
+    border: none;
+    box-shadow: none;
+    font-size: 14px;
+}
+.check_ins .select_reviews select{
+	margin: 0px;
+	padding: 0px;
+	border-bottom: solid 1px #ccc !important;
+
+}
+
+.check_ins .comment-text{
+	margin: 20px 0 0 0;
+	padding: 0px;
+	border: solid 1px #ccc;
+	background: #fff;
+	border-radius: 4px;
+}
+
+.check_ins .comment-text h2{
+	margin: 0px;
+    padding: 10px 18px;
+    width: auto;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+
+.check_ins .comment-text ul{
+	margin: 0px;
+	padding: 0 10px;
+}
+
+.check_ins .comment-text ul li{
+	    margin: 0px;
+    padding: 0 6px;
+    list-style: none;
+    display: inline-block;
+    font-size: 16px;
+    color: #ccc}
+
+.check_ins .comment-text ul li span{
+	margin: 0px;
+    padding: 3px;
+    background: #3879f1;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.check_ins .comment-text ul li span i{
+	margin: 0px;
+	padding: 0px;
+	font-size: 10px;
+}
+
+
+.check_ins .comment-text ul li p{
+	margin: 0px;
+	padding: 0px;
+	float: right;
+}
+
+.check_ins .comment-text ul li:nth-child(3){
+	    float: right;
+    color: #3879f1;
+    margin: -30px 0 0 0;
+    font-size: 30px;
+}
+
+.check_ins .comment-text ul li:nth-child(4){
+	    float: right;
+    color: #3879f1;
+    margin: -27px 0 0 0;
+    font-size: 30px;
+}
+
+
+.check_ins .comment-text p{
+	margin: 20px 0;
+	padding: 0 18px;
+	font-size: 18px;
+	color: #333;
+	line-height: 20px;
+	    }
+
+.check_ins .comment-text .share-icon{
+	margin: 0px 0;
+	padding: 10px 10px;
+}
+
+
+.check_ins .comment-text .share-icon a{
+	margin: 0px;
+	padding: 0 10px;
+	display:inline-block;
+	font-size: 20px;
+	color: #ccc;
+
+}
+
+.check_ins .comment-text .share-icon a i{
+	margin: 0px;
+	padding: 0px;
+}
+
+.read_more{
+	margin: 0px;
+	padding: 30px 0px;
+	text-align: center;
+}
+
+.read_more a{
+	margin: 0px;
+	padding: 0px;
+	font-size: 16px;
+	color: #000;
+	font-weight: 400;
+	text-align: center;
+	text-transform: capitalize;
+	text-decoration: none;
+}
+
+/*check_ins section css end */

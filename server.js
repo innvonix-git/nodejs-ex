@@ -1,108 +1,99 @@
-//  OpenShift sample Node application
-var express = require('express'),
-    app     = express(),
-    morgan  = require('morgan');
-    
-Object.assign=require('object-assign')
+var express = require('express');
+var app = express();
+var multer = require('multer');
+var constants = require('constants');
+var constant = require('./config/constants');
+/*PortNumber to start*/
+//var port = 443;
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
+var mongoose = require('mongoose');
+var passport = require('passport');
+var flash = require('connect-flash');
+var path = require('path');
+var fs = require('fs');
+var morgan = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var session = require('express-session');
+var bodyParser = require('body-parser');
+var dateFormat = require('dateformat');
+var now = new Date();
+var cron = require('node-cron');
+var CroneController  = require('./app/controllers/cronController');
 
-app.engine('html', require('ejs').renderFile);
-app.use(morgan('combined'))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
-var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
-    ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
-    mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL,
-    mongoURLLabel = "";
+/***************Mongodb configuratrion********************/
+var mongoose = require('mongoose');
+var configDB = require('./config/database.js');
+//configuration ===============================================================
+mongoose.connect(configDB.url, { useNewUrlParser: true }); // connect to our database
 
-if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
-  var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
-      mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'],
-      mongoPort = process.env[mongoServiceName + '_SERVICE_PORT'],
-      mongoDatabase = process.env[mongoServiceName + '_DATABASE'],
-      mongoPassword = process.env[mongoServiceName + '_PASSWORD']
-      mongoUser = process.env[mongoServiceName + '_USER'];
+require('./config/passport')(passport); // pass passport for configuration
 
-  if (mongoHost && mongoPort && mongoDatabase) {
-    mongoURLLabel = mongoURL = 'mongodb://';
-    if (mongoUser && mongoPassword) {
-      mongoURL += mongoUser + ':' + mongoPassword + '@';
-    }
-    // Provide UI label that excludes user id and pw
-    mongoURLLabel += mongoHost + ':' + mongoPort + '/' + mongoDatabase;
-    mongoURL += mongoHost + ':' +  mongoPort + '/' + mongoDatabase;
+//set up our express application8084
+app.use(morgan('dev')); // log every request to the console
+app.use(cookieParser()); // read cookies (needed for auth)
+//app.use(bodyParser()); // get information from html forms
 
+//view engine setup
+app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, 'app/views'));
+app.set('view engine', 'ejs');
+
+app.use(session({
+    secret: 'revstance',
+    resave: true,
+    saveUninitialized: true   
+}));
+
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+// routes ======================================================================
+require('./config/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+app.listen(port);
+console.log('The magic happens on port ' + port);
+
+//catch 404 and forward to error handler
+app.use(function (req, res, next) {
+    res.status(404).render('404', {title: "Sorry, page not found", session: req.sessionbo});
+});
+
+app.use(function (req, res, next) {
+    res.status(500).render('404', {title: "Sorry, page not found"});
+});
+app.locals = {
+  version: '0.0.2',
+  name: 'Revstance',
+  codename: 'Innvonix Technology',
+  admin_account_id: '5aaa709f8b4aac13863123e1',
+  token_price_rate: '0.05',
+  stripe_key:'pk_test_aCIWqlrMaJzKSBcuQY5Z8LcD',
+  stripe_secret:'sk_test_8cqal9nHSF0vCVrGPk09m9Eg',
+  featured_membership_tokencost:400,
+  web: {
+    name: 'Revstance',
+    logo: 'images/logo.svg',
+    url: 'https://revstance.com',
+    secure: true,
+    divider: ' • '
+  },
+  meta: {
+    keyword: 'Review the world around you!',
+    description: 'Revstance is an online platform that allows you to rate and review restaurants, cafes, bars and anything else that has a physical location...',
+    author: 'revstance',
+  },
+  base_url: 'http://revstance-revstance.7e14.starter-us-west-2.openshiftapps.com/',
+  default_membership: '5b81435447729d0ac54800b9',  
+  dev: {
+    name: 'Developers',
+    url: 'https://innvonix.com',
+    secure: false,
+    errors: '/errors/'
   }
-}
-var db = null,
-    dbDetails = new Object();
-
-var initDb = function(callback) {
-  if (mongoURL == null) return;
-
-  var mongodb = require('mongodb');
-  if (mongodb == null) return;
-
-  mongodb.connect(mongoURL, function(err, conn) {
-    if (err) {
-      callback(err);
-      return;
-    }
-
-    db = conn;
-    dbDetails.databaseName = db.databaseName;
-    dbDetails.url = mongoURLLabel;
-    dbDetails.type = 'MongoDB';
-
-    console.log('Connected to MongoDB at: %s', mongoURL);
-  });
 };
 
-app.get('/', function (req, res) {
-  // try to initialize the db on every request if it's not already
-  // initialized.
-  if (!db) {
-    initDb(function(err){});
-  }
-  if (db) {
-    var col = db.collection('counts');
-    // Create a document with request IP and current time of request
-    col.insert({ip: req.ip, date: Date.now()});
-    col.count(function(err, count){
-      if (err) {
-        console.log('Error running count. Message:\n'+err);
-      }
-      res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails });
-    });
-  } else {
-    res.render('index.html', { pageCountMessage : null});
-  }
-});
-
-app.get('/pagecount', function (req, res) {
-  // try to initialize the db on every request if it's not already
-  // initialized.
-  if (!db) {
-    initDb(function(err){});
-  }
-  if (db) {
-    db.collection('counts').count(function(err, count ){
-      res.send('{ pageCount: ' + count + '}');
-    });
-  } else {
-    res.send('{ pageCount: -1 }');
-  }
-});
-
-// error handling
-app.use(function(err, req, res, next){
-  console.error(err.stack);
-  res.status(500).send('Something bad happened!');
-});
-
-initDb(function(err){
-  console.log('Error connecting to Mongo. Message:\n'+err);
-});
-
-app.listen(port, ip);
-console.log('Server running on http://%s:%s', ip, port);
-
-module.exports = app ;
+exports = module.exports = app;

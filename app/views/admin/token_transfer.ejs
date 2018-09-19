@@ -1,0 +1,97 @@
+<% include template/head %>
+<script src="../global_assets/js/plugins/extensions/jquery_ui/interactions.min.js"></script>
+  <script src="../global_assets/js/plugins/forms/selects/select2.min.js"></script>
+<script src="<%-base_url%>/assets/js/app.js"></script>
+<% include template/subheader %>
+<!-- Page header -->
+  <div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+      <div class="page-title d-flex">
+        <h4> <span class="font-weight-semibold">Token Transfer</span></h4>
+        <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+      </div>
+
+      <div class="header-elements d-none">
+      </div>
+    </div>
+
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+      <div class="d-flex">
+        <div class="breadcrumb">
+          <a href="home" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+          <span class="breadcrumb-item active"><i class="icon-price-tag"></i>Token Transfer</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /page header -->
+
+  <!-- Content area -->
+  <div class="content">
+    <% include template/flashmessage %>
+    <!-- Basic layout-->
+      <div class="card">
+        <div class="card-header header-elements-inline">
+          <h5 class="card-title">Token Transfer</h5>
+        </div>
+
+        <div class="card-body">
+          <fieldset>
+              <legend class="font-weight-semibold text-uppercase font-size-sm"></legend>
+              <form action="<%-base_url%>/admin/transfer-token" method="post" name="transfertokenForm">
+                  <div class="form-group row">
+                    <label class="col-lg-3 col-form-label">Select User: <span class="text-danger">*</span></label>
+                    <div class="col-lg-9">
+                      <select class="form-control select-search" data-fouc name="user" id="username">
+                        <option></option>
+                        <% 
+                        users.forEach(function(user){
+                        %>
+                        <option value="<%-user._id%>">
+                          <%
+                          var str
+                          if(user.user_type==1){
+                            str=user.first_name+' '+user.last_name+' (User)'; 
+                          }else{
+                            str=user.first_name+' '+user.last_name+' (Business)';
+                          }
+                          %>
+                          <%-str%>                  
+                        </option> 
+                        <% 
+                        });
+                        %>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-lg-3 col-form-label">How many STT?: <span class="text-danger">*</span></label>
+                    <div class="col-lg-9">
+                      <input type="text" name="amount" class="form-control" id="amount" placeholder="Enter STT amount" required="required">
+                    </div>
+                  </div>
+
+                  <div class="text-right">
+                    <button type="submit" class="btn btn-primary">Transfer now<i class="icon-paperplane ml-2"></i></button>
+                    <!-- <a href="<%base_url%>%>/admin/token-transfer" class="btn btn-primary"><i class="icon-arrow-left7 position-left"></i> Back to Listing</a> -->
+                  </div>
+                </form>
+          </fieldset>
+        </div>
+      </div>
+      <!-- /basic layout -->
+  </div>
+  <!-- /content area -->
+<% include template/subfooter%>   
+  <script src="/js/validation/transfertokenvalidation.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('.select-search').select2({
+        placeholder: 'Select User',
+        allowClear: true
+      });
+    });
+  </script>
+<% include template/footer%>
+      

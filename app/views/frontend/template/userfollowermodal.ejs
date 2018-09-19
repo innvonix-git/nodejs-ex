@@ -1,0 +1,72 @@
+
+<div class="modal user-model" id="userFollowerModel">
+  <div class="modal-dialog">
+    <div class="revstance_modal modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">
+          <div class="input-group">
+            <span>
+              <i class="fa fa fa-search text-muted" aria-hidden="true"></i>
+            </span>
+            <input type="text" class="form-control search-follow" placeholder="Search follower"/>
+          </div>
+        </h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <form action="#" id="issue-filter">
+         <input type="hidden" name="userId" id="userId" value="<%=user._id%>">   
+      <!-- Modal body -->
+      <div class="modal-body">
+        <h6>
+        Followers
+        </h6>   
+              <div class="" id="followers">
+                  <ul class="list-group">
+                     <% if(Array.isArray(user.followersName) && user.followersName.length>0){ 
+                          user.followersName.forEach(function(allFollowerName){ %>
+                    <li class="list-group-item">
+                      <div class="media">
+                        <div class="media-left">
+                          <a class="avatar" href="javascript:void(0)">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="">
+                          </a>
+                        </div>
+                        <div class="media-body">
+                          <% if(req.session.user && req.session.user.user_type==1){ %>
+                            <div class="pull-right ml-1">
+                               <% testcounter = 0;
+                                  user.isFollower.forEach(function(fuser){ 
+                                  if(user.isFollower.length>0 && fuser.equals(allFollowerName._id))
+                                  { 
+                                    testcounter++;
+                                %>
+                              <a class="btn rev-blue btn-sm btn-transpernt " value="Following" href="<%- base_url+'/user/profile/unfollow/'+allFollowerName._id%>">Following</a>
+                              <% 
+                                  }
+                                  });
+                                  if(testcounter==0 && allFollowerName._id==loggedInUserId){ %>
+                                  <span></span>
+                                  <% }else if(testcounter==0){ %>
+                                  <a class="btn rev-blue btn-sm " value="Follow" href="<%- base_url+'/user/profile/follow/'+allFollowerName._id%>">Follow</a>  
+                                   <% }  %>
+                            </div>
+                           <% } %>
+                          <div><a class="name" href="#"><b><%- allFollowerName.fullname %></b></a></div>
+                        </div>
+                       
+                      </div>
+                    </li>
+                    <% }); } %>
+                  </ul>
+              </div>
+      </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+  

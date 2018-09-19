@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Revstance | Search</title>
+        <% include ../frontend/template/head %>
+    </head>
+    <body>
+        <!-- Navigation -->
+        <% include ../frontend/template/subnav %>   
+        <% var p=parseInt(page);%>     
+        <div class="container">  
+        <div class="search-filter">          
+        <form action="/Mylisting" id="search_form">
+        <div class="row margin-t-5">
+          <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 input-search">
+              <div class="form-row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 rev-search">
+                    <input type="text" name="keyword" class="form-control form-control-lg search-field" placeholder="Search for location" value="<%=keyword%>">
+                  </div>
+                  <input type="hidden" name="page" id="page" value="<%=page%>" />
+                  <div class="icon-btn">
+                    <button type="submit" class="btn btn-block btn-sm rev-search-btn"></button>
+                   </div>
+                </div>
+          </div>
+          <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 rev-btns"> 
+            <div class="filter-content"> 
+              <div class="row"> 
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                  <div class="cat-box">
+                    <select class="select-box" name="category" id="category-select">
+                        <option value="" selected="selected" disabled="disabled">Category</option>
+                        <% categories.forEach(function(category){ %>
+                            <option value="<%=category.id %>" name="category" <% if(filters.category_filter){ if(filters.category_filter==category.id){ %> selected <% } } %>><%=category.category_name %></option>
+                        <% }); %>
+                    </select>
+                     <i class="fa  fa-caret-down"></i>  
+                 </div>
+               </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                  <div class="btn-apply">
+                     <button type="submit" class="btn-lg apply-btn">Apply</button>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                  <div class="btn-reset">
+                     <a href="/myListing" class="btn-lg reset-btn">Reset</a>
+                  </div>
+                </div>
+              </div> 
+          </div>
+         </div> 
+      </div>
+  </form>
+  <% include ../frontend/template/flashmessage %>
+           
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 search-div <%if(counter!=0){%>search_result_all_message<%}else{%>search_result_message<%}%>">
+                <% if(!session.user && counter==0){%>
+                    <p class="error-text">No Results found. Create the listing and add review by clicking <a href="/addListing">here</a></p>
+                <%}else if(session.user && session.user.user_type==1 && counter==0){%>
+                    <p class="error-text">No Results found. Create the listing and add review by clicking <a href="/addListing">here</a></p>
+                <%}else{%>
+                    <p class="error-text"><strong><%=counter%> Locations Found </strong> </p>
+                <%}%>
+                    <% properties.forEach(function(property){
+                     %>                    
+                    <div class="search-content">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 search_image">
+                              <div class="search-left-image">
+                              <%var im = (property.property_image).split(',');
+                                var im_name = im[0];%>
+                                <%if(im[0]==''){%>
+                                  <img src="/images/no-location.jpg" class="image-left">
+                                <%}else{%>
+                                  <img src="/uploads/thumbs/thumb_<%=im_name%>" class="image-left">
+                                  <!-- <img src="/uploads/<%=im_name%>" class="image-left"> -->
+                                <%}%>
+                            </div>
+                           </div>  
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 white-card">
+                                <div class="card-info <%if(property.property_status==1){ %> verified-property <% }else if(property.is_claimed==1){ %>  claimed-property <% }else if(property.property_status==0){%>verifypending<%}else if(property.property_status==2){%>suspendedproperty<%} %>">
+                                    <h3 class="card-title"><a href="location/<%=property.slug%>/details"><%=property.property_name%></a></h3>
+                                    <span class="property-id">Business Key : <%-property.id%></span>
+                                    <% var address = property.address1+property.address2+property.area%>
+
+                                    <% if(address.length > 100){%>
+                                    <p class="content-add"><%=address.substr(0,90)+'...'+property.post_code%></p>
+                                    <%}else{%>
+                                      <p class="content-add"><%=property.address1+" "+property.address2+" "+property.area+" "+property.post_code%></p>
+                                    <%}%>
+                                    <p class="content-category"><%=property.category%></p>
+                                    <div class="review">
+                                          <div class="review-count"> <%=property.review_count %> Reviews</div>
+                                          <div class="property-overall-rating">
+                                              <div class="stars">
+                                                <% var i=0;
+                                                for(i=0;i<parseInt(property.average_rating);i++){ %>
+                                                <span class="star-o"></span>  
+                                                <% }
+                                                for(;i<5;i++){  %>
+                                                <span class="star-half-o"></span>
+                                                <% } %>
+                                              </div>
+                                            </div>
+                                    </div>
+                                    <div class="review">
+                                        <div class="review-count btns pull-right">
+                                            <a href="/editListing/<%- property.id; %>"><button class="list-edit">edit</button></a>
+                                            <a onclick="confirmDelete(<%- property.id; %>); event.preventDefault();" href="javascript:void(0)"><button class="list-delete">delete</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <hr class="seprator" />
+                    <% }) %>
+                </div>
+            
+            <% if(counter>5){ %> 
+            <div class="row">
+                <ul class="pagination">
+                  <li class="page-item" data-id="0"><a class="page-link" href="javascript:void(0)">First</a></li>
+                  <%
+                  var lastPage = Math.ceil(counter/5);
+                  var last = lastPage - 1;
+                  for(k=0;k<lastPage;k++){ 
+                  if(((k+3)==page) || ((k+2)==page) || ((k+1)==page) || (k==page) || ((k-1)==page) || ((k-2)==page) || ((k-3)==page)){
+                  %>
+
+                  <li class="page-item <% if(page==k){ %> active <%}%>" data-id="<%=k%>"><a class="page-link" href="javascript:void(0)"><%=k+1%></a></li>
+                  <% } }%>
+                  <li class="page-item" data-id="<%=last%>"><a class="page-link" href="javascript:void(0)">Last</a></li>
+                </ul>            
+            </div>
+            <input type="hidden" name="total_page" id="total_page" value="<%=Math.ceil(counter/5)%>">
+            <% } %>
+      </div>
+    </div>
+        <!-- Footer -->
+        <% include ../frontend/template/subfooter %>
+        <script type="text/javascript">
+          function confirmDelete(a){
+            swal({
+                title: "Are you sure you want to delete?",
+                icon: "warning",
+                //text:"Are you sure want to Logout..?",
+                buttons: true,
+                buttons: ["Cancel", "Confirm"],
+                dangerMode: true,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                timer: 10000,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = "/deleteListing?property="+a;
+                }
+            });
+        } 
+        </script>
+    </body>
+</html>
+
+   

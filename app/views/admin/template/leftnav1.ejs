@@ -1,0 +1,66 @@
+<!-- Main sidebar -->
+			<div class="sidebar sidebar-main">
+				<div class="sidebar-content">
+					<!-- Main navigation -->
+					<div class="sidebar-category sidebar-category-visible">
+						<div class="category-content no-padding">
+							<ul class="navigation navigation-main navigation-accordion">
+
+								<!-- Main -->
+								<li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
+
+								<li class="<% if(req.path=="/admin/home") {%>active<% } %>"><a href="home"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+
+								<li class="<% if(req.path=="/admin/users" || req.path=="/admin/userdetails") {%>active<% } %>"><a href="users"><i class="icon-users4"></i> <span>Users</a></li>
+
+								<li class="<% if(req.path=="/admin/business-users" || req.path=="/admin/business-detail") {%>active<% } %>"><a href="business-users"><i class="icon-briefcase"></i> <span>Businesses</span></a></li>
+
+								<li class="<% if(req.path=="/admin/locations" || req.path=="/admin/location-detail") {%>active<% } %>"><a href="locations"><i class="icon-office"></i> <span>All Locations</span></a></li>
+
+								<!-- <li class="<% if(req.path=="/admin/categories") {%>active<% } %>"><a href="categories"><i class="icon-list3"></i> <span>Categories</span></a></li> -->
+
+								<li class="nav-item nav-item-submenu <% if(req.path=="/admin/editcategory") {%>active<% } %>">
+									<a href="#" class="nav-link"><i class="icon-list3"></i> <span>Categories</span></a>
+
+									<ul class="nav nav-group-sub" data-submenu-title="Themes">
+										<li class="nav-item <% if(req.path=="/admin/addcategory") {%>active<% } %>"><a href="/admin/addcategory" class="nav-link active"><i class="icon-add"></i><span>Add New Category</span></a></li>
+										<li class="nav-item <% if(req.path=="/admin/categories") {%>active<% } %>"><a href="categories" class="nav-link"><i class="icon-eye8"></i><span>View Category</span></a></li>
+									</ul>
+								</li>
+
+
+								<li class="<% if(req.path=="/admin/claimed-locations") {%>active<% } %>"><a href="claimed-locations"><i class="icon-price-tags"></i> <span>Claimed Locations</span></a></li>
+
+								<li class="<% if(req.path=="/admin/flagged-reviews") {%>active<% } %>"><a href="flagged-reviews"><i class="icon-spam"></i> <span>Flagged Reviews</span></a></li>
+
+								<!-- <li class="<% if(req.path=="/admin/blogs") {%>active<% } %>"><a href="blogs"><i class="icon-blogger2"></i> <span>Blogs</span></a></li> -->
+
+								<li class="nav-item nav-item-submenu <% if(req.path=="/admin/blogs") {%>active<% } %>">
+									<a href="#" class="nav-link"><i class="icon-blogger2"></i> <span>Blogs</span></a>
+
+									<ul class="nav nav-group-sub" data-submenu-title="Themes">
+										<li class="nav-item <% if(req.path=="/admin/addblog") {%>active<% } %>"><a href="/admin/addblog" class="nav-link active"><i class="icon-add"></i><span>Add New Blog</span></a></li>
+										<li class="nav-item <% if(req.path=="/admin/blogs") {%>active<% } %>"><a href="blogs" class="nav-link"><i class="icon-eye8"></i><span>View Blogs</span></a></li>
+									</ul>
+								</li>
+								<!-- /main -->
+
+								<li class="nav-item nav-item-submenu <% if(req.path=="/admin/emails") {%>active<% } %>">
+									<a href="#" class="nav-link"><i class="icon-envelop4"></i> <span>Email Template</span></a>
+
+									<ul class="nav nav-group-sub" data-submenu-title="Themes">
+										<li class="nav-item <% if(req.path=="/admin/addemail") {%>active<% } %>"><a href="/admin/addemail" class="nav-link active"><i class="icon-add"></i><span>Add New Email</span></a></li>
+										<li class="nav-item <% if(req.path=="/admin/emails") {%>active<% } %>"><a href="emails" class="nav-link"><i class="icon-eye8"></i><span>View Email</span></a></li>
+									</ul>
+								</li>
+
+								<li class="<% if(req.path=="/admin/nfp") {%>active<% } %>"><a href="nfp"><i class="icon-design"></i> <span>Non Functional Prototype</span></a></li>
+
+							</ul>
+						</div>
+					</div>
+					<!-- /main navigation -->
+
+				</div>
+			</div>
+			<!-- /main sidebar -->

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>  
+  <% include frontend/template/head %>
+  </head>
+  <body>
+    <% include frontend/template/subnav %>
+    <section class="mt-4 text-justify">
+      <div class="container feed">
+        <div class="row">
+          <div class="col-md-10 offset-md-1">
+            <% include frontend/template/error %>
+            <div class="panel panel-default">
+              <div class="panel-heading mb-3">
+                <h3>News Feed</h3>
+              </div>
+              <div class="panel-body">
+                <ul class="nav nav-tabs">
+                  <li class="nav-item"><a href="#basic-tab1" class="nav-link active text-center" data-toggle="tab">All</a></li>
+                  <li class="nav-item"><a href="#basic-tab2" class="nav-link text-center" data-toggle="tab">Following</a></li>
+                </ul>
+
+                <div class="tab-content mt-3">
+                  <div class="tab-pane fade show active" id="basic-tab1">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-2">
+
+                       <!-- Add location Listed -->
+                      <div class="row box p-2 l-txt">
+                        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                        <span class="rev-blue">Johnson</span>
+                         listed a Location 
+                         <span class="rev-blue">99 Street</span>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 col-12 col-12 feed-time">
+                        Aug 27, 2018 06:55 AM
+                        </div>
+                      </div>
+                      <div class="row box p-2 mb-2">
+                        <div class="p-2">
+                          <div class="feed-image" style="background-image: url(/images/large-img.jpg);">
+                          </div>
+                        </div>
+                        <div class="p-2">
+                          <div class="">
+                          <span class="feed-icon feed-marker"></span>
+                          </div>
+                          <div class="txt1">
+                            Street 2113, London, 100101
+                          </div>
+                          <div class="txt2">
+                            Residential Appartment
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <!-- Feeling Listed -->
+                      <div class="row box p-2 l-txt ">
+                        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                        <span class="rev-blue">Johnson</span>
+                         Feeling Happy at
+                         <span class="rev-blue">99 Street</span>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 col-12 feed-time">
+                        Aug 27, 2018 06:55 AM
+                        </div>
+                      </div>
+                      <div class="row box p-2 mb-2 feeling-feed">
+                        <div class="p-2">
+                          <div class="feed-image" style="background-image: url(/images/small-img.jpg);">
+                          </div>
+                        </div>
+                        <div class="p-2">
+                        <i class="fa fa-star rev-blue" aria-hidden="true"></i>
+                        <i class="fa fa-star rev-blue" aria-hidden="true"></i>
+                        <i class="fa fa-star rev-blue" aria-hidden="true"></i>
+                        <i class="fa fa-star text-secondary" aria-hidden="true"></i>
+                        <i class="fa fa-star text-secondary" aria-hidden="true"></i>
+                        </div>
+                      </div>
+
+                       <!-- Started Fololowing -->
+                      <div class="row box p-2 l-txt">
+                        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                        <span class="rev-blue">Johnson</span>
+                         Started Following 
+                         <span class="rev-blue">You</span>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 col-12 feed-time">
+                        Aug 27, 2018 06:55 AM
+                        </div>
+                      </div>
+                      <div class="row box p-2 mb-2">
+                        <div class="p-2">
+                          <div class="feed-image">
+                          </div>
+                        </div>
+                        <div class="p-2">
+                        <h6>Jack Brakyn</h6>
+                        <div class="text-muted">How To Align Images Side By Side</div>
+                        </div>
+                      </div>
+
+                       <!-- Submiited review for location -->
+                      <div class="row box p-2 l-txt review-feed">
+                        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                        <span class="rev-blue">Kacky Chain</span>
+                         Submitted a Review to
+                         <span class="rev-blue">99 Street</span>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 col-12 feed-time">
+                        Aug 27, 2018 06:55 AM
+                        </div>
+                      </div>
+                      <div class="row box p-2 mb-2">
+                        <div class="p-2">
+                          <div class="feed-image">
+                          </div>
+                        </div>
+                        <div class="p-2">
+                            <i class="fa fa-star rev-blue" aria-hidden="true"></i>
+                            <i class="fa fa-star rev-blue" aria-hidden="true"></i>
+                            <i class="fa fa-star rev-blue" aria-hidden="true"></i>
+                            <i class="fa fa-star text-secondary" aria-hidden="true"></i>
+                            <i class="fa fa-star text-secondary" aria-hidden="true"></i>
+                            <div class="">
+                            "After you get up and running, you can place Font Awesome icons just about anywher"
+                            </div>
+                              <img src="/images/small-img.jpg" class="review-img">
+                              <img src="/images/plazmatic_gift_card_img.png" class="review-img">
+                              <img src="/images/plazmatic_gift_card_img.png" class="review-img">
+                              <img src="/images/plazmatic_gift_card_img.png" class="review-img">
+                              <img src="/images/plazmatic_gift_card_img.png" class="review-img">
+                        </div>
+                      </div>
+
+                       <!-- Upvoted Review -->
+                      <div class="row box p-2 l-txt">
+                        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                        <span class="rev-blue">Johnson</span>
+                         Upvoted a Review on
+                         <span class="rev-blue">Wallmart Street</span>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 col-12 feed-time">
+                        Aug 27, 2018 06:55 AM
+                        </div>
+                      </div>
+                      <div class="row box p-2 mb-2">
+                        <div class="p-2">
+                          <div class="feed-image">
+                          </div>
+                        </div>
+                          <div class="p-2">
+                            <i class="fa fa-star rev-blue" aria-hidden="true"></i>
+                            <i class="fa fa-star rev-blue" aria-hidden="true"></i>
+                            <i class="fa fa-star rev-blue" aria-hidden="true"></i>
+                            <i class="fa fa-star rev-blue" aria-hidden="true"></i>
+                            <i class="fa fa-star text-secondary" aria-hidden="true"></i>
+                            <div class="">
+                            "After you get up and running, you can place Font Awesome icons just about anywher"
+                            </div>
+                        </div>
+                      </div>
+
+                      <!-- Buy Gigt card -->
+                      <div class="row box p-2 l-txt">
+                        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                        <span class="rev-blue">Johnson</span>
+                         Bought
+                         <span class="rev-blue">Amazon gift card</span>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 col-12 feed-time">
+                        Aug 27, 2018 06:55 AM
+                        </div>
+                      </div>
+                      <div class="row box p-2 mb-2">
+                        <div class="p-2">
+                          <div class="feed-image">
+                          </div>
+                        </div>
+                          <div class="p-2">
+                            <i class="fa fa-star rev-blue" aria-hidden="true"></i>
+                            <i class="fa fa-star rev-blue" aria-hidden="true"></i>
+                            <i class="fa fa-star rev-blue" aria-hidden="true"></i>
+                            <i class="fa fa-star rev-blue" aria-hidden="true"></i>
+                            <i class="fa fa-star text-secondary" aria-hidden="true"></i>
+                            <div class="">
+                            500 STT
+                            </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+                  <div class="tab-pane fade show" id="basic-tab2">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-2">
+                      <!-- Feeling Listed -->
+                      <div class="row box p-2 l-txt feeling-feed">
+                        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                        <span class="rev-blue">Johnson</span>
+                         Feeling Happy at
+                         <span class="rev-blue">99 Street</span>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 col-12 feed-time">
+                        Aug 27, 2018 06:55 AM
+                        </div>
+                      </div>
+                      <div class="row box p-2 mb-2">
+                        <div class="p-2">
+                          <div class="feed-image">
+                          </div>
+                        </div>
+                        <div class="p-2">
+                        <i class="fa fa-star rev-blue" aria-hidden="true"></i>
+                        <i class="fa fa-star rev-blue" aria-hidden="true"></i>
+                        <i class="fa fa-star rev-blue" aria-hidden="true"></i>
+                        <i class="fa fa-star text-secondary" aria-hidden="true"></i>
+                        <i class="fa fa-star text-secondary" aria-hidden="true"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-center mt-3">
+              <label class="m-5"> Load More..</label>
+              </div>
+              <!--/Panel Body-->
+            </div>
+            <!--/Panel-->
+          </div>          
+        </div>
+      </div>
+    </section>
+    <% include frontend/template/subfooter %>
+ </body>
+</html> 

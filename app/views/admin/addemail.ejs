@@ -1,0 +1,94 @@
+<% include template/head %>
+<script src="../assets/js/app.js"></script>
+<script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+<% include template/subheader %>
+<!-- Page header -->
+  <div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+      <div class="page-title d-flex">
+        <h4> <span class="font-weight-semibold"><%=(email!='') ? 'Edit Email Template' : 'Add New Email Template';%></span></h4>
+        <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+      </div>
+
+      <div class="header-elements d-none">
+      </div>
+    </div>
+
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+      <div class="d-flex">
+        <div class="breadcrumb">
+          <a href="home" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+          <a href="emails" class="breadcrumb-item"><i class="icon-envelop4 mr-2"></i> Email Template</a>
+          <span class="breadcrumb-item active"><i class="<%=(email!='') ? 'icon-pencil6 mr-2' : 'icon-add mr-2';%>"></i><%=(email!='') ? 'Edit Email Template' : 'Add New Email Template';%></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /page header -->
+
+  <!-- Content area -->
+  <div class="content">
+    <% include template/flashmessage %>
+    <!-- Basic layout-->
+      <div class="card">
+        <div class="card-header header-elements-inline">
+          <h5 class="card-title"><%=(email!='') ? 'Edit Template' : 'Add Template';%></h5>
+        </div>
+
+        <div class="card-body">
+          <fieldset>
+              <legend class="font-weight-semibold text-uppercase font-size-sm"></legend>
+              <% if(email==''){%>
+                <form name="emails_form" method="post" action="/admin/storeemail">
+              <%}else{%>
+                <form name="updateemails_form" method="post" action="updateemail">
+              <%}%>
+                  <div class="form-group row">
+                    <label class="col-lg-3 col-form-label">Email Keys:</label>
+                    <div class="col-lg-9">
+                      <input type="text" name="email_keys" id="email_keys" class="form-control" placeholder="Email Keys" value="<%if(email!=''){%><%=email.email_keys%><%}%>">
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-lg-3 col-form-label">Email Name: <span class="text-danger">*</span></label>
+                    <div class="col-lg-9">
+                      <input type="text" name="email_name" id="email_name" class="form-control" placeholder="Enter email name" value="<%if(email!=''){%><%=email.email_name%><%}%>" required="required">
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-lg-3 col-form-label">Email Subject: <span class="text-danger">*</span></label>
+                    <div class="col-lg-9">
+                      <input type="text" name="email_subject" id="title" class="form-control" placeholder="Enter email subject" value="<%if(email!=''){%><%=email.email_subject%><%}%>" required="required">
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-lg-3 col-form-label" for="email_message">Content: <span class="text-danger">*</span></label>
+                    <div class="col-lg-9 ck_email_message">
+                      <textarea name="email_message" id="email_message" class="form-control" rows="5" placeholder="Email Message"><%if(email!=''){%><%=email.email_message%><%}%></textarea>
+                    </div>
+                  </div>
+                  <%if(email!=''){%>
+                    <input type="hidden" name="email_id" value="<%=email.id%>">
+                  <%}%>
+
+                  <div class="text-right">
+                    <button type="submit" name="submit_btn" class="btn btn-primary"><%=(email!='') ? 'Update Template' : 'Add Template';%><i class="icon-paperplane ml-2"></i></button>
+                    <a href="emails" class="btn btn-primary"><i class="icon-arrow-left7 position-left"></i> Back to Listing</a>
+                  </div>
+                </form>
+          </fieldset>
+        </div>
+      </div>
+      <!-- /basic layout -->
+  </div>
+  <!-- /content area -->
+<% include template/subfooter%>   
+  <script src="/js/validation/emailvalidation.js"></script>
+  <script>
+    CKEDITOR.replace( 'email_message' );
+  </script>
+<% include template/footer%>
+      

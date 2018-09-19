@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include frontend/template/head %>
+    <link href="../css/blog.css" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Navigation -->
+   <% include frontend/template/subnav %>
+    <!-- Masthead -->
+    <section class="blog-detail">
+        <div class="container">
+            <div class="col">
+                <h2 class='text-center page-title'>Blogs</h2>
+            </div>
+            <%if(blogs.length!=0){%>
+            <% blogs.forEach(function(blog){ %>
+                <div class="panel panel-flat blog-detail-content blog-rev" id="<%blog.id%>">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">
+                            <strong>
+                              <a href="/blog?id=<%=blog.id%>"><%=blog.blog_title%></a>
+                            </strong>
+                        </h2>
+                        <div class="text-muted">
+                          <% var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                            var dates = new Date(blog.created_date);  %>
+                            <%=monthNames[dates.getMonth()]%> <%=dates.getDate()%>, <%=dates.getFullYear()%>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <%if(blog.blog_image!=''){%>
+                        <div class="blog-img" style="background-image:url(/uploads/<%=blog.blog_image%>)">
+                        </div>
+                        <%}%>
+                        <div class="about-text">
+                          <% if(((blog.blog_content).length) > 250){%>
+                            <%-(blog.blog_content).substr(0,250)+'...'%>
+                            <%}else{%>
+                              <%-blog.blog_content%>
+                            <%}%>
+                        </div>
+                        <div>
+                            <a href="/blog?id=<%=blog.id%>"><button type="submit" class="btn btn-block btn-lg btn-gradient btn-icon-arr btn-icon">Read more</button></a>
+                        </div>
+                    </div>
+                </div>           
+                <hr/>
+              <%});%>
+              <%}else{%>
+                <p>No, Blogs Found</p>
+              <%}%>
+              <% if(counter>5){ %> 
+            <div class="row">
+                <ul class="pagination search-pagination">
+                  <li class="page-item" data-id="0"><a class="page-link" href="javascript:void(0)">First</a></li>
+                  <%
+                  var lastPage = Math.ceil(counter/5);
+                  var last = lastPage - 1;
+                  for(k=0;k<lastPage;k++){ %>
+                  <li class="page-item <% if(page==k){ %> active <%}%>" data-id="<%=k%>"><a class="page-link" href="javascript:void(0)"><%=k+1%></a></li>
+                  <% } %>
+                  <li class="page-item" data-id="<%=last%>"><a class="page-link" href="javascript:void(0)">Last</a></li>
+                </ul>            
+            </div>
+            <input type="hidden" name="total_page" id="total_page" value="<%=Math.ceil(counter/5)%>">
+            <% } %>
+        </div>
+        <form action="blogs" id="search_form">
+          <input type="hidden" name="page" id="page" value="<%=page%>" />
+        </form>
+    </section>
+  <!-- Footer -->
+  <% include frontend/template/subfooter %>
+  <script>
+    $(document).ready(function(){
+        $(".pagination li").click(function(){
+            $("#page").val($(this).attr('data-id'));
+            $("#search_form").submit();
+        });
+    });
+  </script>
+  </body>
+</html>
+
+
+
+   

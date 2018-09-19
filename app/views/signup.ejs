@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Revstance | Register</title>
+        <% include frontend/template/head %>   
+    </head>
+    <body class="no-banner" id="body">  
+        <!-- Navigation -->
+        <% include frontend/template/subnav %>
+        <form role="form" action="/signup" role="form" method="post" class="form-validate" name="registrationform" id="registrationform">
+            <div id="signup0" class="container-fluid signupinfo register-page fluid-container" >
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 left-divn">
+                        <div class=" custom-container-bottom align-center">
+                            <div class="padding-all-40 rev_advantages left-inner signup div-center">
+                                <h3 class="color-revs">Advantages of Revstance</h3>
+                                <ul class="list-icon color-revs-blue">
+                                    <li>Fast</li>
+                                    <li>Easy</li>
+                                    <li>Transparent</li>
+                                    <li>Secure</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 right-divn">
+                        <div class="row custom-container-bottom padding-all-20 reg-div">
+                            <div class="inner">
+                                <% include frontend/template/error %>
+                                <div class="alert alert-danger" id="existmailmessage"></div> 
+                                <div class="text-center">
+                                    <h3 class="content-group color-revs-title ltr-space"><b>REGISTER</b>
+                                    </h3>
+                                </div>
+                                <div class="form-group form-group-material login-input ">
+                                    <label class="control-label animate">First Name*</label>
+                                    <input type="text" id="first_name" name="first_name" value="" class="form-control form-first_name" placeholder="First Name*" autofocus="">
+                                </div>
+                                <div class="form-group form-group-material login-input ">
+                                    <label class="control-label animate">Last Name*</label>
+                                    <input type="text" id="last_name" name="last_name" value="" class="form-control form-last_name" placeholder="Last Name*">
+                                </div>
+
+                                <div class="form-group form-group-material login-input ">
+                                    <label class="control-label animate">E-Mail Address*</label>
+                                    <input type="text" id="email" name="email" value="" class="form-control form-email" placeholder="E-Mail Address*">
+                                </div>
+
+                                <div class="form-group form-group-material login-input ">
+                                    <label class="control-label animate">Password*</label>
+                                    <input type="password" id="password" name="password" class="form-control form-password" placeholder="Password*">
+                                 </div>
+
+                                <div class="form-group form-group-material login-input ">
+                                    <label class="control-label animate">Confirm Password*</label>
+                                    <input type="password" id="confirm_password" name="confirm_password" class="form-control form-confirm_password" placeholder="Confirm Password*">
+                                </div>
+                                <div class="form-group form-group-material margin-tb-20 login-input">
+                                    <div class="margin-tb-20">
+                                        <label class="radio-inline color-revs">
+                                            <div class="choice"><span><input type="radio" class="styled" name="user_type" value="1" id="user_type1" ></span></div>
+                                            I will GIVE reviews
+                                        </label>
+                                        <label class="radio-inline color-revs">
+                                            <div class="choice"><span><input type="radio" class="styled" name="user_type" value="2" id="user_type2"></span></div>
+                                            I will GET reviews
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-material margin-tb-10 text-center terms-links login-input">
+                                    <span class="color-revs">By signing up, you agree to our <a href="/terms">Terms and Conditions</a></span>
+                                </div>
+                                <div class="form-group text-center margin-tb-20">
+                                    <button type="submit" class="btn btn-revs-rounded legitRipple form-control btn-login signupbtn" id="signupbtn1">Sign Up</button>
+                                    <button type="button" id="signupbtn2" class="btn btn-revs-rounded legitRipple form-control btn-login signupbtn" style="display: none;">Next</button>
+                                </div>
+                                    <hr class="content-divider text-muted">
+                                <div class="form-group  text-center color-revs terms-links">
+                                   <b> <span>Already a member ?</span></b>
+                                </div>
+                                <div class="form-group text-center">
+                                    <a href="/login"><button type="button" class="btn btn-revs-rounded legitRipple form-control btn-login">
+                                        Sign In</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="signup1" class="container-fluid signupinfo fluid-container" style="display: none;">
+                <div class="row">
+                       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 left-divn" id="signup-div">
+                        <div class="custom-container-bottom align-center">
+                            <div class=" padding-all-40 rev_advantages left-inner div-center">
+                                <h3 class="color-revs">Advantages of Revstance</h3>
+                                <ul class="list-icon color-revs-blue">
+                                    <li>Fast</li>
+                                    <li>Easy</li>
+                                    <li>Transparent</li>
+                                    <li>Secure</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 right-div business-text">                      
+                        <div class="row custom-container-bottom padding-all-20 reg-div business-form right-divn register-page business-page">
+                             <div class="inner">                                
+                                <div class="text-center more_business_detail">
+                                    <h3 class="content-group color-revs-title ltr-space"><b>TELL US MORE ABOUT YOUR BUSINESS</b>
+                                    </h3>
+                                </div>
+                                <div class="form-group form-group-material  login-input ">
+                                    <label class="control-label animate">Business Name*</label>
+                                    <input type="text" id="business_name" name="business_name" value="" class="form-control form-business_name" placeholder="Business Name*  " autofocus="">
+                                </div>
+                                <div class="form-group form-group-material  login-input ">
+                                    <label class="control-label animate">Address*</label>
+                                    <input type="text" class="form-control" id="location1" name="address1" placeholder="Address*">
+                                </div>
+                                <div class="form-group form-group-material  login-input ">
+                                    <label class="control-label animate">Area*</label>
+                                    <input type="text" class="form-control" id="location3" name="area" placeholder="Area*">
+                                </div>
+                                <div class="form-group form-group-material  login-input ">
+                                <label class="control-label animate">Contact Number*</label>
+                                    <input type="text" id="business_contact" name="business_contact" value="" class="form-control form-business_contact" placeholder="Contact Number*" autofocus="">
+                                </div>
+
+                                <div class="form-group form-group-material  login-input ">
+                                <label class="control-label animate">Post Code*</label>
+                                    <input type="text" id="business_postcode" name="business_postcode" value="" class="form-control" placeholder="Post Code*">
+                                </div>
+                                
+                                <div class="form-group form-group-material margin-tb-10 text-center terms-links login-input term-text">
+                                    <span class="color-revs">By signing up, you agree to our <a href="/terms">Terms and Conditions</a></span>
+                                </div>
+                                <div class="form-group text-center margin-tb-20">
+                                    <button type="submit" class="btn btn-revs-rounded legitRipple form-control btn-login">Sign Up</button>
+                                    <button type="button" id="signupbtn0" class="btn btn-revs-rounded legitRipple form-control btn-login">Back</button>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-2 col-sm-12 col-xs-12"></div>
+                </div>
+            </div>
+        </form>
+    	<!-- Footer -->
+        <% include frontend/template/subfooter %>
+        <script src="/js/validation/registrationvalidation.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+            var availableHeight = $(window).height() - $('.fluid-container').offset().top - ($('#navbar').outerHeight() + $(".footer-section").outerHeight());
+            $('.fluid-container').css('min-height', availableHeight + 'px');
+
+           // $("#signup1 .right-divn").css('min-height', $("#signup0 .right-divn").height());
+        });
+        </script>
+    </body>
+</html>
+
+
+   

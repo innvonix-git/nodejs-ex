@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>  
+  <% include frontend/template/head %>
+  <link rel="stylesheet" href="<%-base_url%>/css/owl.carousel.min.css"></link>
+  <link rel="stylesheet" href="<%-base_url%>/css/owl.theme.default.min.css"></link>
+  <link rel="stylesheet" href="<%-base_url%>/js/owl.carousel.js"></link>
+
+  </head>
+  <body>
+    <% include frontend/template/subnav %>
+    <section class="mt-4 text-justify">
+      <div class="container feed">
+        <div class="row">
+          <div class="col-12">
+            <% include frontend/template/error %>
+            <div class="panel panel-default" id="shop">
+              <div class="panel-body row">
+
+
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6 col-12">
+                  <div class="card">
+
+                    <div class="card-header">
+                      <h5 class="mb-0 ">Category
+                        <span class="filter_apply_button">
+                          <button type="button" class="btn btn-primary btn-sm">Clear All</button>
+                        </span>
+                      </h5>
+                    </div>
+
+                    <div class="card-body text-body">
+
+                      <div class="form-group has-search">
+                        <span class="fa fa-search form-control-feedback"></span>
+                        <input placeholder="Search category..." id="category_search" name="category_search" autocomplete="off" class="form-control search-category"
+                         placeholder="Search Location">
+                      </div>
+
+                      <div id="searcher-status-suggestions" class="aui-list" style="display: block;">
+                        <div tabindex="-1" class="aui-list-scroll">
+                          <ul class="aui-last category_elements">
+                              <li class="check-list-item">
+                                <label class="item-label checkbx" title="xxx">
+                                  <input type="checkbox" name="category[]" class="category_checkboxes" tabindex="-1" value="12" >
+                                    Voucher
+                                      <span class="checkmark"></span>
+                                </label>
+                              </li>
+                              <li class="check-list-item">
+                                <label class="item-label checkbx" title="xxx">
+                                  <input type="checkbox" name="category[]" class="category_checkboxes" tabindex="-1" value="12" checked="checked">
+                                    Food
+                                      <span class="checkmark"></span>
+                                </label>
+                              </li>
+                              <li class="check-list-item">
+                                <label class="item-label checkbx" title="xxx">
+                                  <input type="checkbox" name="category[]" class="category_checkboxes" tabindex="-1" value="12" checked="checked">
+                                    Charity
+                                      <span class="checkmark"></span>
+                                </label>
+                              </li>
+                              <li class="check-list-item">
+                                <label class="item-label checkbx" title="xxx">
+                                  <input type="checkbox" name="category[]" class="category_checkboxes" tabindex="-1" value="12" >
+                                    Electronics
+                                      <span class="checkmark"></span>
+                                </label>
+                              </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card-header">
+                      <h5 class="mb-0">Token Range
+                        <span class="filter_apply_button">
+                          <button type="button" class="btn btn-primary btn-sm">Clear</button>
+                        </span>
+                      </h5>
+                    </div>
+
+                    <div class="card-body text-body">
+                      <div class="range-slider mt-2 mb-4">
+                        <div id="slider-range"></div>
+                      </div>
+                      <div class="range-min-max row">
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 col-5">
+                          <select class="form-control" id="range1">
+                            <option disabled selected>Min</option>
+                            <option>0 STT</option>
+                            <option>2 STT</option>
+                            <option>3 STT</option>
+                            <option>4 STT</option>
+                            <option>5 STT</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 col-2 p-0 text-center mt-2 text-muted">
+                        To
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 col-5">
+                          <select class="form-control" id="range2">
+                            <option disabled selected>Max</option>
+                            <option>0 STT</option>
+                            <option>2 STT</option>
+                            <option>3 STT</option>
+                            <option>4 STT</option>
+                            <option>5 STT</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-9 col-md-8 col-sm-8 col-xs-6 col-12">
+
+                  <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6 col-12 filter-s">
+                      <div class="input-group header-search">
+                        <input type="search" class="form-control shop-search" placeholder="Search by name" />
+                      </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12 filter-s" >
+
+                      <div id="filter2">
+                        <select class="form-control shop-filter">
+                          <option selected>STT - High to Low</option>
+                          <option>STT - Low to High</option>
+                        </select>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div class="mt-4 mb-3">
+                  <h5>Revstance Exclusive</h5>
+                  </div>
+
+                    <section id="demos">
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="owl-carousel owl-theme">
+                              <figure class="figure" title="Amazone Gift Card Gift Card">
+                                <img src="/images/McDonald’s_gift_card_img.png" class="figure-img img-fluid" alt="A generic square placeholder image with rounded corners in a figure.">
+                                <figcaption class="figure-caption m-2"><h6 class="f-black weight-5 txt-limit" >Amazone Gift Card Gift Card</h6>
+                                <div class="rev-blue col-12 mt-2 mb-2">
+                                  <div class="row">
+                                  <span class="col-lg-8 col-md-8 col-sm-8 col-xs-8 col-12 pl-0 pr-0">
+                                    Token Price
+                                  </span>
+                                  <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-12 pl-0 pr-0 text-right">
+                                    1000 STT
+                                  </span>
+                                  </div>
+                                </div>
+                                </figcaption>
+                              </figure>
+
+                              <figure class="figure" title="Amazone Gift Card Gift Card">
+                                <img src="/images/plazmatic_gift_card_img.png" class="figure-img img-fluid" alt="A generic square placeholder image with rounded corners in a figure.">
+                                <figcaption class="figure-caption m-2"><h6 class="f-black weight-5 txt-limit" >Amazone Gift Card Gift Card</h6>
+                                <div class="rev-blue col-12 mt-2 mb-2">
+                                  <div class="row">
+                                  <span class="col-lg-8 col-md-8 col-sm-8 col-xs-8 col-12 pl-0 pr-0">
+                                    Token Price
+                                  </span>
+                                  <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-12 pl-0 pr-0 text-right">
+                                    1000 STT
+                                  </span>
+                                  </div>
+                                </div>
+                                </figcaption>
+                              </figure>
+
+                          </div>
+                      </div>
+                    </section>
+
+                  <div class="mt-4 mb-3">
+                  <h5>Shop</h5>
+                  </div>
+
+                  <div class="row">
+
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 col-12 pr-0">
+                    <figure class="figure" title="Amazone Gift Card Gift Card">
+                      <img src="/images/McDonald’s_gift_card_img.png" class="figure-img img-fluid" alt="A generic square placeholder image with rounded corners in a figure.">
+                      <figcaption class="figure-caption m-2"><h6 class="f-black weight-5 txt-limit" >Amazone Gift Card Gift Card</h6>
+                      <div class="rev-blue col-12 mt-2 mb-2">
+                        <div class="row">
+                        <span class="col-lg-8 col-md-8 col-sm-8 col-xs-8 col-12 pl-0 pr-0">
+                          Token Price
+                        </span>
+                        <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-12 pl-0 pr-0 text-right">
+                          1000 STT
+                        </span>
+                        </div>
+                      </div>
+                      </figcaption>
+                    </figure>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 col-12 pr-0">
+                    <figure class="figure" title="Amazone Gift Card Gift Card">
+                      <img src="/images/levi’s_gift_card_img.png" class="figure-img img-fluid" alt="A generic square placeholder image with rounded corners in a figure.">
+                      <figcaption class="figure-caption m-2"><h6 class="f-black weight-5 txt-limit" >Amazone Gift Card Gift Card</h6>
+                      <div class="rev-blue col-12 mt-2 mb-2">
+                        <div class="row">
+                        <span class="col-lg-8 col-md-8 col-sm-8 col-xs-8 col-12 pl-0 pr-0">
+                          Token Price
+                        </span>
+                        <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-12 pl-0 pr-0 text-right">
+                          1000 STT
+                        </span>
+                        </div>
+                      </div>
+                      </figcaption>
+                    </figure>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 col-12 pr-0">
+                    <figure class="figure" title="Amazone Gift Card Gift Card">
+                      <img src="/images/plazmatic_gift_card_img.png" class="figure-img img-fluid" alt="A generic square placeholder image with rounded corners in a figure.">
+                      <figcaption class="figure-caption m-2"><h6 class="f-black weight-5 txt-limit" >Amazone Gift Card Gift Card</h6>
+                      <div class="rev-blue col-12 mt-2 mb-2">
+                        <div class="row">
+                        <span class="col-lg-8 col-md-8 col-sm-8 col-xs-8 col-12 pl-0 pr-0">
+                          Token Price
+                        </span>
+                        <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-12 pl-0 pr-0 text-right">
+                          1000 STT
+                        </span>
+                        </div>
+                      </div>
+                      </figcaption>
+                    </figure>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 col-12 pr-0">
+                    <figure class="figure" title="Amazone Gift Card Gift Card">
+                      <img src="/images/plazmatic_gift_card_img.png" class="figure-img img-fluid" alt="A generic square placeholder image with rounded corners in a figure.">
+                      <figcaption class="figure-caption m-2"><h6 class="f-black weight-5 txt-limit" >Amazone Gift Card Gift Card</h6>
+                      <div class="rev-blue col-12 mt-2 mb-2">
+                        <div class="row">
+                        <span class="col-lg-8 col-md-8 col-sm-8 col-xs-8 col-12 pl-0 pr-0">
+                          Token Price
+                        </span>
+                        <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-12 pl-0 pr-0 text-right">
+                          1000 STT
+                        </span>
+                        </div>
+                      </div>
+                      </figcaption>
+                    </figure>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 col-12 pr-0">
+                    <figure class="figure" title="Amazone Gift Card Gift Card">
+                      <img src="/images/plazmatic_gift_card_img.png" class="figure-img img-fluid" alt="A generic square placeholder image with rounded corners in a figure.">
+                      <figcaption class="figure-caption m-2"><h6 class="f-black weight-5 txt-limit" >Amazone Gift Card Gift Card</h6>
+                      <div class="rev-blue col-12 mt-2 mb-2">
+                        <div class="row">
+                        <span class="col-lg-8 col-md-8 col-sm-8 col-xs-8 col-12 pl-0 pr-0">
+                          Token Price
+                        </span>
+                        <span class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-12 pl-0 pr-0 text-right">
+                          1000 STT
+                        </span>
+                        </div>
+                      </div>
+                      </figcaption>
+                    </figure>
+                    </div>
+                  </div>
+
+                  <div class="text-center">
+                  <label class="m-5"> Load More..</label>
+                  </div>
+
+
+                </div>
+
+                
+
+              </div>
+              <!--/Panel Body-->
+            </div>
+            <!--/Panel-->
+          </div>          
+        </div>
+      </div>
+    </section>
+
+    <% include frontend/template/subfooter %>
+ </body>
+</html> 
+<script>
+$(document).ready(function() {
+  $('.owl-carousel').owlCarousel({
+    loop:true,
+    margin:10,
+    responsiveClass:true,
+    responsive:{
+        0:{
+            items:1,
+            nav:true
+        },
+        600:{
+            items:3,
+            nav:false
+        },
+        1000:{
+            items:5,
+            nav:true,
+            loop:false
+        }
+    }
+});
+
+  $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 1000,
+      values: [ 100, 500 ],
+      slide: function( event, ui ) {
+       // $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      }
+    });
+   // $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) );// +
+     // " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+
+     
+});
+</script>

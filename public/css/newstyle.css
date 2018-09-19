@@ -1,0 +1,147 @@
+
+/*slider*/
+.divider {border: 1px solid #ccc;}
+
+/*end*/
+.user_profile_page .Influencer .badge-secondary
+{
+	padding: 0.40em .4em;
+}
+.user_profile_page .point
+{
+	color: #6196ed;
+}
+.user_profile_page .demo_btn
+{
+	
+    text-transform: capitalize;
+    background: transparent;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 5px;
+    transition: 0.5s;
+    margin: 10px 0;
+    border: 1px solid #e1e1e1;
+    color: black;
+}
+.user_profile_page .media-body
+{
+	margin-left: 20px;
+}
+/*.user_profile_page  .followers
+{
+	margin-top: 50px;
+}*/
+.user_profile_page .user_name
+{
+	margin-left: 20px;
+}
+
+.user_profile_page .card
+{
+	margin: 0px 30px 0px 30px;
+  border: none;
+}
+.user_profile_page .view
+{
+	margin-top: 50px;
+	
+}
+.borderless td, .borderless th {
+    border: none;
+}
+
+/* Profile page CSS start - DHURMI ----------------------------------------------*/
+.margin-t-20{
+  margin-top: 20px;
+}
+.margin-tb-20{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.margin-lr-0{
+  margin-left: 0;
+  margin-right: 0;
+}
+.margin-l-20{
+  margin-left: 20px;
+}
+.margin-l-10{
+  margin-left: 10px;
+}
+.text-secondary {
+    margin: 10px 0;
+}
+.text-body {
+    color: #000;
+    font-size: 12px;
+    font-weight: 500;
+}
+.user_profile_page .fa-lg{
+  font-size: 3.333333em;
+}
+.table_info .table td, .table th{
+  padding: 0.25rem;
+}
+.user_profile_page .activites{
+  padding: 16px 8px;
+}
+.user_profile_page .profile{
+  background: url(/images/user_img.png) no-repeat !important;
+  background-size: cover;
+  border-radius: 25px;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  min-height: 200px;
+  max-height: 210px;
+}
+
+@media (max-width: 992px){
+  .user_profile_page .profile{
+    background-size: auto;
+    border-radius: 0px;
+  }
+}
+/*
+CC 2.0 License Iatek LLC 2018
+Attribution required
+*/
+
+@media (min-width: 768px) {
+
+
+}
+
+
+/* Profile page CSS end - DHURMI ----------------------------------------------*/
+@media (min-width:320px) 
+{
+	.user_profile_page .user_name
+	{
+		margin-top: 10px;
+	}
+/*	.user_profile_page  .followers
+	{
+	margin-top: 0px;
+	}*/
+}
+
+@media (min-width:801px)
+{
+/*	.user_profile_page  .followers
+	{
+	margin-top: 110px;
+	}*/
+}
+@media (min-width:1025px)
+{
+/*	.user_profile_page  .followers
+	{
+	margin-top: 50px;
+	}*/
+}

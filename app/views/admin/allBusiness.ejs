@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<% include template/head %>
+	</head>
+	<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+	<% include template/leftnav %>
+	<div class="content-wrapper">
+	 <div class="container-fluid">
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">My Dashboard</li>
+      </ol>
+      <!-- Icon Cards-->      
+      <div class="card mb-3">  
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Sr. No</th>
+                  <th>Business Name</th>
+                  <th>Contact Number</th>
+                  <th>Email</th>
+                  <th>Business Owner</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              <%
+              var i=1;              
+              if (users && business) {
+                    business.forEach((bs) => { %>
+                <tr>
+                  <td><%=i++ %></td>
+                  <td><%=bs.business_name %></td>                
+                  <td><%=bs.contact_number %></td>                  
+                  <td><%=users[bs.user_id]["mail"] %></td>
+                  <td><%=users[bs.user_id]["first_name"]+" "+users[bs.user_id]["last_name"] %></td>
+                  <td> <a type="button" class="btn btn-info btn-sm" href="/admin/business-detail?id=<%=bs.id%>">View</a></td>
+                </tr>
+              <% }) } %>
+              </tbody>
+            </table>
+          </div>
+        </div>        
+      </div>
+      </div>      
+	</div>
+  <!-- Modal -->
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid-->   
+	<% include template/footer %>
+	<body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include frontend/template/head %>
+    <link href="../css/blog.css" rel="stylesheet">
+    
+  </head>
+  <body>
+    <!-- Navigation -->
+    <!--<%-JSON.stringify(posts); %>-->
+   <% include frontend/template/subnav %>
+    <!-- Masthead -->
+    <section class="blog-detail">
+      <form action="blogs" id="blogs_form">
+        <input type="hidden" name="page" id="page" value="<%page%>">
+      </form>
+        <div class="container">
+            <div class="col">
+                <h2 class='text-center page-title'>Blogs</h2>
+            </div>
+            <% posts.forEach(function(post){ %>
+                <div class="panel panel-flat blog-detail-content blog-rev" id="<%=post.id%>">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">
+                            <strong>
+                                <a href="/blog?id=<%=post.id%>"><%=post.title.rendered%></a>
+                            </strong>
+                        </h2>
+                        <div class="text-muted">
+                            <% var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                            var dates = new Date(post.date);  %>
+                            <%=monthNames[dates.getMonth()]%> <%=dates.getDate()%>, <%=dates.getFullYear()%>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="blog-img" style="background-image:url(<%=post.featured_image_src%>)">
+                        </div>
+                        <div class="about-text">
+                            <%- post.excerpt.rendered %>
+                        </div>
+                        <div>
+                            <a href="/blog?id=<%=post.id%>"><button type="submit" class="btn btn-block btn-lg btn-gradient btn-icon-arr btn-icon">Read more</button></a>
+                        </div>
+                    </div>
+                </div>           
+                <hr/>
+            <%});%>
+        <% if(totalPost>per_page){ %> 
+            <div class="row">
+                <ul class="pagination search-pagination">
+                  <li class="page-item" data-id="1"><a class="page-link" href="javascript:void(0)">First</a></li>
+                  <%
+                  var lastPage = Math.ceil(totalPost/per_page);
+                  var last = lastPage;
+                  for(k=1;k<=lastPage;k++){ %>
+                  <li class="page-item <% if(page==k){ %> active <%}%>" data-id="<%=k%>"><a class="page-link" href="javascript:void(0)"><%=k%></a></li>
+                  <% } %>
+                  <li class="page-item" data-id="<%=last%>"><a class="page-link" href="javascript:void(0)">Last</a></li>
+                </ul>            
+            </div>
+            <input type="hidden" name="total_page" id="total_page" value="<%=Math.ceil(totalPost/per_page)%>">
+            <% } %>
+        </div>
+    </section>
+  <!-- Footer -->
+  <% include frontend/template/subfooter %>
+  </body>
+</html>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".pagination li").click(function(){
+        $("#page").val($(this).attr('data-id'));
+        $("#blogs_form").submit();
+    }); 
+  });
+
+</script>
+
+
+
+   

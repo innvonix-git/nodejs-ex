@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include frontend/template/head %>
+        <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+            crossorigin="anonymous"> -->
+</head>
+
+<body class="bg-light">
+    <% include frontend/template/subnav %>
+        <div class="container mt-4">
+            <% include frontend/template/error %>            
+                <div class="row" id="select-location">
+                    <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12 col-12">
+                        <!-- <span class="w-10">
+                            <b class="mid-font">Select Location:</b>
+                        </span> -->
+                        
+                        <div class="location_select">
+                            <label for="validationCustom03">Select Location:</label>
+                            <div class="location_sel">
+                              <select class="form-control form-control-lg" name="location" id="location_id" onchange="ChangecatList()" required>
+                                <% 
+                            let first=1;
+                            locations.forEach(function(location){ %>
+                                <option <% if(first==1){ %>selected="selected"<%}%> 
+                                    data-auto_renew="<%-location.is_featured_plan_autorenew%>" 
+                                    value="<%-location._id%>" 
+                                    data-value="<%-location.property_name%>"
+                                    data-feature_start_date="<%-location.feature_start_date%>"
+                                    data-featured_end_date="<%-location.featured_end_date%>"
+                                    <% if(parseInt(location.is_featured)==1){%> data-is_featured="featured" <%}else{%> data-is_featured="" <%}%>
+                                    >
+                                    <%-location.property_name%>
+                                </option>
+                                <% first++;
+                                });  %>
+                              </select>
+                              </div>
+                              </div>
+
+                        <input type="hidden" value="0" name="selected_location_type" class="selected_location_type" />
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12 text-right text-info mid-font">
+                        <b>
+                            <%-user.token_balance%> STT</b>
+                    </div>
+                </div>
+                <div class="row mt-4 mb-5 feature_detail_section">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-info location-name mb-1">
+                        <b> &#9679;
+                            <% if(locations.length>0){ %>
+                                <%-locations[0].property_name%>
+                            <% }else{%>
+                                No location found.
+                             <%} %>
+                        </b>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 basic_plan">
+                        <div class="card bg-white text-center">
+                            <div class="card-header text-info mid-font border-bottom-0">
+                                <% if(locations.length>0){ 
+                                    if(locations[0].is_featured==0){%>
+                                        <div class="ribbon ribbon-top-left">
+                                            <span>Current Plan</span>
+                                        </div>                                    
+                                <% } } %>
+                                Basic Plan
+
+                            </div>
+                            <hr class="m-0">
+                            <div class="card-body">
+                                Unlimited Reviews
+                            </div>
+                            <hr class="m-0">
+                            <div class="card-body">
+                                Unlimited Check-ins
+                            </div>
+                            <hr class="m-0">
+                            <div class="card-body">
+                                Bounty
+                            </div>
+                            <hr class="m-0">
+                            <div class="card-body">
+                                -
+                            </div>
+                            <hr class="m-0">
+                            <div class="card-body">
+                                -
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 featured_plan">
+                        <div class="card bg-white text-center">
+                            <div class="card-header text-info mid-font border-bottom-0">
+                                <% if(locations.length>0){ 
+                                    if(locations[0].is_featured==1){%>
+                                    <div class="ribbon ribbon-top-left">
+                                        <span>Current Plan</span>
+                                    </div>
+                                    <div class="ribbon ribbon-top-right">
+                                        <img src="images/pro_icon.png">                                    </div>
+                                    <% }else{%>
+                                        <div class="ribbon2">
+                                            <span class="text-white icon-crown"></span>
+                                        </div>
+                                    <%} } %>
+                                Premium Plan
+                            </div>
+                                 <hr class="m-0">
+                            <div class="card-body">
+                                Unlimited Reviews
+                            </div>
+                            <hr class="m-0">
+                            <div class="card-body">
+                                Unlimited Check-ins
+                            </div>
+                            <hr class="m-0">
+                            <div class="card-body">
+                                Bounty
+                            </div>
+                            <hr class="m-0">
+                            <div class="card-body">
+                                Advanced Analytics
+                            </div>
+                            <hr class="m-0">
+                            <div class="card-body">
+                               Discount on Featured Listings
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                        <form class="business_membership_form form-inline row" method="post" action="business_membership_purchase" role="form" id="membership">
+                            <input type="hidden" name="location" class="selected_location" value="<% if(locations.length>0){ %><%-locations[0]._id%><%}%>" />
+                            <div class="col-12 row mb-3">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-6">
+                                    <b>Current Plan:</b>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-6 current_plan">
+                                    <% if(locations.length>0){ 
+                                        if(locations[0].is_featured==1){ %>
+                                             Premium 
+                                        <% }else{ %>
+                                             Basic
+                                        <% }
+                                    } %>
+                                </div>
+                            </div>
+                            <div class="col-12 row mb-3">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-6">
+                                    <b>Next Billing Cycle:</b>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-6 billing_cycle_date">
+                                <% if(locations.length>0){ 
+                                    var months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+                                    if(locations[0].is_featured==1){                                    
+                                    let dataData = [];
+                                    let dateObj = [];
+                                    if(typeof locations[0].featured_end_date !== 'undefined'){
+                                        dataData = locations[0].featured_end_date.split(',');
+                                         dateObj = dataData[0].split('/');
+                                    }
+                                    if(dateObj.length>0){                                        
+                                    %>
+                                    <%-months[dateObj[1]]+' '+dateObj[2]+', '+dateObj[0]%>
+                                    <% }
+                                    }
+                                    else{%>NA<%}
+                                    }
+                                %>
+                                </div>                                    
+                            </div>
+                            <div class="col-12 row mb-2">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-6">
+                                    <b>Auto Renew:</b>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-6">
+                                    <label class="switch">
+                                        <input type="checkbox" name="plan_autorenew" class="plan_autorenew" 
+                                        <% if(locations.length>0) { if(locations[0].is_featured_plan_autorenew==parseInt(1)) { %> checked="checked"  <% } } %> >
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12 row mb-3">
+                            </div>
+                            <div class="col-12 row mb-2 upgrade_plan_section" <% if(locations.length>0) { if(locations[0].is_featured==parseInt(1)) { %> style="display:none"
+                                <% } } %>>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 mb-2">
+                                    <b>Upgrade Plan:</b>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12 mb-2">
+                                    <label class="radio row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-6">
+                                            <input type="radio" name="payment_method" checked="checked" value="flat">
+                                            <span class="featuredmemberhip_flat">
+                                                <%-settings.monthly_featuredmemberhip_flat%> pound </span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-6">
+                                            <input type="radio" name="payment_method" class="payment_method" value="token">
+                                            <span class="featuredmemberhip_token">
+                                                <%-settings.monthly_featuredmemberhip_token%> STT </span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 row mb-3 plan_tenure_section" <% if(locations.length>0) { if(locations[0].is_featured==parseInt(1)) { %> style="display:none"
+                                <% } } %>>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12 mb-1">
+                                    <b>Plan Tenure:</b>
+                                </div>
+                                <label class="radio row"></label>
+                                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-4 col-4">
+                                    <span class="text-muted"> Month</span>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-4 col-4">
+                                    <label class="switch">
+                                        <input type="checkbox" name="plan_tenure" class="plan_tenure">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-4">
+                                    <span class="">Annual</span>
+                                </div>
+                            </div>
+                            <% if(locations.length>0){ %>
+                                <div class="col-12 row mb-2">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-2">
+                                        <button type="button" class="btn btn-sm btn-warning upgrade_plan">Upgrade Plan</button>                                
+                                    </div>
+                                </div>
+                            <% }%>
+                        </form>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mt-4 mb-3">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <b class="mid-font">Buy Token:</b>
+                    </div>
+                </div>
+
+                <form method="post" action="buy_token" id="buy_token_form">
+                    <input type="hidden" name="token_price_rate" class="token_price_rate" value="<%-req.app.locals.token_price_rate%>" />
+                    <div class="row mt-4 mb-5">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <input type="text" class="w-100 token" style="text-align: right;" id="token_amount" name="token_amount" placeholder="100">
+                            <span class="token_amount_span float-right">Token</span>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center mid-font">
+                            =
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            <input type="text" class="w-100 token" style="text-align: right;" id="token_price" name="token_price" placeholder="&#163; 5"
+                                readonly="readonly">
+                            <span class="float-right">Pound + VAT Charges</span>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
+                            <input type="button" name="" value="Buy Token" class="btn btn-info buy_token_btn" id="buy-token-btn">
+                        </div>
+                    </div>
+                </form>
+        </div>
+        <% include frontend/template/subfooter %>
+            <script src="/js/validation/profilevalidation.js"></script>
+            <script type="text/javascript">
+                var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+                $(document).ready(function () {
+                    //$(".billing_cycle_date").html(getCustomDate(1));
+                    var monthly_featuredmemberhip_token = <%-settings.monthly_featuredmemberhip_token %>;
+                    var monthly_featuredmemberhip_flat = <%-settings.monthly_featuredmemberhip_flat %>;
+                    var yearly_featuredmemberhip_token = <%-settings.yearly_featuredmemberhip_token %>;
+                    var yearly_featuredmemberhip_flat = <%-settings.yearly_featuredmemberhip_flat %>;
+                    var token_price_rate = <%-settings.token_price_rate %>;
+                    //$(".feature_detail_section").hide();
+
+                    $("#location_id").change(function () {
+                        var ribbonText = '<div class="ribbon ribbon-top-left"><span>Current Plan</span></div>';
+                        $(".location-name b").html($(this).find(':selected').data('value'));
+                        $(".feature_detail_section").show();
+                        $(".selected_location").val($(this).val());
+                        var is_featured = $(this).find(':selected').data('is_featured');
+                        var plan_autorenew = $(this).find(':selected').data('auto_renew');
+                        console.log(plan_autorenew);
+                        if(plan_autorenew==parseInt(1)){
+                            $(".plan_autorenew").prop('checked', true);
+                        }else{
+                            $(".plan_autorenew").prop('checked', false);
+                        }
+                        if(is_featured.length>0){
+                            $(".current_plan").html('Premium');
+                            $(".plan_tenure_section").hide();
+                        }else{
+                            $(".current_plan").html('Basic');
+                            $(".plan_tenure_section").show();
+                        }
+
+                        var end_date = $(this).find(':selected').data('featured_end_date');
+                        if(end_date.length>0){
+                            let dataData = end_date.split(', ');
+                            let dateObj = dataData[0].split('/');
+                            let monthId = dateObj[0] - 1;
+                            final_date = months[monthId.replace(/^0+/, '')] + ' ' + dateObj[1] + ', ' + dateObj[2];
+                            $(".billing_cycle_date").html(final_date);
+                        }else{
+                            $(".billing_cycle_date").html(getCustomDate(1));
+                        }
+                        $(".selected_location_type").val($(this).find(':selected').data('is_featured'));
+                        var ltype = $.trim($(".selected_location_type").val());
+                        if (ltype.length > 0) {
+                            $(".upgrade_plan_section").hide();
+                            $(".basic_plan .card-header .ribbon").remove();
+                            $(".featured_plan .card-header").prepend(ribbonText);
+                        } else {
+                            $(".upgrade_plan_section").show();
+                            $(".basic_plan .card-header").prepend(ribbonText);
+                            $(".featured_plan .card-header .ribbon").remove();
+                        }
+                    });
+                    $(".upgrade_plan").click(function () {
+                        $(".business_membership_form").submit();
+                    });
+                    $(".plan_tenure").click(function () {
+                        if ($(".plan_tenure").prop('checked')) {
+                            $("span.featuredmemberhip_flat").html(yearly_featuredmemberhip_flat + ' pound');
+                            $("span.featuredmemberhip_token").html(yearly_featuredmemberhip_token + ' STT');
+                            $(".billing_cycle_date").html(getCustomDate(12));
+                        } else {
+                            $("span.featuredmemberhip_flat").html(monthly_featuredmemberhip_flat + ' pound');
+                            $("span.featuredmemberhip_token").html(monthly_featuredmemberhip_token + ' STT');
+                            $(".billing_cycle_date").html(getCustomDate(1));
+                        }
+                    })
+
+                    console.log(token_price_rate);
+                    $("#token_amount").change(function () {
+                        var token_amount = $.trim($(this).val().trim());
+                        if (!$.isNumeric(token_amount)) {
+                            $(".token_amount_span").html('Token amount is required.');
+                            $(".token_amount_span").css('color', 'red');
+                            var fixed = token_amount * token_price_rate;
+                            var amount = fixed.toFixed(2);
+                            $("#token_price").val('£ ' + amount);
+                        } else {
+                            $(".token_amount_span").html('Token');
+                            $(".token_amount_span").css('color', 'black');
+                            var fixed = token_amount * token_price_rate;
+                            var amount = fixed.toFixed(2);
+                            $("#token_price").val('£ ' + amount);
+                        }
+                    });
+                    $(".buy_token_btn").click(function () {
+                        var token_amount = $.trim($("#token_amount").val().trim());
+                        if (!$.isNumeric(token_amount)) {
+                            $(".token_amount_span").html('Token amount is required.');
+                            $(".token_amount_span").css('color', 'red');
+                        } else {
+                            var fixed = token_amount * token_price_rate;
+                            var amount = fixed.toFixed(2);
+                            $("#token_price").val(amount);
+                            $(".token_amount_span").html('');
+                            $("#buy_token_form").submit();
+                        }
+                    });
+                });
+
+                function getShortDate() { let d = new Date(); return d.getFullYear() + '/' + addZero(d.getMonth() + 1) + '/' + addZero(d.getDate()); }
+
+                function getCustomDate(param) {
+                    let d = new Date();
+                    if (param == '1') {
+                        return months[d.getMonth() + 1] + ' ' + d.getDate() + ', ' + d.getFullYear();
+                    } else {
+                        return months[d.getMonth()] + ' ' + d.getDate() + ', ' + (d.getFullYear() + 1);
+                    }
+                }
+                console.log(getCustomDate());
+
+                function getNextmonthFirstDay() {
+                    let date = new Date(), y = date.getFullYear(), m = date.getMonth();
+                    let lastDay = new Date(y, m + 1, 1);
+                    return lastDay.getFullYear() + '/' + addZero(lastDay.getMonth() + 1) + '/' + addZero(lastDay.getDate());
+                }
+
+                function addZero(i) { if (i < 10) { i = "0" + i; } return i; }
+
+                function getDateDifferent(from, to) {
+                    from = new Date(from);
+                    to = new Date(to);
+                    let timeDiff = Math.abs(to.getTime() - from.getTime());
+                    let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                    return diffDays;
+                }
+
+                function addDays(date, days) {
+                    let result = new Date(date);
+                    result.setDate(result.getDate() + days);
+                    return result.toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
+                }
+
+                function getDate() {
+                    return new Date().toLocaleString("en-US", { timeZone: "Europe/London" });
+                } 
+            </script>
+
+<script>
+    var catAndActs = {};
+catAndActs['Classroom Instruction and Assessment'] = ['Assessment Day', 'Common Assessment Development', 'Data Team', 'Kindergarten Screening', 'Other'];
+catAndActs['Curriculum Development and Alignment'] = ['Capstone Development', 'Course Of Study Development / Revision', 'Standards Alignment / Rollout', 'Other'];
+catAndActs['District Committee'] = ['Curriculum Council', 'Grading & Assessment Task Force', 'Professional Development Planning Committee', 'Race To The Top Committee', 'Teacher Evaluation Committee', 'Other'];
+catAndActs['Meeting'] = ['Academic Support Team', 'ELL / eKLIP Teachers', 'Gifted Intervention Specialist', 'Intervention Assistance Team', 'Intervention Teachers', 'Kindergarten Parent Conference', 'KLIP Teachers', 'Title I Teachers', 'Other'];
+catAndActs['Other Category'] = ['Other'];
+catAndActs['Professional Conference'] = ['Conference'];
+catAndActs['Professional Workshop / Training'] = ['In-District', 'Out-Of-District'];
+catAndActs['Pupil Services'] = ['IEP Meeting', 'IEP Writing'];
+
+function ChangecatList() {
+    var catList = document.getElementById("validationCustom03");
+    var actList = document.getElementById("validationCustom04");
+    var selCat = catList.options[catList.selectedIndex].value;
+    while (actList.options.length) {
+        actList.remove(0);
+    }
+    var cats = catAndActs[selCat];
+    if (cats) {
+        var i;
+        for (i = 0; i < cats.length; i++) {
+            var cat = new Option(cats[i], i);
+            actList.options.add(cat);
+        }
+    }
+} 
+</script>
+
+
+
+
+
+
+
+
+    </body>
+</html>

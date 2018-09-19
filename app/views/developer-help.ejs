@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include frontend/template/head %>
+  </head>
+  <body>
+    <!-- Navigation -->
+   <% include frontend/template/subnav %>
+    <!-- Masthead -->
+  <section class="testimonial-section text-justify">
+    <div class="container">
+  <div class="panel panel-flat">
+    <div class="panel-heading text-center">
+      <h2 class="panel-title">Welcome to Revstance Developer Help</h2>
+    </div>
+    <hr class="divider">
+    <div class="panel-body">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">    
+    <p>We are creating an easy and transparent review platform for you!</p>
+    <p>Finding great places is hard... that's why you need genuine reviews to help guide the way! Which is where we come in. </p>
+    <p>We provide API To get Reviews By Location ID. The Location ID will be unique and is accessible in the user's "My Locations" page.</p>
+    <p>Here are the API Details : <br />
+      Method : <strong>Post</strong> <br />
+      URL   : <strong> http://revstance.co.uk/location-api?id=XXXXXX&email=XXXXXXXXXXXX </strong></p>
+    <p>Here the Location ID  will be a unique Location Id and the email is the valid Revstance business user's email.</p>
+    <p>API will return data if the location belongs to that user only. Otherwise the result will be false.</p>
+    <p>Here is the response of our API.</p>
+    <p><pre>
+    {
+      "success": true,
+      "message": "Location retrived.",
+      "data": {
+        "id": "AthLc41953ThYUn8",
+        "property_name": "lmoon elise",
+        "address1": "county hall, westminster bridge rd, lambeth,",
+        "address2": "austria",
+        "review_count": 2,
+        "property_desc": "Ut est inani qualisque, at eos aliquip malorum debitis, eum cu tale noster. His ne amet causae suscipit, illum iisque at his. Ea duo postea sententiae, ad pro nusquam singulis, eius percipit legendos et ius. Vel ex augue discere.",
+        "created_date": "4/2/2018, 1:32:55 PM",       
+        "review": {
+          "one": 0,
+          "two": 0,
+          "three": 0,
+          "four": 0,
+          "five": 2
+        },
+        "url": "http://revstance.co.uk/location/location-details?id=8",
+        "avg_review_rating": 5
+      }
+    }</pre></p>
+  <p>Here is the sample code in PHP.</p>
+  <p><pre>
+        $data = ['id' => 10, 'email' => 'revstance site email-address'];
+        $url = "http://revstance.co.uk/location-api";
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_TIMEOUT => 30000,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_POSTFIELDS => json_encode($data),
+        ));
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+        if ($err) {
+            return array('success' => false, 'message' => $err);
+        } else {
+            return json_decode($response, true);
+        }</pre>
+    </p>
+    <p>The Developer can check this API using postman or any API client.</p>
+    </div>
+    </div>
+  </div>
+</div> 
+  </section>
+  <!-- Footer -->
+   <% include frontend/template/subfooter %>
+  </body>
+</html>
+
+
+   

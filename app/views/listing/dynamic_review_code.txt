@@ -1,0 +1,94 @@
+  <!-- check_ins section strat -->
+      <section class="check_ins">
+        <div class="container ">
+          <div class="row border-bottom ">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 no_padding">
+              <div class="title-ds">
+                <h2>Reviews and Check-ins</h2>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+              <div class="input-group stylish-input-group search-bt">
+                <span>
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="Search review">
+
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+              <div class="select_reviews">
+                <select class="form-control">
+                  <option>Sort by</option>
+                  <option value="user">User</option>
+                  <option value="review_rating">Rating</option>
+                  <option value="user_location">Review location</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <% property.reviews.forEach(function(reviewData){ %>
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no_padding">
+                <div class="comment-text">
+                  <h2>
+                    <%-reviewData.user.first_name+' '+reviewData.user.last_name%>
+                  </h2>
+                  <ul>
+                    <li>
+                      <span>
+                        <%-reviewData.review_rating%>
+                          <i class="fa fa-star" aria-hidden="true"></i>
+                      </span>
+                    </li>
+                    <li>
+                      <%-reviewData.created_date%>
+                    </li>
+                    <% if(isLoggedIn){
+              if(req.session.user.id==reviewData.user.id){
+                %>
+                      <li>
+                        <a href="">
+                          <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </a>
+                      </li>
+                      <%
+              }
+            }
+            %>
+                  </ul>
+
+                  <p>
+                    <%-reviewData.review_content%>.</p>
+                  <div class="share-icon">
+                    <a href="#">
+                      <i class="fa fa-share-alt" aria-hidden="true"></i>
+                    </a>
+                    <a href="#">
+                      <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                    </a>
+                    <a href="#">
+                      <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                    </a>
+
+                  </div>
+                </div>
+              </div>
+              <% }) %>
+                <div class="read_more">
+                  <a href="#">Load More....</a>
+                </div>
+          </div>
+      </section>
+      <!-- check_ins section end -->     
+     

@@ -1,0 +1,57 @@
+<div class="modal fade" id="addCategoryModel">
+<div class="modal-dialog modal-lg" role="document">
+    <div class="revstance_modal modal-content">
+      <div class="modal-body">
+        <div class="container">
+          <div class="check_close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="row">
+            <form method="post" action="/category/store" name="categoryform" id="categoryform">
+              <input type="hidden" name="propertyId" id="propId" value="">  
+              <input type="hidden" name="addType" id="addType" value="model">                
+              <div class="review-title">
+                <h2 class="edit-title text-left">Request a New Category</h2>
+              </div>
+              <div class="alert alert-success" style="display: none;">              
+              <span></span>
+            </div>
+            <div class="alert alert-danger" style="display: none;">
+              <span></span>
+            </div>
+              <div class="feeling-happy"></div>    
+             
+              <!-- <div class="feeling-happy" style="border:none;">
+                <div class="feeling-text1">
+                  <p>Reason to Add :</p>
+                </div> 
+                <div class="category-text">
+                  <div class="form-group">
+                    <textarea placeholder="Why you want to add category?" rows="8" cols="44" name="category_desc" id="category_desc"></textarea>
+                  </div>
+                </div>
+              </div> -->
+              <div class="name_category">
+                      <h3 class="new_category_text">Category Name:</h3>
+                      <div class="category_form form-group">
+                        <input type="text" class="form_bt" name="category_name" id="category_name" required="required" placeholder="Enter Category Name">
+                      </div>
+                    </div>
+
+                    <div class="category_textarea form-group">
+                      <h3>Reason to Add:</h3>
+                      <textarea placeholder="Why you want to add category?" name="category_desc" id="category_desc"></textarea>
+                    </div>
+                   
+              <div class="post-review">
+                <button type="submit" name="save" value="Submit" class="submit-category">Submit</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  

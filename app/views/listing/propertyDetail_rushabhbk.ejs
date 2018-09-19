@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../frontend/template/head %>  
+    <link rel="stylesheet" href="<%-base_url%>/css/property_detail.css"></link>   
+  </head>
+  <body>    
+    <% include ../frontend/template/subnav %>
+    <% var page=parseInt(page);
+          in_array = function(val, arrayList){ 
+                var flag=0;
+                arrayList.forEach(function(el){
+                  if(el==val) flag++;
+                  });
+                 return (flag>0) ? 'active' : '';
+          }
+
+          review_active_class = function(val, arrayList){
+                var flag=0;
+                arrayList.forEach(function(el){
+                console.log(el.review);
+                console.log(val);
+                  if(el.review.equals(val) && el.user.equals(req.session.user._id)){ 
+                    flag=1;
+                  }
+                  });
+                  console.log("flag "+flag)
+              return (flag>0) ? 'active' : '';
+          }
+
+          if(req.session.user && req.header('Referer')==req.url){
+            backpageUrl='MyListing';
+          }else{
+            backpageUrl=req.header('Referer');
+          }
+    %>
+<!-- location-page-daital start -->
+<section class="location-page-daital">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="location_silider">
+          <div class="main">
+            <div class="slider slider-for">
+              <div class="slid-post">
+                <img src="<%-base_url%>/images/img1.jpg">
+              </div>
+              <div class="slid-post">
+                <img src="<%-base_url%>/images/img2.jpg">
+              </div>
+              <div class="slid-post">
+                <img src="<%-base_url%>/images/img4.jpg">
+              </div>
+              <div class="slid-post">
+                <img src="<%-base_url%>/images/img5.jpg">
+              </div>
+              <div class="slid-post">
+                <img src="<%-base_url%>/images/img1.jpg">
+              </div>
+              <div class="slid-post">
+                <img src="<%-base_url%>/images/img2.jpg">
+              </div>
+              <div class="slid-post">
+                <img src="<%-base_url%>/images/img2.jpg">
+              </div>
+            </div>
+            <div class="slider slider-nav">
+              <div class="slid-post1">
+                <img src="<%-base_url%>/images/img1.jpg">
+              </div>
+              <div class="slid-post1">
+                <img src="<%-base_url%>/images/img2.jpg">
+              </div>
+              <div class="slid-post1">
+                <img src="<%-base_url%>/images/img3.jpg">
+              </div>
+              <div class="slid-post1">
+                <img src="<%-base_url%>/images/img4.jpg">
+              </div>
+              <div class="slid-post1">
+                <img src="<%-base_url%>/images/img5.jpg">
+              </div>
+              <div class="slid-post1">
+                <img src="<%-base_url%>/images/img1.jpg">
+              </div>
+              <div class="slid-post1">
+                <img src="<%-base_url%>/images/img2.jpg">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="lombart-sec">
+          <div class="lombart-text">
+            <h2 class="text-left"><%-property.property_name%></h2>
+          </div>
+          <div class="reviews-text">
+            <ul>
+              <li>
+                <span><%-property.average_rating%>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                </span>
+              </li>
+              <li><%-property.total_reviews%> Review</li>
+              <li>
+                <p>
+                  <i class="fa fa-signal" aria-hidden="true"></i> Detail</p>
+              </li>
+              <% if(req.session.user){ %>
+
+                <% if(isFollowed==0){ %>
+                    <li>
+                        <a href="<%- base_url+'/user/location/follow/'+property._id%>">Follow</a>
+                    </li>
+                    <% } else{ %>
+                        <li>
+                            <a href="javascript:void(0)" onclick="confirmmessage('Are you sure you want to Unfollow this location?','/user/location/unfollow/<%-property._id%>')">UnFollow</a>
+                        </li>
+                    <% }
+                } 
+             %>
+            </ul>
+          </div>
+
+          <div class="location_bt">
+            <ul>
+              <li>
+                <span>
+                  <i class="fa fa-map-marker" aria-hidden="true"></i>
+                </span> &nbsp; <%-property.address1+' '+property.address2+' '+property.area+' '+property.country+' '+property.post_code%></li>
+              <li>
+                <span>
+                  <i class="fa fa-tag" aria-hidden="true"></i>
+                </span><%-property.category_name %></li>
+              <li class="verifide-icon" style="background-image: url(<%-base_url%>/images/verifide-icon.png);
+              ">
+                <!-- <img src="<%-base_url%>/images/verifide-icon.png"> -->
+              </li>
+            </ul>
+          </div>
+          <div class="bounty_post">
+            <img src="<%-base_url+'/images/bounty.png'%>">
+          </div>
+
+          <div class="location-check">
+            <button class="in-check-bt">Chech in</button>
+            <button class="in-check-bt">
+              <span>
+                <i class="fa fa-star" aria-hidden="true"></i>
+              </span> Write a Review</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- location-page-daital end -->
+
+
+<!-- description-sec strat -->
+<section class="description-sec">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="title-ds">
+          <h2 class="border-bottom">description</h2>
+          <%-property.property_desc%>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- description-sec end -->
+
+<!-- our_products-sec strat -->
+<section class="our_products-sec">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="title-ds">
+          <h2>Our Products
+            <a href="#" class="view_more_pro">View More Products</a>
+          </h2>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <div class="Products-post">
+          <div class="post-products" style="background-image: url(<%-base_url%>/images/pizza_hut_voucher_img.png);"></div>
+
+
+          <h2>
+            <a href="#">Pizza Hut Voucher</a>
+          </h2>
+          <p>token price
+            <span>20 stt</span>
+          </p>
+
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <div class="Products-post">
+          <div class="post-products " style="background-image: url(<%-base_url%>/images/plazmatic_gift_card_img.png);
+              "></div>
+
+          <h2>
+            <a href="#">Plazmatic Gift Card</a>
+          </h2>
+          <p>token price
+            <span>20 stt</span>
+          </p>
+
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <div class="Products-post">
+          <div class="post-products " style="background-image: url(<%-base_url%>/images/McDonald’s_gift_card_img.png);
+             "></div>
+
+          <h2>
+            <a href="#">McDonald's Gift Card</a>
+          </h2>
+          <p>token price
+            <span>20 stt</span>
+          </p>
+
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <div class="Products-post">
+          <div class="post-products " style="background-image: url(<%-base_url%>/images/levi’s_gift_card_img.png);
+              "></div>
+
+          <h2>
+            <a href="#">Levi's Gift Card</a>
+          </h2>
+          <p>token price
+            <span>20 stt</span>
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</section>
+<!-- our_products-sec end -->
+
+
+<!-- check_ins section strat -->
+<section class="check_ins">
+  <div class="container ">
+    <div class="row border-bottom ">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 no_padding">
+        <div class="title-ds">
+          <h2>Reviews and Check-ins</h2>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div class="input-group stylish-input-group search-bt">
+          <span>
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </span>
+          <input type="text" class="form-control" placeholder="Search review">
+
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        <div class="select_reviews">
+          <select class="form-control">
+            <option>Sort by</option>
+            <option value="user">User</option>
+            <option value="review_rating">Rating</option>
+            <option value="">4</option>
+            <option>5</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <% property.reviews.forEach(function(reviewData){ %>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no_padding">
+        <div class="comment-text">
+          <h2><%-reviewData.user.first_name+' '+reviewData.user.last_name%></h2>
+          <ul>
+            <li>
+              <span> <%-reviewData.review_rating%>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+              </span>
+            </li>
+            <li><%-reviewData.created_date%></li>
+            <% if(isLoggedIn){
+              if(req.session.user.id==reviewData.user.id){
+                %>
+                <li>
+                  <a href="">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  </a>
+                </li>
+                <%
+              }
+            }
+            %>
+          </ul>
+
+          <p><%-reviewData.review_content%>.</p>
+          <div class="share-icon">
+            <a href="#">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+            <a href="#">
+              <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+            </a>
+            <a href="#">
+              <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+            </a>
+
+          </div>
+        </div>
+      </div>
+      <% }) %>    
+      <div class="read_more">
+        <a href="#">Load More....</a>
+      </div>
+    </div>
+</section>
+<!-- check_ins section end -->
+
+    <!-- addreviewmodal start -->
+    <div class="modal fade" id="addReviewModel" tabindex="-1" role="dialog" aria-labelledby="addReviewModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="revstance_modal modal-content">
+          <div class="modal-body">
+            <div class="container">
+              <div class="check_close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="row">
+                <form method="post" action="/addreview" name="addReviewform" id="addReviewform" enctype="multipart/form-data">
+                  <input type="hidden" name="propertyId" id="propId" value="<%=property.id%>">
+                  <input type="hidden" name="property" id="propertyId" value="<%=property._id%>">
+
+                  <div class="review-title">
+                    <h2 class="edit-title text-left">Add Review</h2>
+                  </div>
+                  <div class="section-seprator"></div>
+                  <div class="row review-titles">
+                    <div class="col-lg-12 form-group" id="addreviewres_msg"></div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                      <h3 class="post-title">Post review as</h3>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" id="guest">
+                      <h3 class="post-title">
+                        <label for="btn-radio1">
+                          <span>
+                            <input type="radio" name="reviewUserName" class="radio-btn" id="btn-radio1" value="0" />
+                          </span>
+                          Anonymous
+                        </label>
+                      </h3>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                      <h3 class="post-title">
+                        <label for="btn-radio2">
+                          <span class="checked">
+                            <input type="radio" name="reviewUserName" class="radio-btn" id="btn-radio2" checked="checked" value="1">
+                          </span>
+                          You
+                        </label>
+                      </h3>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 edit-rating">
+                      <span class="edit-rating-title post-title">Rating</span>
+                      <span class="edit-rating-stars">
+                        <div class="stars">
+                          <div class="ratingsForm">
+                            <div class="stars" id="modalstar">
+                              <input type="radio" name="addstar" class="star-1" id="addstar-11" value="1" />
+                              <label class="star-1" for="addstar-11">1</label>
+                              <input type="radio" name="addstar" class="star-2" id="addstar-12" value="2" />
+                              <label class="star-2" for="addstar-12">2</label>
+                              <input type="radio" name="addstar" class="star-3" id="addstar-13" value="3" />
+                              <label class="star-3" for="addstar-13">3</label>
+                              <input type="radio" name="addstar" class="star-4" id="addstar-14" value="4" />
+                              <label class="star-4" for="addstar-14">4</label>
+                              <input type="radio" name="addstar" class="star-5" id="addstar-15" value="5" />
+                              <label class="star-5" for="addstar-15">5</label>
+                              <span></span>
+                            </div>
+                          </div>
+                        </div>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  edit-description form-group">
+                    <span class="post-title">Description</span>
+                    <textarea name="review_desc" id="review_desc"></textarea>
+                  </div>
+                  <div class="edit-media-section">
+                    <div class="row">
+                      <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 edit-add-media error_msg form-group">
+                        <span class="post-title edit-add">Attach Photos</span>
+                        <label for="addfiles" class="btn-file">
+                          <input type="file" id="addfiles" class="file-btn" name="review_images" multiple="multiple" accept="image/*" />
+                        </label>
+                        <div class="addreviewfilemargin"></div>
+                        <div class="adduploadimg"></div>
+                      </div>
+                      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <button type="submit" id="saveReview" class="save-btn info-btn  pull-right">SAVE</button>
+                        <button type="button" id="addreviewclosebtn" class="save-btn info-btn  pull-right" onclick="window.location.reload()" style="display:none;">CLOSE</button>
+                      </div>
+                    </div>
+                </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- addreviewmodal start -->
+    <% include ../frontend/template/subfooter %>
+    <script src="<%-base_url%>/js/validation/addreviewvalidation.js"></script>
+    <script src="<%-base_url%>/js/validation/updatereviewvalidation.js"></script>
+    <script src="<%-base_url%>/js/validation/checkinpropertyvalidation.js"></script>
+    <script src="<%-base_url%>/js/slick.min.js"></script>
+    <script src="<%-base_url%>/js/popper.min.js"></script>
+    <script src="<%-base_url%>/js/property_detail.js"></script>
+    </script>
+  </body>
+</html>

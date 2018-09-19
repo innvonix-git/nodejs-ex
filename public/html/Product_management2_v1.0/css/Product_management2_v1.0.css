@@ -1,0 +1,67 @@
+.back-bt{
+	margin-bottom: 10px;
+	padding: 0px;
+}
+.back-bt a{
+	margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: capitalize;
+    color: #2d60ef;
+}
+
+.checked {
+    color: orange;
+}
+.product-heading
+{
+	font-weight: 600;
+}
+.product-dp
+{
+	width: 150px;
+	height:140px;
+	margin-right: 20px;
+}
+.btn.btn-light
+{
+	    border: 1px solid #6699ff;
+	    color: #6699ff;
+	    padding: 4px 30px 4px 30px;
+}
+.btn.btn-light:hover
+{
+	background-color: transparent;
+}
+.panel-title.details
+{
+	margin-top: 20px;
+}
+.product-dec-details
+{
+	text-align: justify;
+	font-size: 15px;
+}
+.product-sit
+{
+	color: #99bbff;
+}
+.img-circle.img-responsive
+{
+	border-radius: 50%;
+	width: 25%;
+	margin-right: 20px;
+}
+.panel-title
+{
+	font-weight: bold; 
+}
+.label.label-bold
+{
+	font-weight: bold;
+}
+.label.label-default
+{
+	font-weight:100;
+}

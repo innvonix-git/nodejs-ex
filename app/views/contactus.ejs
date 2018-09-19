@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include frontend/template/head %>
+  </head>
+  <body>
+    <!-- Navigation -->
+   <% include frontend/template/subnav %>
+   <style>
+   .contact-form, .contact-address-section, .contact-map{
+    margin-left: 0;
+    margin-right: 0;
+   }
+   </style>
+  <div class="container">
+    <div class="row margin-5">
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 contact-section">
+         <div class="contact-form"> 
+            <div class="row custom-container-bottom padding-all-20">
+               <div class="contact-inner mx-auto">
+                  <form role="form" action="/sendcontactusmail" method="post" class="form-validate" name="contactusform">           
+                    <div class="text-center">
+                        <h2 class="content-group contact-title ltr-space"><b class="con-title">Get in Touch</b>
+                        </h2>
+                        <% include frontend/template/error %>
+                    </div>
+                    <div class="form-group form-group-material contact-input">
+                      <label class="control-label animate" for="contact_name">Name:</label>
+                      <input type="text" class="form-control" id="contact_name" placeholder="Name *" name="contact_name">
+                    </div>
+                    <div class="form-group form-group-material contact-input">
+                      <label class="control-label animate" for="contact_email">Email:</label>
+                      <input type="text" class="form-control" id="contact_email" placeholder="E-Mail Address*" name="contact_email">
+                    </div>
+                    <div class="form-group form-group-material contact-input">
+                      <label class="control-label animate" for="contact_subject">Subject:</label>
+                      <input type="text" class="form-control" id="contact_subject" placeholder="Subject*" name="contact_subject">
+                    </div>
+                    <div class="form-group form-group-material contact-input">
+                      <label class="control-label animate" for="contact_desc">Message*</label>
+                      <textarea class="form-control" rows="4" id="contact_desc" name="contact_desc" placeholder="Message*"></textarea>
+                    </div>
+
+                      <div class="form-group text-center margin-tb-20">
+                          <button type="submit" class="btn btn-revs-rounded con-submit form-control btn-login">
+                             SUBMIT
+                          </button>
+                      </div>
+                  </form>
+               </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+          <div class="contact-address-section">
+            <div class="row contact-inner-address">
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                  <div class="contact-address contact-address-center">
+                    <i class="location-icon"></i>
+                    <h3 class="address-title">Revstance Limited</h3>
+                    <p>2 Sheen Rd, Richmond</p>
+                    <p>TW9 1AE</p>                    
+                  </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="address-info">
+                  <div class="number">
+                    <i class="number-icon"></i>
+                    <p><a href="tel:+447541256016" class="grey-text">+447541 256 016</a></p>
+                  </div>
+                  <div class="number">
+                    <i class="number-icon"></i>
+                    <p><a href="tel:+447549941609" class="grey-text">+44 7549 941609</a></p>
+                  </div>
+                  <div class="email">
+                    <i class="email-icon"></i>
+                    <p><a href="mailto:admin@revstance.com">admin@revstance.com</a></p>                
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="contact-socials mx-auto">
+                  <ul class="social-media text-center">
+                    <li><a class="links" href="https://www.facebook.com/revstance" target="_blank"><i class="fa fa-facebook"></i></a></li> <li><a class="links" href="https://twitter.com/MyRevstance" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                    <li><a class="links" href="https://www.pinterest.co.uk/revstance/" target="_blank"><i class="fa fa-pinterest"></i></a></li>
+                    <li><a class="links" href="https://www.instagram.com/revstance/" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                    <li><a class="links" href="https://t.me/revstance" target="_blank"><i class="fa fa-telegram telegram"></i></a></li>
+                 </ul>
+                </div>
+              </div>
+          </div>
+         </div>
+        </div>
+        <hr class="content-divider text-muted section-divider">
+ <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <div class="contact-map">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2485.8260010448516!2d-0.3045376484836042!3d51.46135102178983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760c3832e60753%3A0x7cb9cf565b94bdeb!2sRegus+-+London+Richmond+Sheen+Rd!5e0!3m2!1sen!2sin!4v1523706156012" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen class="map"></iframe>
+    <div id="over_map">
+        </div>
+  </div>
+ </div>
+    </div>
+</div>
+  <!-- Footer -->
+   <% include frontend/template/subfooter %>
+   <script src="/js/validation/contactusvalidation.js"></script>
+  </body>
+</html>
+
+
+   

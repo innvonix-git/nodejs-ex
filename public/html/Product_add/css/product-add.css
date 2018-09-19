@@ -1,0 +1,97 @@
+ /* layout.css Style */
+.upload-drop-zone {
+  height: 200px;
+  border-width: 2px;
+  margin-bottom: 20px;
+}
+
+/* skin.css Style*/
+.upload-drop-zone {
+  color: #ccc;
+  border-style: dashed;
+  border-color: #ccc;
+  line-height: 200px;
+  text-align: center
+}
+.upload-drop-zone.drop {
+  color: #222;
+  border-color: #222;
+}
+.product-box
+{
+	width: 50%;
+    border: solid 1px gainsboro;
+}
+.product-box-back
+{
+	margin-top: 10px;
+	margin-bottom:10px; 
+	width: 50%;
+    
+}
+.input-product input
+{
+	border:none;
+}
+.input-product input.form-control.border_bt {
+    border-bottom: solid 1px gainsboro;
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 0px;
+}
+.product-btn
+{
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.btn.add-prod
+{
+	background-color: #659df7;
+	color: #ffff;
+}
+
+.product-title{
+	margin: 0px;
+	padding: 0px;
+}
+
+.product-title h4{
+	margin: 14px 0 0 0 ;
+	padding: 0px;
+	font-size: 16px;
+	color: #000;
+	font-weight: 400;
+}
+
+/*media Query*/
+@media (max-width:1170px)
+{
+	
+}
+@media (max-width:970px)
+{
+	
+}
+@media (max-width:768px)
+{
+	.product-box
+	{
+	width: 100%;
+	}
+	.product-box-back
+	{
+		width: 100%
+	}
+}
+@media (max-width:480px)
+{
+	.product-box
+	{
+	width: 100%;
+	}
+	.product-box-back
+	{
+		width: 100%
+	}
+}

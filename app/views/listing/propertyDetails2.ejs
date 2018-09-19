@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../frontend/template/head %>    
+  </head>
+  <body>    
+    <% include ../frontend/template/subnav %>
+    <% var page=parseInt(page);
+          var isLoggedIn;
+           if(req.session.user && req.session.user.user_type==2){
+           isLoggedIn=1;
+           }else{
+           isLoggedIn=0;
+           }
+
+           var is_usertype=0;
+           if(req.session.user){
+              if(req.session.user.user_type==2){
+                is_usertype=2;
+              }else if(req.session.user.user_type==1){
+                is_usertype=1;
+              }else{
+                is_usertype=3;
+              }
+           }else{
+              is_usertype=0;
+           }
+
+          in_array = function(val, arrayList){ 
+                var flag=0;
+                arrayList.forEach(function(el){
+                  if(el==val) flag++;
+                  });
+                 return (flag>0) ? 'active' : '';
+              }
+          review_active_class = function(val, arrayList){
+                var flag=0;
+                arrayList.forEach(function(el){
+                console.log(el.review);
+                console.log(val);
+                  if(el.review.equals(val) && el.user.equals(req.session.user._id)){ 
+                    flag=1;
+                  }
+                  });
+                  console.log("flag "+flag)
+              return (flag>0) ? 'active' : '';
+          }
+          if(req.session.user && req.header('Referer')==req.url){
+          backpageUrl='MyListing';
+          }else{
+          backpageUrl=req.header('Referer');
+          }
+    %>
+<div class="container">
+      <div class="row margin-5">
+        <!--<%=JSON.stringify(property);%>-->
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 claim-section">            
+          <%  if(req.session.user){
+              if(property.user_type==1 && (req.session.user.user_type==2 && session.user.status==2)){ %>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 claim-section">
+            <% if(claimStatus==1){ %>
+            <button class="btn-primary btn pull-right" id="unClaimBtn" data-property-id="<%=claimId%>">Unclaim</button>
+            <% }else{ %>
+            <button class="btn-success btn pull-right" id="claimBtn" data-property-id="<%=property.id%>">Claim </button>
+            <% } %>
+          </div>
+        <% }  } %>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <% include ../frontend/template/error %>
+        </div>
+      </div>
+      <div class="row">
+      
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+          <div id="proptery-carousel" class="carousel slide"  data-ride="carousel">
+              <div class="carousel-inner">
+                <%
+                  var property_images = [];
+                  if(property.property_images.length>0){
+                    property_images = property.property_images.split(',');
+                  }else{
+                    property_images[0] = "no-location.jpg";
+                  }
+                  property_images.forEach(function(image, index) { %>
+                    <div class="carousel-item property-item <% if(index==0){ %>active<% } %>">
+                      <%
+                      if(property.property_images.length>0){%>
+                      <a href="#originprop-content" id="originprop" class="create-slider slider-non-back-color" data-media="<%-property.property_images %>"><img class="d-block property-image" src="../../uploads/thumbs/thumb_<%=image%>" data-origin="<%=image%>" alt="<%-index%>LocationImage" onclick="SetOrigin($(this).attr('data-origin'))"></a>                     
+                      <%}else{%>
+                      <img class="d-block property-image" src="../../uploads/thumbs/thumb_<%=image%>" alt="<%-index%>LocationImage">
+                      <%}
+                      %>
+                    </div>
+                  <% });%>
+              </div>
+                <a class="carousel-control-prev" href="#proptery-carousel" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#proptery-carousel" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+                <div class="num"></div>
+          </div>  
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">        
+          <div class="row">  
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="property-info"> 
+                  <div class="property-card-info">
+                    <h3 class="card-title property-title"><%-property.property_name%></h3>
+                    <p class="content-add property-add"><%-property.address1%> <%-property.address2%> <%-property.post_code%></p>
+                    <p class="content-category property-cat"><%-property.category_name%></p> 
+                    <div class="review proptery-review">
+                       <div class="stars pull-left">  
+                         <div class="count-review"><%-property.total_reviews %> Reviews</div>
+                            <div class="property-overall-rating">
+                              <div class="stars">
+                                <% var i=0;
+                                for(i=0;i<parseInt(property.avg_review_rating);i++){ %>
+                                <span class="star-o"></span>  
+                                <% }
+                                for(;i<5;i++){  %>
+                                <span class="star-half-o"></span>
+                                <% } %>
+
+                              <% if(req.session.user){ 
+                if(isFlaggedLocation==0 && req.session.user.user_type==1){
+              %>
+              <div class="button text-right">
+                <a href="javascript:void(0)" class="demo_btn btn btn-danger" onclick="confirmmessage('Are you sure you want to report this location Spam?','/spam-location/<%-property.id%>')">Report Spam</a>
+              </div>
+              <% }else{ %>
+<a href="javascript:void(0)" class="demo_btn btn btn-primary" onclick="confirmmessage('Are you sure you want to report this location as Not spammed?','/unspam-location/<%-property.id%>')">UnReport</a>
+              <% } } %>
+              <div><br/></div>
+               <% if(req.session.user){%>
+               <%if(req.session.user.user_type==1){%>
+                <a href="javascript:void(0)" class="checkInbtn btn btn-primary">Check In</a>
+               <%}%>
+                <%
+                  if(isFollowed==0){ %>
+                           <div><a href="<%- base_url+'/user/location/follow/'+property._id%>" class="demo_btn btn btn-success">Follow</a></div>
+                            <% } else{ %>
+                            <div><a href="javascript:void(0)" onclick="confirmmessage('Are you sure you want to Unfollow this location?','/user/location/unfollow/<%-property._id%>')" class="demo_btn btn btn-success">UnFollow</a></div>
+                            <% } }%>              
+                            </div>
+                          </div>
+                          </div>
+                    </div>
+                 </div>
+             </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 <% if(property.user_type==2 && property.status==1){ %> rate-verified<% }else if(otherClaimStatus==1 && isLoggedIn==2){ %>claimed-property<% }else if(property.status==0){%>verifypending<%} %>">
+                 <div class="review rate-us">
+                       <div class="stars">
+                            <div class="count-review">Rate Us</div>
+                            <div class="ratingsForm" data-toggle="modal" data-target="#addreviewModal">
+                              <div class="stars" id="pagestar">
+                                <input type="radio" name="pagestar" class="star-1 toggle" id="star-1" value="1" />
+                                <label class="star-1" for="star-1">1</label>
+                                <input type="radio" name="pagestar" class="star-2 toggle" id="star-2" value="2" />
+                                <label class="star-2" for="star-2">2</label>
+                                <input type="radio" name="pagestar" class="star-3 toggle" id="star-3" value="3" />
+                                <label class="star-3" for="star-3">3</label>
+                                <input type="radio" name="pagestar" class="star-4 toggle" id="star-4" value="4" />
+                                <label class="star-4" for="star-4">4</label>
+                                <input type="radio" name="pagestar" class="star-5 toggle" id="star-5" value="5" />
+                                <label class="star-5" for="star-5">5</label>
+                                <span></span>
+                              </div>
+                            </div>
+                      </div>
+                 </div>
+           </div>
+          </div>
+       </div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="property-description">
+            <h3 class="property-desc-title">Description</h3>
+            <p class="desc-text text-justify"><%-property.property_desc%></p>
+          </div>
+       </div>
+    <hr class="seprator">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">  
+    <div class="row minpad">      
+      <% if(isNaN(property.avg_review_rating)){ averageScore = 0; } else { averageScore=property.avg_review_rating.toFixed(2); }%>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="avarage-score">
+               <h3 class="score-title text-center">Average Score</h3>
+               <div class="rating text-center"><%- averageScore %></div>
+                    <hr class="review-sep">
+                    <div class="review">
+                      <div class="stars pull-left">  
+                            <div class="show-rating">
+                              <div class="stars">
+                                <span class="star-o"></span>
+                                <span class="star-o"></span>
+                                <span class="star-o"></span>
+                                <span class="star-o"></span>
+                                <span class="star-o"></span>
+                              </div>
+                            </div>
+                      </div>
+                        <div class="rating-count text-right"><%=property.review_types.five %> Ratings</div>
+                    </div>
+                    <hr class="review-sep">
+                      <div class="review">
+                        <div class="stars pull-left">  
+                              <div class="show-rating">
+                                <div class="stars">
+                                  <span class="star-o"></span>
+                                  <span class="star-o"></span>
+                                  <span class="star-o"></span>
+                                  <span class="star-o"></span>
+                                </div>
+                              </div>
+                        </div>
+                        <div class="rating-count text-right"><%=property.review_types.four %> Ratings</div>
+                      </div>
+                     <hr class="review-sep">
+                      <div class="review">
+                        <div class="stars pull-left">  
+                              <div class="show-rating">
+                                <div class="stars">
+                                  <span class="star-o"></span>
+                                  <span class="star-o"></span>
+                                  <span class="star-o"></span>
+                                </div>
+                              </div>
+                        </div>
+                        <div class="rating-count text-right"><%=property.review_types.three %> Ratings</div>
+                      </div>
+                     <hr class="review-sep">
+                     <div class="review">
+                        <div class="stars pull-left">  
+                              <div class="show-rating">
+                                <div class="stars">
+                                  <span class="star-o"></span>
+                                  <span class="star-o"></span>
+                                </div>
+                              </div>
+                        </div>
+                        <div class="rating-count text-right"><%=property.review_types.two %> Ratings</div>
+                    </div>
+                     <hr class="review-sep">
+                     <div class="review">
+                        <div class="stars pull-left">  
+                              <div class="show-rating">
+                                <div class="stars">
+                                  <span class="star-o"></span>
+                                </div>
+                              </div>
+                        </div>
+                        <div class="rating-count text-right"><%=property.review_types.one %> Ratings</div>
+                    </div>  
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+          <% property.reviews.forEach(function(review, index){ %>
+           <div class="testimonial-card top-m-zero">
+            <%if(req.session.user){%>
+              <%if(req.session.user.id==review.user_id){%>
+                  <div class="crud-icons pull-right">
+                    <button class="delete-btn delReview" id="<%=review.id%>">delete</button>
+                    <button class="edit-btn editReview" id="<%=review.id%>">edit</button>
+                  </div>
+            <%}}%>              
+              <div class="testimonial-title">
+                <%if(is_usertype==2 && property.user_id==req.session.user.id){%>
+                <%if(review.is_guest==1){%>
+                  <h3><%-review.first_name%> <%-review.last_name%></h3>
+                <%}else{%>
+                  <h3>Anonymous (<%-review.first_name%> <%-review.last_name%>)</h3>
+                <%}%>  
+              <%}else{%>
+                <%if(review.is_guest==1){%>
+                  <h3><%-review.first_name%> <%-review.last_name%></h3>
+                <%}else{%>
+                  <h3>Anonymous</h3>
+                <%}%>
+              <%}%>
+                     <div class="testi-star-rating">
+                        <div class="stars">
+                          <% var i=0;
+                          for(i=0;i<parseInt(review.review_rating);i++){ %>
+                          <span class="star-o"></span>  
+                          <% }
+                          for(;i<5;i++){  %>
+                          <span class="star-half-o"></span>
+                          <% } %>
+                        </div>
+                      </div>
+              </div>
+              <p class="date-time"><%-review.created_date %></p>
+              <div class="testi-content">
+                <p class="testimonial-text quote-text"><i class="quote-left"></i><%=review.review_content %><i class="quote-right"></i>
+                <% if(is_usertype==2 && property.user_id==req.session.user.id){ %>
+                <p class="testimonial-text">IP: <%=review.ip_address%> | <%=review.user_location%></p>
+                <% } %>
+                </p>
+              </div>
+              <div class="socials-icons shareBox">
+              <ul class="nav">
+                  <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="share"></span></a>
+                    <ul class="dropdown-menu">
+                      <li class="share_fb"><a data-service="facebook" title="share facebook" data-title="share facebook" href="/sharefacebook?review=<%=review.review_content %>"><i class="fa fa-facebook-official"> Facebook</i></a></li>
+                      <li class="share_twitter"><a data-service="twitter" title="share twitter" data-title="share twitter" href="/sharetwitter?review=<%=review.review_content %>"><i class="fa fa-twitter"> Twitter</i> </a></li>
+                      </ul>
+                    </li>    
+                </ul>
+                 
+                 <% if(req.session.user && req.session.user.user_type==1){ %>
+                 <span class="like foundHelpful <%-review_active_class(review._id, likedReviews)%>" data-status="<%-in_array(review._id, req.session.likedReviews)%>" data-reviewId="<%-review._id %>" data-propertyId="<%-property._id %>" data-flagId="0" title="Found it helpful"></span>
+                 <%}else if(req.session.user && req.session.user.user_type==2){%>
+                  <span class="like foundHelpful1" title="As a business, you can not like any reviews"></span>
+                 <%}else{%>
+                 <span class="like foundHelpful1" title="Found it helpful, Login required"></span>
+                 <%}%>
+
+                 <% if(req.session.user){ %>
+                  <span class="social-info flagThis <%-review_active_class(review.id, req.session.flagedReviews)%>" data-status="<%-in_array(review.id, req.session.flagedReviews)%>" data-reviewId="<%-review.id %>" data-propertyId="<%-property.id %>" data-flagId="0" title="Report review"></span>
+                <%}else{%>
+                  <span class="social-info flagThis1" title="Report review, Login required"></span>
+                <%}%>
+
+
+                 <%if(is_usertype==2){
+                if(req.session.user.id==property.user_id){
+                %>
+                 <span class="social-info replay-btn replyToReview" title="Review reply" id="replyToReview<%=review.id %>" data-reviewid="<%=review.id %>"></span>
+                 <%} }%>
+                <div class="media-images text-center view_review">
+                  <%if(review.review_media!=''){%>
+
+                   <a href="#image-content<%-review.id %>" class="create-slider btn-primary " data-media="<%-review.review_media %>">View</a>
+                   <%}%>
+                  <div class="" style="display: none">
+                    <div class="" id="image-content<%-review.id %>">
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mx-auto">
+                        <div id="image-carousel" class="image-carousel carousel slide carousel-fade"  data-ride="carousel">
+                                <div class="carousel-slider-inner">
+                                                      
+                                </div>
+                                  <a class="carousel-control-prev" href="#image-carousel" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                  </a>
+                                  <a class="carousel-control-next" href="#image-carousel" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                  </a>
+                                  <div class="num"></div>
+                              </div>
+                           </div>
+                    </div>
+                  </div>
+              </div>
+               <!-- <%if(is_usertype==2){
+                if(req.session.user.id==property.user_id){
+                %>
+                <div class="pull-right">
+                <a title="reply" id="replyToReview<%=review.id %>" href="javascript:void(0)" data-reviewid="<%=review.id %>" class="replyToReview"><i class="fa fa-reply" style="font-size:24px"></i></a>
+                </div>
+                <%} }%> -->
+              </div>
+           </div>
+            <div class="testimonial-card" id="replyreviewcard<%=review.id %>" style="display: none;">
+              <p><strong> Reply: </strong>
+              <!-- <input type="text" name="replytext" id="replybox<%=review.id %>"value="<%-review.reply_text%>"> -->
+              <textarea name="replytext" class="form-control form-group form-group-material" id="replybox<%=review.id %>"><%-review.reply_text%></textarea>
+              <button type="button" data-id="<%=review.id %>" class="pull-right btn btn-primary btn-rounded btn-outline replyButton" data-prop="<%=property.id%>" id="replybtn<%=review.id %>">Reply</button>
+              </p>
+            </div>
+           <% if(review.is_reply==1){ %>
+           <div class="testimonial-card testimonial-reply">
+            <%if(req.session.user){%>
+              <%if(req.session.user.id==property.user_id){%>              
+              <div class="crud-icons pull-right">
+                    <button class="delete-btn delreplyReview" id="<%=review.id%>">delete</button>  
+
+                    <button title="reply" class="edit-btn replyToReview" id="replyToReview<%=review.id %>" data-reviewid="<%=review.id %>">edit</button>   
+              </div>
+              <%}}%>
+              <h3><%-property.property_name%></h3>
+              <p class="date-time"><%-review.reply_created_date %></p>
+              <div class="testi-content">
+                <p class="testimonial-text"><i class="quote-left"></i><%-review.reply_text%><i class="quote-right"></i></p>
+              </div>
+           </div>
+           <% } %>
+          <% })
+          if(page){
+          }else{
+          page=0;
+          }
+          if(counter>5){ %> 
+            <div class="row">
+              <hr class="seprator">
+                <ul class="pagination">
+                  <li class="page-item" data-id="0"><a class="page-link" href="javascript:void(0)">First</a></li>
+                  <%
+                  var lastPage = Math.ceil(counter/5);
+                  var last = lastPage - 1;
+                  for(k=0;k<lastPage;k++){ %>
+                  <li class="page-item <% if(page==k){ %> active <%}%>" data-id="<%=k%>"><a class="page-link" href="javascript:void(0)"><%=k+1%></a></li>
+                  <% } %>
+                  <li class="page-item" data-id="<%=last%>"><a class="page-link" href="javascript:void(0)">Last</a></li>
+                </ul>            
+            </div>
+            <form method="get" action="location-details" id="property-details">
+              <input type="hidden" name="id" value="<%-property.id%>" id="id">
+              <input type="hidden" name="page" value="<%-page%>" id="page">
+            </form>
+            <input type="hidden" name="total_page" id="total_page" value="<%=Math.ceil(counter/10)%>">
+            <% } %>
+        </div>
+    </div>
+   </div>
+   <!---->
+   <div class="" style="display: none">
+      <div class="" id="originprop-content">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mx-auto">
+          <div id="originprop-carousel" class="originprop-carousel carousel slide carousel-fade"  data-ride="carousel">
+                  <div class="carousel-slider-inner">
+                    
+                  </div>
+                    <a class="carousel-control-prev" href="#originprop-carousel" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#originprop-carousel" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                    <div class="num"></div>
+                </div>
+             </div>
+      </div>
+    </div>
+   <!---->    
+
+    <div class="modal fade" id="editReviewModel" tabindex="-1" role="dialog" aria-labelledby="editReviewModalLabel" aria-hidden="true">
+    <% include ../frontend/template/editreviewmodal %>  
+    </div>
+</div>
+ 
+<div class="modal fade" id="addReviewModel" tabindex="-1" role="dialog" aria-labelledby="addReviewModalLabel" aria-hidden="true">
+    <% include ../frontend/template/addreviewmodal %>  
+    </div>
+
+</div>
+
+<div class="modal fade" id="CheckInModel" tabindex="-1" role="dialog" aria-labelledby="CheckInModelLabel" aria-hidden="true">
+    <% include ../frontend/template/checkinmodal %>  
+    </div>
+    </div>
+
+</div>
+</div>
+    <% include ../frontend/template/subfooter %>
+    <script src="/js/validation/addreviewvalidation.js"></script>
+    <script src="/js/validation/updatereviewvalidation.js"></script>
+    <script src="/js/validation/checkinpropertyvalidation.js"></script>
+    <!-- <script src="/js/validation/replyreviewvalidation.js"></script> -->
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        
+      $(".replyToReview").click(function(){
+          var review_id = $(this).attr('data-reviewid');
+          
+          $("<input type='hidden' name='reply_reviewid' value='"+review_id+"' id='reply_reviewid'/>").appendTo("#replyReviewform");
+
+          //$("#replyReviewModel").modal();
+          $("#replyreviewcard"+review_id).toggle(1000);
+
+      });
+
+      /*$('#replyReviewform').submit(function(e){
+          e.preventDefault();
+          if(!($('#replyReviewform').valid())){
+              console.log('form is invalid');
+          }
+          else{
+            $.ajax({
+              type: "POST",
+              url: '/postreply',
+              data: $('#replyReviewform').serialize(),
+              success: function(data){
+                if(data.status==true){
+                  alert('review success');
+                  //window.location.reload();
+                }
+              }
+            });
+          }
+      });*/
+
+      $('.replyButton').click(function(){        
+        var reply_reviewid = $(this).attr('data-id');
+        var propertyId = $(this).attr('data-prop');
+        var review_id = $(this).attr('data-id');
+        var review_reply = $("#replybox"+review_id).val();
+        review_reply = review_reply.trim();
+        if(!review_reply==''){
+        $.ajax({
+          type: "POST",
+          url: '/postreply',
+          data: {'review_reply':review_reply ,'propertyId':propertyId,'reply_reviewid':reply_reviewid},
+            success: function(data){
+              if(data.status==true){
+                //alert('review success');
+                window.location.reload();
+              }
+            }
+          });
+        }
+        else{
+          $($("#replybox"+review_id)).css({"border": "1px solid red"});
+        }
+      });
+
+    function notLoggedIn(){
+      swal({
+            title: "Login required to add review",
+            icon: "warning",
+            buttons: true,
+            buttons: ["Cancel", "Login"],
+            dangerMode: true,
+            closeOnClickOutside: false,
+            closeOnEsc: false,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                window.location.href = "/login";
+            }else{
+              window.location.reload();
+            }
+        });
+      }
+
+      $(".foundHelpful1, .flagThis1").click(function(){
+         // notLoggedIn();
+      });
+
+      $('.editReview').click(function(){
+        $('#dbreview_img').empty();
+        $('.post-title input[type=radio]').parent().removeClass('checked');
+        var review_id = this.id;
+        $.ajax({
+          method: 'get',
+          url:'/getEditReviewDetail',
+          data: {review_id:review_id},
+          success:function(result){
+            if(result.status==true){
+              var review_media = result.data.review_media;
+              
+              $("textarea#edit_review_desc").val(result.data.review_content);
+              $("input[name='editreviewUserName'][value='"+result.data.is_guest+"']").prop('checked',true);
+              $("input[name='editreviewUserName']:checked").closest("span").addClass("checked");
+              $("#updatemodalstar input[name='star'][value='"+result.data.review_rating+"']").prop('checked',true);
+              $("input[name='editPageReviewId']").val(result.data.id);
+
+              if(review_media!=''){
+
+                var arr = review_media.split(',');
+              for (var i = 0; i < arr.length; i++) {
+
+                console.log(i);
+                $("<div class='imageThumbDiv'><input type='hidden' name='images[]'' value='"+arr[i]+"' id='media-"+i+"'/><span class='imgblocks imgblock"+i+"'><img src='/uploads/"+arr[i]+"' height='65px' width='65px'><a href='javascript:void(0)' id='"+arr[i]+"' onclick='check("+i+",this)'><i class='fa fa-close' style='font-size:24px'></i></a></span></div>").appendTo("#dbreview_img");
+              }
+
+              $("<input type='hidden' name='db_editreviewimages' value='"+arr.length+"' id='db_editreviewimages'/>").insertAfter(".edit-media-section");
+
+              }else{
+              $("<input type='hidden' name='db_editreviewimages' value='0' id='db_editreviewimages'/>").insertAfter(".edit-media-section");                
+              }
+              $("#editReviewModel").modal();
+            }
+          }
+        })
+      });
+
+        $('.delReview').click(function(){
+          swal({
+                title: "Are you sure you want to delete this review ?",
+                icon: "warning",
+                buttons: true,
+                buttons: ["Cancel", "Delete"],
+                dangerMode: true,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location="../deletereview?review="+this.id;
+                }
+            });
+        });
+
+        $('.delreplyReview').click(function(){
+          var rid = this.id;
+          swal({
+                title: "Are you sure you want to delete this reply ?",
+                icon: "warning",
+                buttons: true,
+                buttons: ["Cancel", "Delete"],
+                dangerMode: true,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    //window.location="../deletereplyreview?review="+this.id;
+                    $.ajax({
+                      method: 'post',
+                      url:'/deletereplyreview',
+                      data: {review_id:rid},
+                      success:function(result){
+                        if(result.status==true){
+                          swal({
+                              title: "Review reply deleted successfully",
+                              icon: "success",
+                              dangerMode: true,
+                              closeOnClickOutside: false,
+                              closeOnEsc: false,
+                          }).then((value) => {
+                            window.location.reload();
+                          });                  
+                        }
+                      }
+                    })
+                }
+            });
+        });
+
+        $('.ratingsForm #pagestar input[type="radio"]').click(function(){
+          var page_rating = $('.ratingsForm #pagestar input[type="radio"]:checked').val();
+          $('.ratingsForm #modalstar #addstar-1'+page_rating).prop('checked',true);
+
+          <%if(is_usertype==0){%>
+            swal({
+                title: "Login required to add review",
+                icon: "warning",
+                buttons: true,
+                buttons: ["Cancel", "Login"],
+                dangerMode: true,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = "/login";
+                }else{
+                  window.location.reload();
+                }
+            });
+          <%}else if(is_usertype==2){%>
+            swal({
+                title: "Business user can't add review",
+                icon: "error",
+                dangerMode: true,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+            }).then((value) => {
+              //window.location.reload();
+            });
+          <%}else if(is_usertype==3){%>
+            swal({
+                title: "Admin user can't add review",
+                icon: "error",
+                dangerMode: true,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+            }).then((value) => {
+              //window.location.reload();
+            });
+          <%}else{%>
+            var propertyId = $("#propId").val();
+            $.ajax({
+                method: 'get',
+                url:'/checkforaddreview',
+                data: {propertyId: propertyId},
+               success:function(result){
+                  if(result.status==true){                    
+                    $("#addReviewModel").modal();
+                  }else if(result.message=='hourlimit'){
+                        swal({
+                          title: "Sorry, You can give maximum 3 reviews in an hour",
+                          icon: "error",
+                          dangerMode: true,
+                          closeOnClickOutside: false,
+                          closeOnEsc: false,
+                        })
+                    }
+                    else{
+                      swal({
+                        title: "Sorry, you can give one review to each property in month",
+                        icon: "error",
+                        dangerMode: true,
+                        closeOnClickOutside: false,
+                        closeOnEsc: false,
+                      })
+                    }
+                }
+              });
+          <%}%>
+        });
+
+        $('.checkInbtn').click(function(){        
+            var propertyId = $("#propId").val();
+            $.ajax({
+                method: 'get',
+                url:'/checkforcheckin',
+                data: {propertyId: propertyId},
+               success:function(result){
+                  if(result.status==true){                    
+                    $('#CheckInModel').modal();
+                  }else{
+                    swal({
+                      title: "Sorry, user can not checkin to multiple locations within 2 hours",
+                      icon: "error",
+                      dangerMode: true,
+                      closeOnClickOutside: false,
+                      closeOnEsc: false,
+                    })
+                  }
+                }
+              });
+        });
+
+        $('#addReviewform').submit(function(e){
+            e.preventDefault();
+            if(!($('#addReviewform').valid())){
+              console.log('form is invalid');
+            }
+            else{
+              $("#addReviewModel").modal("hide");
+              var user_location = '';
+            if(($("#user_location").val())!=''){
+              user_location = $("#user_location").val();
+            }
+            var review_content = $("textarea#review_desc").val();
+            var review_post_user = $("input[name='reviewUserName']:checked").val();
+            var rating_number = $("#modalstar input[type='radio']:checked").val();
+            var propertyId = $("#propId").val();  
+            console.log(propertyId);
+            var propId = $("#propertyId").val();
+            console.log(propId);
+            $(this).ajaxSubmit({ 
+                data: {review_content: review_content,review_post_user:review_post_user,rating_number:rating_number,propertyId:propertyId,propId: propId,user_location:user_location},
+                contentType: 'application/json',
+                success: function(response){
+                  swal({
+                      title: "Your review was added successfully",
+                      icon: "success",
+                      dangerMode: true,
+                      closeOnClickOutside: false,
+                      closeOnEsc: false,
+                  }).then((value) => {
+                    window.location.reload();
+                  });                  
+                }
+            });
+            return false;
+          }
+        });
+
+        $('#updateReviewform').submit(function(e){
+            e.preventDefault();
+            if(!($('#updateReviewform').valid())){
+              console.log('form is invalid');
+            }
+            else{
+              $("#editReviewModel").modal("hide");
+            var review_content = $("textarea#edit_review_desc").val();
+            var review_post_user = $("input[name='editreviewUserName']:checked").val();
+            var rating_number = $("#updatemodalstar input[type='radio']:checked").val();
+            var propertyId = $("#propId").val();
+            $(this).ajaxSubmit({
+                data: {review_content: review_content,review_post_user:review_post_user,rating_number:rating_number,prop_Id:propertyId},
+                contentType: 'application/json',
+                success: function(response){
+                    swal({
+                        title: "Review updated successfully",
+                        icon: "success",
+                        dangerMode: true,
+                        closeOnClickOutside: false,
+                        closeOnEsc: false,
+                    }).then((value) => {
+                      window.location.reload();
+                    });
+                    /*var msg = '';
+                    if(response.status==true){
+                        msg="<h2 class='post-title'>Review updated successfully</h2>";
+                    }else{
+                        msg="<h2 class='post-title'>Oops, something went wrong</h2>";
+                    }
+                    $("#updateReviewform #updatereviewres_msg").html(msg);
+                    $("button#updateReview").hide();
+                    $("button#updateclosebtn").show();*/
+                }
+            });
+            return false;
+          }
+        });
+
+        $(".pagination li").click(function(){
+            $("#page").val($(this).attr('data-id'));
+            $("#property-details").submit();
+        });
+
+        $("#claimBtn").click(function(){
+            swal({
+                title: "Are you sure you want to claim this location?",
+                icon: "warning",
+                buttons: true,
+                buttons: ["Cancel", "Claim"],
+                dangerMode: true,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                timer: 10000,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location="../claimlocation?id="+$(this).attr('data-property-id');
+                }
+            });
+          /*if(confirm("Are you sure you want to claim this location ?")){
+            window.location="../claimlocation?id="+$(this).attr('data-property-id');
+          }*/
+        });
+
+        $("#unClaimBtn").click(function(){
+            swal({
+                title: "Are you sure you want to unclaim this location?",
+                icon: "warning",
+                buttons: true,
+                buttons: ["Cancel", "Unclaim"],
+                dangerMode: true,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                timer: 10000,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location="../unclaimlocation?id="+$(this).attr('data-property-id');
+                }
+            });
+          /*if(confirm("Are you sure you want to unclaim this location ?")){
+            window.location="../unclaimlocation?id="+$(this).attr('data-property-id');
+          }*/
+        });
+
+       
+
+        $(".flagThis").click(function(){
+            $this=$(this);            
+            if($this.attr('data-status')==0){
+              var review_id = $this.attr('data-reviewId');
+              var property_id = $this.attr('data-propertyId');
+              $.ajax({
+                method: 'post',
+                url:'/admin/review/manageFlag',
+                data: {review_id:review_id, status:1,property_id:property_id},
+                success:function(result){
+                  console.log(result);
+                  $this.addClass('active');
+                  $this.attr('data-status',1);
+                }
+              })
+            }else{
+              var review_id = $this.attr('data-reviewId');
+              var property_id = $this.attr('data-propertyId');
+              var flag_id =$this.attr('data-flagId');
+               $.ajax({
+                method: 'post',
+                url:'/admin/review/manageFlag',
+                data: {review_id:review_id, status:0,property_id:property_id},
+                success:function(result){
+                  console.log(result);
+                  $this.removeClass('active');
+                  $this.attr('data-status',0);
+                }
+              })
+            }
+        });
+
+        $(".foundHelpful").click(function(){
+          $this=$(this);            
+            if($this.attr('data-status')==0){
+              var review_id = $this.attr('data-reviewId');
+              var property_id = $this.attr('data-propertyId');
+              $.ajax({
+                method: 'post',
+                url:'/admin/review/manageLike',
+                data: {review_id:review_id, status:1,property_id:property_id},
+                success:function(result){
+                  console.log(result);
+                  $this.addClass('active');
+                  $this.attr('data-status',1);
+                }
+              })
+            }else{
+              var review_id = $this.attr('data-reviewId');
+              var property_id = $this.attr('data-propertyId');
+              var flag_id =$this.attr('data-flagId');
+               $.ajax({
+                method: 'post',
+                url:'/admin/review/manageLike',
+                data: {review_id:review_id, status:0,property_id:property_id},
+                success:function(result){
+                  console.log(result);
+                  $this.removeClass('active');
+                  $this.attr('data-status',0);
+                }
+              })
+            }
+        });
+      });
+
+
+
+    function PostReply(a){  
+      var replytext = ($("#reply"+a.id).val());
+      if(replytext!=''){
+        $.ajax({
+            type: "POST",
+            url: '/postreply',
+            data: {'text':replytext,'review_id':a.id},
+            success: function(data){
+               window.location.reload();
+            }
+        });
+      }  
+    }
+
+    function check(index,i){
+      console.log(index);
+      $("#media-"+index).remove();
+      $("#dbreview_img span.imgblock"+index).remove();
+      $("#db_editreviewimages").val( parseInt($("#db_editreviewimages").val()) - 1 );
+      console.log($("#db_editreviewimages").val());
+    }
+
+    function SetOrigin(a){
+      //alert(($("#originprop").data("media")));
+      //($("#originprop").data("media", "yes change you atribute"));
+      //alert(a);
+    } 
+    
+      /*add radio button class*/
+        $('.post-title input[type=radio]').click(function(){
+          $('.post-title input[type=radio]').parent().removeClass('checked');
+              $(this).parent().addClass('checked');
+         });  
+       /*file upload*/
+           if(window.File && window.FileList && window.FileReader) {
+               $("#addfiles").on("change",function(e) {
+                $(".adduploadimg img.imageThumb").detach();
+               var files = e.target.files ,
+               filesLength = files.length ;
+               for (var i = 0; i < filesLength ; i++) {
+               var f = files[i]
+               var fileReader = new FileReader();
+               fileReader.onload = (function(e) {
+               var file = e.target;
+               $("<img></img>",{
+               class : "imageThumb",
+               src : e.target.result,
+               title : file.name
+               }).appendTo(".adduploadimg");
+               });
+               fileReader.readAsDataURL(f);
+               }
+          });
+        } else { //alert("Your browser doesn't support to File API")
+          swal({
+              title: "Your browser doesn't support to File API",
+              icon: "error",
+              dangerMode: true,
+              closeOnClickOutside: false,
+              closeOnEsc: false,
+          });
+      }
+
+        if(window.File && window.FileList && window.FileReader) {
+               $("#editfiles").on("change",function(e) {
+                $(".edituploadimg img.imageThumb").detach();
+               var files = e.target.files ,
+               filesLength = files.length ;
+               for (var i = 0; i < filesLength ; i++) {
+               var f = files[i]
+               var fileReader = new FileReader();
+               fileReader.onload = (function(e) {
+               var file = e.target;
+               $("<img></img>",{
+               class : "imageThumb",
+               src : e.target.result,
+               title : file.name
+               }).appendTo(".edituploadimg");
+               });
+               fileReader.readAsDataURL(f);
+               }
+          });
+        } else { //alert("Your browser doesn't support to File API")
+            swal({
+              title: "Your browser doesn't support to File API",
+              icon: "error",
+              dangerMode: true,
+              closeOnClickOutside: false,
+              closeOnEsc: false,
+            })
+        }
+         (function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);
+    </script>
+  </body>
+</html>

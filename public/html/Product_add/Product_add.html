@@ -1,0 +1,120 @@
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/slick.min.css">
+    <link rel="stylesheet" type="text/css" href="css/slick-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/glyphicon.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/product-add.css">
+    <title></title>
+</head>
+
+<body>
+<!-- Product_add Page Start -->
+<div class="container product-box-back">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="back-bt"><a href="#">Back</a></div>
+    </div>
+  </div>
+</div>
+    <div class="container product-box">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="product-title">
+                    <h4>Add Product</h4>
+                    <hr>
+                </div>
+            </div>
+        </div>    
+           <div class="row">
+                <div class="col-md-6">
+                    <div class="product-file">
+                      <div class="upload-drop-zone" id="drop-zone">
+                             Drag & Drop image Here
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-product">
+                        <span>Name Of Product:</span>
+                         <input type="text" name="text_content" class="form-control border_bt" placeholder="Product name here">
+                         <span>Price of Product in STT:</span>
+                         <input type="text" name="text_content"  class="form-control border_bt" placeholder="00 00">
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                     <div class="product-title">
+                        <h6>Description</h6>
+                    </div>
+                     <textarea name="blog_content" id="blog_content" class="form-control" rows="5" placeholder="Blog Description">
+                   </textarea>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-lg-12">
+                <div class="product-btn">
+                    <input type="button" name="add_btn" class="btn add-prod" value="Add Product">
+                </div>
+            </div>
+        </div> 
+    </div> 
+<!-- Product_add Page End -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/slick.min.js"></script>   
+    <script src="js/popper.min.js"></script>
+    <script src="http://cdn.ckeditor.com/4.10.0/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+         CKEDITOR.replace( 'blog_content' );
+    </script>
+    <script type="text/javascript">\+ function($) {
+    'use strict';
+
+    // UPLOAD CLASS DEFINITION
+    // ======================
+
+    var dropZone = document.getElementById('drop-zone');
+    var uploadForm = document.getElementById('js-upload-form');
+
+    var startUpload = function(files) {
+        console.log(files)
+    }
+
+    uploadForm.addEventListener('submit', function(e) {
+        var uploadFiles = document.getElementById('js-upload-files').files;
+        e.preventDefault()
+
+        startUpload(uploadFiles)
+    })
+
+    dropZone.ondrop = function(e) {
+        e.preventDefault();
+        this.className = 'upload-drop-zone';
+
+        startUpload(e.dataTransfer.files)
+    }
+
+    dropZone.ondragover = function() {
+        this.className = 'upload-drop-zone drop';
+        return false;
+    }
+
+    dropZone.ondragleave = function() {
+        this.className = 'upload-drop-zone';
+        return false;
+    }
+
+}(jQuery);</script>
+</body>
+</html>

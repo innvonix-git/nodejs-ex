@@ -1,0 +1,174 @@
+<% include template/head %>
+<script src="../global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
+  <script src="../global_assets/js/plugins/tables/datatables/extensions/responsive.min.js"></script>
+  <script src="../global_assets/js/plugins/extensions/jquery_ui/interactions.min.js"></script>
+  <script src="../global_assets/js/plugins/forms/selects/select2.min.js"></script>
+  <script src="../assets/js/app.js"></script>
+<% include template/subheader %>
+<!-- Page header -->
+  <div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+      <div class="page-title d-flex">
+        <h4> <span class="font-weight-semibold">Claimed Locations</span></h4>
+        <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+      </div>
+
+      <div class="header-elements d-none">
+      </div>
+    </div>
+
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+      <div class="d-flex">
+        <div class="breadcrumb">
+          <a href="home" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+          <a href="locations" class="breadcrumb-item"><i class="icon-office mr-2"></i> All Locations</a>
+          <span class="breadcrumb-item active"><i class="icon-price-tags mr-2"></i>Claimed Locations</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /page header -->
+  <!-- Content area -->
+  <div class="content">
+    <% include template/flashmessage %>
+    <div class="card">
+      <div class="card-body">
+        <form method="get" name="search_form" id="search_form">
+          <input type="hidden" name="page" value="0" />
+              <input type="hidden" name="ordered_column" id="ordered_column" value="<%-ordered_column%>" />
+              <input type="hidden" name="ordered_sort" id="ordered_sort" value="<%-ordered_sort%>" />
+          <div class="row">
+              <div class="col-md-3">
+                <select name="category_filter" id="category_filter" class="form-control select-search" data-fouc>
+                  <option></option>
+                  <% categories.forEach((category) => { %>
+                    <option value="<%=category.id%>" 
+                      <% if(filters.category_filter && filters.category_filter==category.id){ %> selected <% } %> > <%=category.category_name%> </option>
+                  <% }) %>
+                </select>
+              </div>
+              <div class="col-md-9">
+                  <button type="submit" class="btn btn-primary btn-sm">Apply <i class="icon-filter4 ml-2"></i></button>
+                <button type="reset" class="btn btn-sm bg-slate" id="resetApplyBtn">Reset <i class="icon-reset ml-2"></i></button>
+              </div>
+          </div>
+        </form>
+      </div>
+          <table class="table datatable-responsive">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Location Name</th>
+                <th>Category</th>
+                <th>Existing Owner</th>
+                <th>Claimed User</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+                    <% var i=1;
+                      if (claimedLocationsList) {
+                          claimedLocationsList.forEach((property) => { 
+                          if(filters.category_filter){ 
+                              if(property.category.indexOf(parseInt(filters.category_filter))!=-1){
+                              %>
+                            <tr>
+                              <td><%=i++ %><%=filters.category_filter%></td>
+                              <td><%=property.property_name %></td>
+                              <%#categories[property.category].category_name %>
+                              <%
+                              var categoryIds = property.category;
+                              var catname = '';
+                              categoryIds.forEach(function(cat){    
+                                if(catname.length>0)
+                                  catname = catname+', '+categories[cat].category_name;
+                                else 
+                                  catname = categories[cat].category_name;
+                              });
+                              %>
+                              <td><%=catname %></td>
+                              <td><a href="userdetails?id=<%=property.exiting_owner_id%>"> <%=property.exiting_owner %></a></td>
+                              <td><a href="business-detail?id=<%=property.new_owner_id%>"> <%=property.new_owner_name %></a></td>
+                              <td>
+                                <div class="list-icons">
+                                  <a href="/admin/location-detail?id=<%=property.property_id%>" class="list-icons-item text-primary-600" data-popup="tooltip" title="View" data-container="body">
+                                    <i class="icon-eye8"></i>
+                                  </a>
+                                  <a href="javascript:void(0)" class="list-icons-item text-success-600" data-popup="tooltip" title="Accept Claim" data-container="body" onclick="confirmmessage('Are you sure you want to accept this claim? ','/admin/approve-claim/?id=<%=property.id%>')">
+                                    <i class="icon-checkmark-circle2"></i>
+                                  </a>
+                                  <a href="javascript:void(0)" class="list-icons-item text-danger-600" data-popup="tooltip" title="Ignore Claim" data-container="body" onclick="confirmmessage('Are you sure you want to ignore this claim? ','/admin/ignore-claim/?id=<%=property.id%>')">
+                                    <i class="icon-reload-alt"></i>
+                                  </a>
+                                </div>
+                              </td>
+                          </tr>
+                        <%} } else{ %> 
+                            <tr>
+                              <td><%=i++ %><%=filters.category_filter%></td>
+                              <td><%=property.property_name %></td>
+                              <%#categories[property.category].category_name %>
+                              <%
+                              var categoryIds = property.category;
+                              var catname = '';
+                              categoryIds.forEach(function(cat){    
+                                if(catname.length>0)
+                                  catname = catname+', '+categories[cat].category_name;
+                                else 
+                                  catname = categories[cat].category_name;
+                              });
+                              %>
+                              <td><%=catname %></td>
+                              %>
+                              <td><a href="userdetails?id=<%=property.exiting_owner_id%>"> <%=property.exiting_owner %></a></td>
+                              <td><a href="business-detail?id=<%=property.new_owner_id%>"> <%=property.new_owner_name %></a></td>
+                              <td>
+                                <div class="list-icons">
+                                  <a href="/admin/location-detail?id=<%=property.property_id%>" class="list-icons-item text-primary-600" data-popup="tooltip" title="View" data-container="body">
+                                    <i class="icon-eye8"></i>
+                                  </a>
+                                  <a href="javascript:void(0)" class="list-icons-item text-success-600" data-popup="tooltip" title="Accept Claim" data-container="body" onclick="confirmmessage('Are you sure you want to accept this claim? ','/admin/approve-claim/?id=<%=property.id%>')">
+                                    <i class="icon-checkmark-circle2"></i>
+                                  </a>
+                                  <a href="javascript:void(0)" class="list-icons-item text-danger-600" data-popup="tooltip" title="Ignore Claim" data-container="body" onclick="confirmmessage('Are you sure you want to ignore this claim? ','/admin/ignore-claim/?id=<%=property.id%>')">
+                                    <i class="icon-reload-alt"></i>
+                                  </a>
+                                </div>
+                              </td>
+                            </tr>
+                        <% } }) } %>
+                </tbody>
+          </table>
+    </div>
+    <% include template/pagignation%>
+  </div>
+  <!-- /content area -->
+<% include template/subfooter%>   
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $(".pagination li").click(function(){
+          $("#page").val($(this).attr('data-id'));
+          $("#pagination-form").submit();
+      });
+      $("#resetApplyBtn").click(function(){
+        $("#page").val('');
+        window.location.assign('claimed-locations')
+      });
+      $('.select-search').select2({
+        placeholder: 'Select Category',
+         allowClear: true
+      });
+      $("#category_filter").change(function(){       
+        $("#location_filters").submit();
+      });
+    });
+    function approveClaim(id){
+      confirmmessage("Are you sure you want to accept this claim?",'/admin/approve-claim/?id='+id);
+    }
+
+    function ignoreClaim(id){
+      confirmmessage('Are you sure you want to ignore this claim?','/admin/ignore-claim/?id='+id);
+    }
+  </script>
+<% include template/footer%>
+      

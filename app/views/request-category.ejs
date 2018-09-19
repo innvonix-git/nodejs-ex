@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include frontend/template/head %>
+</head>
+<body>
+  <% include frontend/template/subnav %>
+  <section class="testimonial-section text-justify">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="request_category">
+            <div class="request_category_box">
+              <% if (success.length > 0) { %>
+                <div class="alert-group">
+                  <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> <%- success %>
+                  </div>
+                </div>
+              <% } %>
+              <% if (error.length > 0) { %>
+                <div class="alert-group">
+                  <div class="alert alert-danger bg_red alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> <%- error %>
+                  </div>
+                </div>
+              <% } %>
+              <div class="request_text">
+                <div class="request_box">
+                  <h2 class="new_category">Request a New Category</h2>
+                  <form name="request_categoryform" id="request_categoryform" method="post" action="<%-base_url%>/category/store" autocomplete="off">
+                    <div class="name_category">
+                      <h3 class="new_category_text">Category Name:</h3>
+                      <div class="category_form form-group">
+                        <input type="text" class="form_bt" name="category_name" id="category_name" required="required" placeholder="Enter Category Name">
+                      </div>
+                    </div>
+                    <div class="category_textarea form-group">
+                      <h3>Reason to Add:</h3>
+                      <textarea placeholder="Why you want to add category?" name="category_desc" id="category_desc"></textarea>
+                    </div>
+                    <div class="col-lg-12">
+                      <div class="post-review">
+                        <input type="hidden" name="req_type" value="web">
+                        <button type="submit" name="save" value="Submit" class="submit-category">Submit</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <% include frontend/template/subfooter %>
+  <script src="/js/validation/adduserformcategoryvalidation.js"></script>
+</body>
+</html>

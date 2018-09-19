@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+ <html lang="en">
+    <head>
+      <% include frontend/template/head %>
+    </head>
+    <body>
+     <!-- Navigation -->
+    <% include frontend/template/subnav %>
+     <!-- Masthead -->
+    <section class="testimonial-section text-justify">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header header-elements-inline">
+                  <h5 class="card-title">Payment</h5>
+                </div>
+                <div class="card-body">
+                  <% include frontend/template/error %>
+                  <form action="save_card" method="post" name="save_card" class="save_card">
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label">Card Number<span class="text-danger">*</span></label>
+                      <div class="col-lg-9">
+                        <input class="form-control" name="card_number" id="card_number" placeholder="" type="text">
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label">Expiration Month<span class="text-danger">*</span></label>
+                      <div class="col-lg-9">
+                        <input class="form-control" name="expiration_month" id="expiration_month" placeholder="" type="text">
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label">Expiration Year<span class="text-danger">*</span></label>
+                      <div class="col-lg-9">
+                        <input class="form-control" name="expiration_year" id="expiration_year" placeholder="" type="text">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-lg-3 col-form-label">CVV<span class="text-danger">*</span></label>
+                      <div class="col-lg-9">
+                        <input class="form-control" name="cvv" id="cvv" type="password" placeholder="">
+                      </div>
+                    </div>
+                    <div class="form-group row mt-4 mb-4 text-center">
+                      <div class="col mb-1"><img src="<%-base_url%>/images/brands/visa.png" title="Visa" /></div>
+                      <div class="col mb-1"><img src="<%-base_url%>/images/brands/mastercard.png" title="Visa" /></div>
+                      <div class="col mb-1"><img src="<%-base_url%>/images/brands/americanex.png" title="Visa" /></div>
+                      <div class="col mb-1"><img src="<%-base_url%>/images/brands/jcb.png" title="Visa" /></div>
+                      <div class="col mb-1"><img src="<%-base_url%>/images/brands/discover.png" title="Visa" /></div>
+                      <div class="col mb-1"><img src="<%-base_url%>/images/brands/dinerclub.png" title="Visa" /></div>
+                    </div>
+                    <div class="form-group row mt-5 mb-4 text-center">
+                      <!-- <div class="mx-auto"><h6>&pound;20 pay for Premium Membership - Monthly</h6></div> -->
+                    </div>
+                    <div class="form-group row mt-4 mb-4 text-center">
+                      <div class="form-check form-check-inline mx-auto">
+                        <label class="form-check-label text-info agreelabel">
+                          <input class="form-check-input-styled" data-fouc="" type="checkbox" name="accept_terms" value="1">
+                          I agree to Revstance <a href="<%-base_url%>/terms" target="_new">Terms &amp; Conditions*</a>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-info btn-sm payment_button"> &pound; Pay</button>
+                    </div>
+                  </form>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> 
+   <!-- Footer -->
+   <% include frontend/template/subfooter %>
+   <script src="/js/validation/profilevalidation.js"></script>   
+   <script src="/js/validation/paymentform_validation.js"></script>
+   <script type="text/javascript">
+   $(".payment_button").click(function(){
+      var card_number = $.trim($(".card_number").val());
+      var expiration_month = $.trim($(".expiration_month").val());
+      var expiration_year = $.trim($(".expiration_year").val());
+      var cvv = $.trim($(".cvv").val());
+      if(card_number.length==0|| expiration_month.length==0|| expiration_month.length == 0|| cvv.length == 0){
+        
+      }else{
+        $(".save_card").submit();
+      }
+   });
+   </script>
+  </body>
+</html> 

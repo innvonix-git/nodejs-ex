@@ -1,0 +1,85 @@
+
+.table.custab
+{
+	border: solid 1px gainsboro;
+}
+input.copy-text {
+    border: none;
+
+}
+input.copy-text :focus
+{
+	outline: none;
+}
+.btn-group>.btn:first-child
+{
+	    padding: 4px 8px 4px 8px;
+}
+.referral-title-btn .btn-group>.btn:first-child
+{
+	width: 120px;
+	margin-bottom: 10px;
+	font-size: 13px;
+}
+.referral
+{
+	margin-top: 30px;
+}
+.ref-div
+{
+	display: inline-block;
+	text-align: center;
+	float: right;
+	margin-left: 20px;
+}
+.ref-div>h4
+{
+	color: #6699ff;
+}
+.btn.btn-light
+{
+	    border: solid 1px gainsboro;
+
+}
+.btn.btn-light:hover
+{
+	background-color: transparent;
+}
+@media (max-width:1170px)
+{
+	.ref-div
+	{
+		float: right;
+	}
+}
+@media (max-width:970px)
+{
+	.ref-div
+	{
+		float: right;
+		margin-right: 10px;
+	}
+}
+@media (max-width:768px)
+{
+	.ref-div
+	{
+		float: left;
+		margin-left: 0px;
+		margin-right: 20px;
+	}
+}
+@media (max-width:480px)
+{
+	.ref-div
+	{
+		float: left;
+		margin-left: 0px;
+		margin-right: 20px;
+	}
+	.table.custab
+	{
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+}

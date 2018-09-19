@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include frontend/template/head %>
+  </head>
+  <body>
+    <!-- Navigation -->
+   <% include frontend/template/subnav %>
+   <style>
+   .about_page .avatar.mx-auto.white {
+        position: absolute;
+        top: -50px;
+        text-align: center;
+        width: 100%;
+        left: 0;
+    }
+    .about_page .rounded-circle{
+        width: 140px;
+        background: #fff;
+        box-shadow: 0px 10px 20px #ccc;
+        padding: 10px;
+    }
+    .about_page .card-body{
+        padding:0;
+        margin-top: 7rem;
+    }
+    .about_page .card-body .dark-grey-text {
+        font-style: italic;
+    }
+    .about_page .card-body .owner-name{
+        color: #47a25a
+    }
+    @media (min-width: 992px) and (max-width: 1199px){
+        .about_page .card-body .dark-grey-text.first {
+            margin-bottom: 5rem;
+        }
+    }
+    @media (max-width: 768px){
+        .about_page .card-item.pr-4,.card-item.pl-4 {
+            padding: 0 15px !important;
+            margin: 0 !important;
+        }
+        .about_page .card-item.pr-4{
+            margin-bottom: 90px !important;
+        }
+        .about_page .testimonial-card {
+            margin-bottom: 0;
+        }
+        .about_page h2.font-weight-bold.py-3 {
+            font-size: 1.5rem;
+        }
+        .about_page p.grey-text.pb-4.mb-3 {
+            padding-bottom: 1rem !important;
+        }
+    }
+</style>
+    <!-- Masthead -->
+  <section class="testimonial-section text-justify about_page">
+    <div class="container">
+        <div class="panel panel-flat">
+            <div class="panel-heading text-center">
+              <h2 class="panel-title">About Us</h2>
+            </div>
+            <hr class="divider">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        How many times have you been to a place and thought… hmm, I should have really asked around what people thought about this place before coming here! Or, after visiting a place thought… hmm, I really want to tell everyone I know about this place!<br /><br />
+
+                        That in a nutshell is pretty much how we slowly progressed from asking our friends and family about places to visit, telling them where to go whenever we were asked (and sometimes even when we weren’t), to reading and writing reviews all over the place, and then eventually thinking, hey, there are so many things we would do differently if we did it ourselves! To then finally saying you know what? Let’s do it!! And so here we are… <br /><br />
+                    </div>
+                    <section class="pb-3 text-center">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-1"></div>
+                            <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 mb-5">
+                                <h2 class="font-weight-bold py-3">We are creating an easy and transparent review platform for you!</h2>
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-1"></div>
+                                    <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 mb-4">
+                                        <p class="grey-text pb-4 mb-3">Finding great places is hard... that's why you need  genuine reviews to help guide the way! Which is where we come in...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2"></div>
+                            <div class="card-item col-lg-4 col-md-6 col-xs-12 col-sm-12 mb-4 pl-0 pr-4">
+                                <div class="card testimonial-card">
+                                    <div class="card-up info-color"></div>
+                                    <div class="avatar mx-auto white">
+                                        <img src="../frontend_assets/img/about_quote2.png" class="rounded-circle img-fluid">
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="dark-grey-text first">Business Analyst, Blochchain researcher. Searches of spaces, Cycling, Chocolates, Coffe and Computer Science enthusiast.</p>
+                                        <h6 class="mt-5 owner-name">
+                                            <strong>Muaz Notiar, London</strong>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-item col-lg-4 col-md-6 col-xs-12 col-sm-12 mb-4 pr-0 pl-4">
+                                <div class="card testimonial-card">
+                                    <div class="card-up indigo"></div>
+                                    <div class="avatar mx-auto white">
+                                        <img src="../frontend_assets/img/about_quote1.png" class="rounded-circle img-fluid">
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="dark-grey-text">HR Consultant, Entrepreneur, Aspiring Children's Book Author. Chocolate Enthusiast. Lover of all four Legged Creatures.</p>
+                                        <h6 class="mt-5 owner-name">
+                                            <strong>Naveen Akhund, London</strong>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section> 
+              </div>
+            </div>
+        </div>
+    </div> 
+  </section>
+  <!-- Footer -->
+   <% include frontend/template/subfooter %>
+  </body>
+</html>
+
+
+   
