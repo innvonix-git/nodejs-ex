@@ -1,8 +1,29 @@
 //  OpenShift sample Node application
 var express = require('express'),
     app     = express(),
+    multer  = require('multer'),
     morgan  = require('morgan');
-    
+
+var constants = require('constants');
+var constant  = require('./config/constants');
+var mongoose  = require('mongoose');
+var passport  = require('passport');
+var flash     = require('connect-flash');
+var path      = require('path');
+var fs        = require('fs');
+var morgan    = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var session   = require('express-session');
+var bodyParser= require('body-parser');
+var dateFormat= require('dateformat');
+var now       = new Date();
+var cron      = require('node-cron');
+var CroneController  = require('./app/controllers/cronController');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
 Object.assign=require('object-assign')
 
 app.engine('html', require('ejs').renderFile);
