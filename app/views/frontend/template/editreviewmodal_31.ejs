@@ -1,0 +1,89 @@
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="container">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+              <div class="row">
+                <form method="post" action="/updatereview" name="updateReviewform" id="updateReviewform" enctype="multipart/form-data">
+                  <input type="hidden" name="propertyId" id="propId" value="<%=property.id%>">
+                  <input type="hidden" name="editPageReviewId" id="editPageReviewId" value="">
+                      <div class="review-title">
+                        <h2 class="edit-title text-center">Edit Review</h2>
+                      </div>
+                      <div class="section-seprator"></div>
+                      <div class="row alert alert-success" id="updatereviewres_msg"></div>
+                        <div class="row review-titles">
+                          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <h3 class="post-title">Post review as</h3>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <h3 class="post-title">
+                              <label for="btn-radio1">
+                                  <span><input type="radio" name="editreviewUserName" class="radio-btn" id="btn-radio1" value="0" /></span>
+                                 Anonymous
+                              </label>
+                          </h3>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <h3 class="post-title">
+                              <label for="btn-radio2">
+                                <span><input type="radio" name="editreviewUserName" class="radio-btn" id="btn-radio2" value="1"></span>
+                                You
+                              </label>
+                            </h3>
+                          </div>
+                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 edit-rating">
+                            <span class="edit-rating-title post-title">Rating</span>
+                            <span class="edit-rating-stars">
+                                <div class="stars">  
+                                  <div class="ratingsForm">
+                                    <div class="stars" id="updatemodalstar">
+                                      <input type="radio" name="star" class="star-1" id="star-11" value="1" />
+                                  <label class="star-1" for="star-11">1</label>
+                                  <input type="radio" name="star" class="star-2" id="star-12" value="2" />
+                                  <label class="star-2" for="star-12">2</label>
+                                  <input type="radio" name="star" class="star-3" id="star-13" value="3" />
+                                  <label class="star-3" for="star-13">3</label>
+                                  <input type="radio" name="star" class="star-4" id="star-14" value="4" />
+                                  <label class="star-4" for="star-14">4</label>
+                                  <input type="radio" name="star" class="star-5" id="star-15" value="5" />
+                                  <label class="star-5" for="star-15">5</label>
+                                  <span></span>
+                                    </div>
+                                  </div>
+                                </div>
+                            </span>
+                          </div>
+                        </div>  
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  edit-description form-group">
+                        <span class="post-title">Description</span>
+                        <textarea name="review_desc" id="edit_review_desc"></textarea>
+                      </div>
+                      <div class="edit-media-section">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 edit-add-media error_msg form-group">
+                              <span class="post-title edit-add">Attach Photos</span>
+                              <label for="editfiles" class="btn-file">
+                                 <input type="file" id="editfiles" class="file-btn" name="editreview_images" multiple="multiple" accept="image/*">
+                              </label>
+                              <div class="editreviewfilemargin"></div>
+                              <div class="edituploadimg"></div>
+                           </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                              <button type="submit" id="updateReview" class="save-btn info-btn  pull-right">UPDATE</button>
+                              <button type="button" id="updateclosebtn" class="save-btn info-btn  pull-right" onclick="window.location.reload()" style="display:none;">CLOSE</button>
+                           </div>
+                        </div>    
+
+              <div class="form-group form-group-material images_div">
+                <div id="dbreview_img" style="min-height:100px;">
+                </div>
+              </div>
+                    </form>
+               </div>
+      </div>
+    </div>
+  </div>
+</div>

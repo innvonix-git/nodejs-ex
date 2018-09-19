@@ -1,0 +1,24 @@
+ <% if(page<total_pages){ %>
+    <form method="get" id="pagination-form">
+      <input type="hidden" name="page" value="<%-page%>" id="page"/>
+      <input type="hidden" name="perpage" value="<%-perpage%>" id="perpage"/>
+      <input type="hidden" name="ordered_column" id="ordered_column" value="<%-ordered_column%>" />
+      <input type="hidden" name="keyword" value="<%-keyword%>" id="keyword"/> 
+      <input type="hidden" name="ordered_sort" id="ordered_sort" value="<%-ordered_sort%>" />
+      <nav aria-label="footer" class="pagination-section">
+        <ul class="pagination">
+          <li class="page-item" data-id="0"><a class="page-link" href="javascript:void(0)">First</a></li>
+          <%
+          var lastPage = Math.ceil(total_count/perpage);
+          var last = lastPage - 1;
+          for(k=0;k<lastPage;k++){ 
+          if(((k+3)==page) || ((k+2)==page) || ((k+1)==page) || (k==page) || ((k-1)==page) || ((k-2)==page) || ((k-3)==page)){
+          %>
+
+          <li class="page-item <% if(page==k){ %> active <%}%>" data-id="<%=k%>"><a class="page-link" href="javascript:void(0)"><%=k+1%></a></li>
+          <% } }%>
+          <li class="page-item" data-id="<%=last%>"><a class="page-link" href="javascript:void(0)">Last</a></li>
+        </ul>  
+      </nav>
+    </form>
+<% } %>

@@ -1,0 +1,147 @@
+.carousel .carousel-inner{
+    box-shadow: 0px 0px 20px 2px rgba(69, 92, 250, 0.42);
+    border-radius: 15px;
+}
+.carousel .num{
+    position: absolute;
+    bottom: 5px;
+    left: 15px;
+    color: #fff;
+    font-weight: bold;
+}
+.review i.star{
+    width: 40px;
+    height: 40px;
+    background-image: url(../img/icons.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+}
+.ratingsForm .stars {
+  background: url("../img/star-icons.png") repeat-x 0 -5px;
+  width: 200px;
+  margin: 0 auto;
+}
+.modal-body .ratingsForm .stars {
+  background: url("../img/star-icons.png") repeat-x 0 -165px;
+  
+}
+.ratingsForm .stars input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.ratingsForm .stars input[type="radio"].star-5:checked ~ span {
+  width: 100%;
+}
+.ratingsForm .stars input[type="radio"].star-4:checked ~ span {
+  width: 80%;
+}
+.ratingsForm .stars input[type="radio"].star-3:checked ~ span {
+  width: 60%;
+}
+.ratingsForm .stars input[type="radio"].star-2:checked ~ span {
+  width: 40%;
+}
+.ratingsForm .stars input[type="radio"].star-1:checked ~ span {
+  width: 20%;
+}
+.ratingsForm .stars label {
+  display: block;
+  width: 40px;
+  height: 35px;
+  margin: 0!important;
+  padding: 0!important;
+  text-indent: -999em;
+  float: left;
+  position: relative;
+  z-index: 10;
+  background: transparent!important;
+  cursor: pointer;
+}
+.ratingsForm .stars label:hover ~ span {
+  background-position: 0 -125px;
+}
+.modal-body .ratingsForm .stars label:hover ~ span{
+  background-position: 0 -245px;
+}
+.ratingsForm .stars label.star-5:hover ~ span {
+  width: 100% !important;
+}
+.ratingsForm .stars label.star-4:hover ~ span {
+  width: 80% !important;
+}
+.ratingsForm .stars label.star-3:hover ~ span {
+  width: 60% !important;
+}
+.ratingsForm .stars label.star-2:hover ~ span {
+  width: 40% !important;
+}
+.ratingsForm .stars label.star-1:hover ~ span {
+  width: 20% !important;
+}
+.ratingsForm .stars span {
+  display: block;
+  width: 0;
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 35px;
+  background: url("../img/star-icons.png") repeat-x 0 -125px;
+  -webkit-transition: -webkit-width 0.5s;
+  -moz-transition: -moz-width 0.5s;
+  -ms-transition: -ms-width 0.5s;
+  -o-transition: -o-width 0.5s;
+  transition: width 0.5s;
+}
+.model-body .ratingsForm .stars span {
+    background: url("../img/star-icons.png") repeat-x 0 -245px;
+}
+.review-count{
+    padding: 12px 0 0;
+}
+
+.property_detail_page .btn-grey{
+  background-color:#D8D8D8;
+color:#FFF;
+}
+.property_detail_page  .rating-block{
+background-color:#FAFAFA;
+border:1px solid #EFEFEF;
+padding:15px 15px 20px 15px;
+border-radius:3px;
+}
+.property_detail_page .bold{
+font-weight:700;
+}
+.property_detail_page .padding-bottom-7{
+padding-bottom:7px;
+}
+
+.property_detail_page .review-block{
+background-color:#FAFAFA;
+border:1px solid #EFEFEF;
+padding:15px;
+border-radius:3px;
+margin-bottom:15px;
+}
+.property_detail_page  .review-block-name{
+font-size:12px;
+margin:10px 0;
+}
+.property_detail_page  .review-block-date{
+font-size:12px;
+}
+.property_detail_page  .review-block-rate{
+font-size:13px;
+margin-bottom:15px;
+}
+.property_detail_page  .review-block-title{
+font-size:15px;
+font-weight:700;
+margin-bottom:10px;
+}
+.property_detail_page .review-block-description{
+font-size:13px;
+}

@@ -1,0 +1,75 @@
+<!-- Main sidebar -->
+	<div class="sidebar sidebar-dark sidebar-main sidebar-expand-md">
+
+		<!-- Sidebar mobile toggler -->
+		<div class="sidebar-mobile-toggler text-center">
+			<a href="#" class="sidebar-mobile-main-toggle">
+				<i class="icon-arrow-left8"></i>
+			</a>
+			Revstance
+			<a href="#" class="sidebar-mobile-expand">
+				<i class="icon-screen-full"></i>
+				<i class="icon-screen-normal"></i>
+			</a>
+		</div>
+		<!-- /sidebar mobile toggler -->
+
+
+		<!-- Sidebar content -->
+		<div class="sidebar-content">
+
+			<!-- Main navigation -->
+			<div class="card card-sidebar-mobile">
+				<ul class="nav nav-sidebar" data-nav-type="accordion">
+
+					<!-- Tables -->
+					<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Admin Panel</div> <i class="icon-menu" title="Revstance - Admin Panel"></i></li>
+					
+					<li class="nav-item"><a href="<%-base_url%>/admin/home" class="nav-link <% if(req.path=="/admin/home") {%>active<% } %>"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+
+					<li class="nav-item"><a href="<%-base_url%>/admin/users" class="nav-link <% if(req.path=="/admin/users" || req.path=="/admin/userdetails") {%>active<% } %>"><i class="icon-users4"></i> <span>Users</a></li>
+
+					<li class="nav-item"><a href="<%-base_url%>/admin/business-users" class="nav-link <% if(req.path=="/admin/business-users" || req.path=="/admin/business-detail") {%>active<% } %>"><i class="icon-briefcase"></i> <span>Businesses</span></a></li>
+
+					<li class="nav-item"><a href="<%-base_url%>/admin/locations" class="nav-link <% if(req.path=="/admin/locations" || req.path=="/admin/location-detail") {%>active<% } %>"><i class="icon-office"></i> <span>All Locations</span></a></li>
+
+					<li class="nav-item"><a href="<%-base_url%>/admin/featuredlisting" class="nav-link <% if(req.path=="/admin/featuredlisting") {%>active<% } %>"><i class="icon-graduation"></i> <span>Featured Listings</span></a></li>
+
+					<li class="nav-item"><a href="<%-base_url%>/admin/paymenthistory" class="nav-link <% if(req.path=="/admin/paymenthistory") {%>active<% } %>"><i class="icon-credit-card"></i> <span>Payment History</span></a></li>
+
+					<li class="nav-item"><a href="<%-base_url%>/admin/flaggeduser" class="nav-link <% if(req.path=="/admin/flaggeduser") {%>active<% } %>"><i class="icon-notification2"></i> <span>Flagged User</span></a></li>
+
+					<li class="nav-item"><a href="<%-base_url%>/admin/flaggedlocation" class="nav-link <% if(req.path=="/admin/flaggedlocation") {%>active<% } %>"><i class="icon-warning22"></i> <span>Flagged Location</span></a></li>
+
+					<li class="nav-item"><a href="<%-base_url%>/admin/claimed-locations" class="nav-link <% if(req.path=="/admin/claimed-locations") {%>active<% } %>"><i class="icon-price-tags"></i> <span>Claimed Locations</span></a></li>
+
+					<li class="nav-item"><a href="<%-base_url%>/admin/flagged-reviews" class="nav-link <% if(req.path=="/admin/flagged-reviews") {%>active<% } %>"><i class="icon-spam"></i> <span>Flagged Reviews</span></a></li>
+
+					<li class="nav-item"><a href="<%-base_url%>/admin/categories" class="nav-link <% if(req.path=="/admin/categories" || req.path=="/admin/addcategory" || req.path=="/admin/editcategory") {%>active<% } %>"><i class="icon-list3"></i> <span>Categories</span></a></li>
+
+					<li class="nav-item"><a href="<%-base_url%>/admin/blogs" class="nav-link <% if(req.path=="/admin/blogs" || req.path=="/admin/addblog" || req.path=="/admin/editblog") {%>active<% } %>"><i class="icon-blogger2"></i> <span>Blogs</span></a></li>
+
+					<li class="nav-item"><a href="<%-base_url%>/admin/emails" class="nav-link <% if(req.path=="/admin/emails" || req.path=="/admin/addemail" || req.path=="/admin/editemail") {%>active<% } %>"><i class="icon-envelop4"></i> <span>Email Template</span></a></li>
+
+					<!-- /main -->
+
+					<!--<li class="nav-item nav-item-submenu">
+						<a href="#" class="nav-link"><i class="icon-envelop4"></i> <span>Email Template</span></a>
+
+						<ul class="nav nav-group-sub" data-submenu-title="Email Template">
+							<li class="nav-item"><a href="<%-base_url%>/admin/addemail" class="nav-link <% if(req.path=="/admin/addemail") {%>active<% } %>"><i class="icon-add"></i><span>Add New Email</span></a></li>
+							<li class="nav-item"><a href="<%-base_url%>/admin/emails" class="nav-link <% if(req.path=="/admin/emails") {%>active<% } %>"><i class="icon-eye8"></i><span>View Email</span></a></li>
+						</ul>
+					</li>-->
+
+					<li class="nav-item"><a href="<%-base_url%>/admin/token-transfer" class="nav-link <% if(req.path=="/admin/token-transfer") {%>active<% } %>"><i class="icon-price-tag"></i> <span>Token Transfer</span></a></li>
+					<!-- /tables -->
+				</ul>
+			</div>
+			<!-- /main navigation -->
+
+		</div>
+		<!-- /sidebar content -->
+		
+	</div>
+<!-- /main sidebar -->

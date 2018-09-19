@@ -1,0 +1,146 @@
+<% include template/head %>
+  <script src="../global_assets/js/plugins/forms/selects/select2.min.js"></script>
+  <script src="../assets/js/app.js"></script>
+<% include template/subheader %>
+<!-- Page header -->
+  <div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+      <div class="page-title d-flex">
+        <h4> <span class="font-weight-semibold">Blogs</span></h4>
+        <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+      </div>
+
+      <div class="header-elements d-none">
+        <div class="d-flex justify-content-center">
+          <a href="/admin/addblog" class="btn btn-primary btn-sm">Add Blog <i class="icon-plus-circle2 ml-2"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+      <div class="d-flex">
+        <div class="breadcrumb">
+          <a href="home" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+          <span class="breadcrumb-item active"><i class="icon-blogger2 mr-2"></i>Blogs</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /page header -->
+  <!-- Content area -->
+  <div class="content">
+    <% include template/flashmessage %>
+    <div class="card">
+      <div class="card-body">
+        <form method="get" name="search_form" id="search_form">
+          <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+              <input type="hidden" name="page" value="0" />
+              <input type="hidden" name="ordered_column" id="ordered_column" value="<%-ordered_column%>" />
+              <input type="hidden" name="ordered_sort" id="ordered_sort" value="<%-ordered_sort%>" />
+              <input type="hidden" name="perpage" id="perpage" value="<%-perpage%>" />
+                <input type="text" name="keyword" value="<%-keyword%>" id="keyword" placeholder="Search blog" class="form-control"/> 
+            </div>
+            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-xs-12 btndiv">
+              <button type="submit" class="btn btn-primary btn-sm">Search <i class="icon-search4 ml-2"></i></button>
+              <a href="<%-base_url%>/admin/blogs" class="btn btn-sm bg-slate" id="resetApplyBtn">Reset <i class="icon-reset ml-2"></i></a>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 perpagediv">
+              <label>
+                <span>Show</span>
+                <select class="form-control selectperpage" data-fouc>                 
+                  <option value="10" <%= (perpage==10) ? 'selected' : ''%>>10</option>
+                  <option value="25" <%= (perpage==25) ? 'selected' : ''%>>25</option>
+                  <option value="50" <%= (perpage==50) ? 'selected' : ''%>>50</option>
+                  <option value="100" <%= (perpage==100) ? 'selected' : ''%>>100</option>
+                </select>
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+                <th>#</th>
+                <th class="filter-class blog_title" data-order="<%= (ordered_column=='blog_title') ? ordered_sort : -1 %>" data-column="blog_title">Blog Title<i class="<%=(ordered_column!='blog_title') ? 'fa fa-sort' : (ordered_sort==1) ? 'fa fa-sort-asc sorting-asc' : 'fa fa-sort-desc sorting-dsc'%> ml-2"></i></th>
+                
+                <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% 
+                  var i=1;
+                  if (blogs.length > 0) {
+                    blogs.forEach((blog) => { %>
+             <tr>
+                <td><%=i++%></td>
+                <td><%= blog.blog_title %></td>
+                <td class="text-center">
+
+                  <div class="list-icons">
+                    <a href="/blog?id=<%=blog.id%>" class="list-icons-item text-primary-600" data-popup="tooltip" title="View" data-container="body" target="_blank">
+                      <i class="icon-eye8"></i>
+                    </a>
+
+                    <a href="/admin/editblog?edit=<%= blog.id %>" class="list-icons-item text-teal-600" data-popup="tooltip" title="" data-container="body" data-original-title="Edit">
+                      <i class="icon-pencil7"></i>
+                    </a>
+                    <a onclick="return confirmmessage('Are you sure you want to delete this blog? ','/admin/deleteblog?delete=<%= blog.id %>')" href="javascript:void(0)" class="list-icons-item text-danger-600" data-popup="tooltip" title="" data-container="body" data-original-title="Delete">
+                      <i class="icon-trash"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            <% }) }else{%>
+            <tr>
+              <td class="text-center" colspan="3">No Result Found.</td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+      </div>
+    </div>
+    <% include template/pagignation%>
+  </div>
+  <!-- /content area -->
+<% include template/subfooter%>
+<script type="text/javascript">
+    $(document).ready(function(){
+      $('.selectperpage').select2({
+        minimumResultsForSearch: Infinity,
+        width: 80
+      });
+
+      $('.selectperpage').on('change',function(){
+        var selectedperpage = $(this).val();
+        $('#perpage').val(selectedperpage);
+        $("#search_form").submit();
+      })
+
+      $(".pagination li").click(function(){
+          $("#page").val($(this).attr('data-id'));
+          $("#pagination-form").submit();
+      });
+
+      if($('#ordered_sort').val()==1){
+        $("."+$("#ordered_column").val()).css('font-weight','bold');
+      }else{
+        $("."+$("#ordered_column").val()).css('font-weight','normal');
+      }
+
+      $(".filter-class").click(function(){
+        var order = $(this).data('order');
+        order = (order==1) ? -1 : 1;
+        $(this).data('order',order);
+        var column_order = $(this).data('order');
+        var column_name = $(this).data('column');
+        $('#ordered_column').val(column_name);
+        $('#ordered_sort').val(column_order);
+        $('#search_form').submit();
+      })
+    });
+  </script>  
+<% include template/footer%>
+      

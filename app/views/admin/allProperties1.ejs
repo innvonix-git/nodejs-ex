@@ -1,0 +1,207 @@
+<% include template/head %>
+<% include template/subheader %>
+<div class="content-wrapper">
+  <!-- Page header -->
+  <div class="page-header page-header-default">
+    <div class="page-header-content">
+      <div class="page-title">
+        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Home</span> - All Locations</h4>
+      </div>
+    </div>
+
+    <div class="breadcrumb-line">
+      <ul class="breadcrumb">
+        <li><a href="home"><i class="icon-home2 position-left"></i> Home</a></li>
+        <li class="active">All Locations</li>
+      </ul>
+    </div>
+  </div>
+  <!-- /page header -->
+
+  <!-- Content area -->
+  <div class="content">
+
+    <!-- Dashboard content -->
+    <div class="panel panel-flat">
+      <form name="location_filters" id="location_filters">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-8 filter_status mx-auto">
+              <div class="row">
+                <div class="filter col-md-3 col-sm-3 col-lg-3 col-xs-12">
+                  <input type="checkbox" name="filter1" id="filter1" <% if(filters.filter1){ %> checked <% } %> /> 
+                  <label for="filter1">Pending </label>
+                </div>
+                <div class="filter col-md-3 col-sm-3 col-lg-3 col-xs-12">
+                  <input type="checkbox" name="filter2" id="filter2" <% if(filters.filter2){ %> checked <% } %>  /> <label for="filter2">Activated </label>
+                </div>
+                <div class="filter col-md-3 col-sm-3 col-lg-3 col-xs-12">
+                  <input type="checkbox" name="filter3" id="filter3" <% if(filters.filter3){ %> checked <% } %>  /> <label for="filter3">Deactivated </label>
+                </div>
+                <div class="filter col-md-3 col-sm-3 col-lg-3 col-xs-12 ">
+                  <button type="submit" class="btn btn-primary" id="filterApplyBtn">Apply</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 filter_category mx-auto">
+              Category :
+              <select name="category_filter" id="category_filter" class="location-filter-box">
+                <option value="">Select Category</option>
+                <% categories.forEach((category) => { %>
+                  <option value="<%=category._id%>" 
+                    <% if(filters.category_filter && filters.category_filter==category._id){ %> selected <% } %> > <%=category.category_name%> </option>
+                <% }) %>
+              </select>              
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="panel panel-flat panel-admin">
+        <div class="panel-body table-responsive">
+            <% if (error.length > 0) { %>
+                <div class="alert alert-danger"><%- error %></div>
+              <% } %>
+
+              <% if (success.length > 0) { %>
+                <div class="alert alert-success"><%- success %></div>
+              <% } %>
+            <table class="table datatable-basic" id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Sr. No</th>
+                        <th>Location Name</th>
+                        <th>Category</th>
+                        <th>Contact Number</th>
+                        <th>Email</th>
+                        <th>Status</th>                  
+                        <th>Action</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <% var i=1;
+                  if (userLists && properties && categories) {
+                      properties.forEach((property) => { 
+                        if(filters.category_filter){
+                          if(property.category.indexOf(filters.category_filter)!=-1){
+                          %>
+                        <tr>
+                          <td><%=i++ %></td>
+                          <td><%=property.property_name %></td>                        
+                          <%
+                          var categoryIds = property.category;
+                          var catname = '';
+                          categoryIds.forEach(function(cat){
+                            if(catname.length>0)
+                              catname = catname+', '+categories[cat].category_name;
+                            else 
+                              catname = categories[cat].category_name;
+
+                          });
+                          %>
+                          <td><%=catname %></td>
+                          <td><%=userLists[property.user].contact_number %></td>
+                          <td><%=userLists[property.user].mail %></td>
+                          <td>
+                            <% if(property.status==0) { %>
+                              Pending
+                              <% } else if(property.status==1){ %>
+                              Activated
+                              <% } else if(property.status==2) { %>
+                              Deactivated 
+                              <% } %>
+                          </td>                  
+                          <td>
+                          <% if(property.status==0){ %>
+                          <a type="button" class="btn btn-success btn-sm" data-href="/admin/propertydetail?id=<%=property.id%>" data-id="<%=property.id%>" onclick="approveProperty(<%=property.id%>)">Approve</a>
+                          <% } else if(property.status==1) { %>
+                          <a type="button" class="btn btn-danger btn-sm" data-href="/admin/propertydetail?id=<%=property.id%>" data-id="<%=property.id%>" onclick="rejectProperty(<%=property.id%>)">Deactivate</a>
+                          <% } else if(property.status==2){ %>
+                          <a type="button" class="btn btn-info btn-sm" data-href="/admin/propertydetail?id=<%=property.id%>" data-id="<%=property.id%>" onclick="approveProperty(<%=property.id%>)">Activate</a>
+                          <% } %>
+                          </td>
+                          <td> <a type="button" class="btn btn-primary btn-sm" href="/admin/location-detail?id=<%=property.id%>">View</a> </td>
+                      </tr>
+                          <%
+                        }                  
+                        }else{
+                      %>
+                  <tr>
+                    <td><%=i++ %></td>
+                    <td><%=property.property_name %></td>
+                    <%#categories[property.category] %>
+                    <%
+                          var categoryIds = property.category;
+                          var catname = '';
+                          categoryIds.forEach(function(cat){    
+                            if(catname.length>0){
+                            if(typeof categories[cat] !== "undefined")
+                              catname = catname+', '+categories[cat].category_name;
+                            }
+                            else 
+                              catname = categories[cat].category_name;
+                          });
+                    %>
+                    <td><%=catname %></td>
+                    <td><%=userLists[property.user].contact_number %></td>
+                    <td><%=userLists[property.user].mail %></td>
+                    <td>
+                      <% if(property.status==0) { %>
+                        Pending
+                        <% } else if(property.status==1){ %>
+                        Activated
+                        <% } else if(property.status==2) { %>
+                        Deactivated 
+                        <% } %>
+                    </td>                  
+                    <td>
+                    <% if(property.status==0){ %>
+                    <a type="button" class="btn btn-success btn-sm" data-href="/admin/propertydetail?id=<%=property.id%>" data-id="<%=property.id%>" onclick="approveProperty(<%=property.id%>)">Approve</a>
+                    <% } else if(property.status==1) { %>
+                    <a type="button" class="btn btn-danger btn-sm" data-href="/admin/propertydetail?id=<%=property.id%>" data-id="<%=property.id%>" onclick="rejectProperty(<%=property.id%>)">Deactivate</a>
+                    <% } else if(property.status==2){ %>
+                    <a type="button" class="btn btn-info btn-sm" data-href="/admin/propertydetail?id=<%=property.id%>" data-id="<%=property.id%>" onclick="activateProperty(<%=property.id%>)">Activate</a>
+                    <% } %>
+                    </td>
+                    <td>
+                    <a type="button" class="btn btn-primary btn-sm" href="/admin/location-detail?id=<%=property.id%>">View</a>
+                  </td>
+                </tr>
+                <% } }) } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- /dashboard content -->
+<% include template/subfooter%>   
+  <script type="text/javascript">
+      $(document).ready(function(){      
+        $("#category_filter").change(function(){       
+          $("#location_filters").submit();
+        });
+      });
+      function approveProperty(id){
+        /*if(confirm('Are you sure you want to approve this location?')){
+          window.location='/admin/approve-location/?id='+id;
+        }*/
+        confirmmessage('Are you sure you want to approve this location?','/admin/approve-location/?id='+id);
+      }
+
+      function rejectProperty(id){
+       /*if(confirm('Are you sure you want to deactivate this location?')){
+          window.location='/admin/reject-location/?id='+id;
+        }*/ 
+        confirmmessage('Are you sure you want to deactivate this location?','/admin/reject-location/?id='+id);
+      }
+
+      function activateProperty(id){
+       /*if(confirm('Are you sure you want to activate this location?')){
+          window.location='/admin/approve-location/?id='+id;
+        }*/ 
+        confirmmessage('Are you sure you want to activate this location?','/admin/approve-location/?id='+id);
+      }
+  </script>
+<% include template/footer%>
+      

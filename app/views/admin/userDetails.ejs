@@ -1,0 +1,342 @@
+<% include template/head %>
+<script src="../global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+<script src="../global_assets/js/plugins/forms/styling/switchery.min.js"></script>
+  <script src="../global_assets/js/plugins/forms/styling/switch.min.js"></script>
+<script src="../assets/js/app.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+        $('.form-check-input-styled-info').uniform({
+            wrapperClass: 'border-info-600 text-info-800'
+        });
+
+        var info = document.querySelector('.form-check-input-switchery-info');
+        var switchery = new Switchery(info, { color: '#00BCD4'});
+  });
+</script>
+<% include template/subheader %>
+<!-- Page header -->
+  <div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+      <div class="page-title d-flex">
+        <h4> <span class="font-weight-semibold">User Details</span></h4>
+        <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+      </div>
+      <div class="header-elements d-none">
+      </div>
+    </div>  
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+      <div class="d-flex">
+        <div class="breadcrumb">
+          <a href="home" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+          <a href="users" class="breadcrumb-item"><i class="icon-users4 mr-2"></i> Users</a>
+          <span class="breadcrumb-item active">User Details</span>
+          <span class="breadcrumb-item active"><%=user.first_name+" "+user.last_name %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /page header -->
+  <!-- Content area -->
+  <div class="content">
+    <% include template/flashmessage %>
+    <div class="card">
+          <div class="card-header text-center">
+            <h5 class="card-title"></h5>
+          </div> 
+          <div class="card-body">
+            <form method="get" name="search_form" id="search_form">
+              <input type="hidden" name="page" value="0" />
+              <input type="hidden" name="perpage" id="perpage" value="<%-perpage%>" />
+            </form>
+            <ul class="nav nav-tabs nav-tabs-bottom">
+              <li class="nav-item"><a href="#bottom-tab1" class="nav-link <%-(tab=='personal') ? 'active' : '' %>" data-toggle="tab">Personal Details</a></li>
+              <li class="nav-item"><a href="#bottom-tab2" class="nav-link <%-(tab=='location') ? 'active' : '' %>" data-toggle="tab">User's Location</a></li>
+              <li class="nav-item"><a href="#bottom-tab3" class="nav-link <%-(tab=='tokenlog') ? 'active' : '' %>" data-toggle="tab">Token Log</a></li>
+            </ul>
+            <div class="tab-content">
+              <!--TAB 1-->
+              <div class="tab-pane fade <%-(tab=='personal') ? 'show active' : '' %>" id="bottom-tab1">  
+              <div class="float-right">
+                <a href="<%=base_url%>/user/<%=user.id%>/profile" target="_blank" class="btn btn-primary" name="userProfile" value="User Profile">Show User Profile</a>
+              </div>      
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>First Name:</td>
+                    <td><%=user.first_name %></td>
+                  </tr>
+                  <tr>
+                    <td>Last Name:</td>
+                    <td><%=user.last_name %></td>
+                  </tr>
+                  <tr>
+                    <td>Email:</td>
+                    <td><%=user.mail %></td>
+                  </tr>
+                  <tr>
+                    <td>Current Membership:</td>
+                    <td><%= user.membership.membership_title %></td>
+                  </tr>
+                  <tr>
+                    <td>Date Of Birth:</td>
+                    <td><%=(user.dob) ? moment(user.dob).format("MM/DD/YYYY") : ''; %></td>
+                  </tr>
+                  <tr>
+                    <td>Gender:</td>
+                    <td><%=user.gender %></td>                           
+                  </tr>
+                  <tr>
+                    <td>Contact Number:</td>
+                    <td><%=user.contact_number %></td>
+                  </tr>
+                  <tr>
+                    <td>Address:</td>
+                    <td><%=user.address1 %></td>
+                  </tr>                   
+                  <tr> 
+                    <td>Area:</td>
+                    <td><%=user.area %></td>
+                  </tr>
+                  <tr>
+                    <td>City:</td>
+                    <td><%=user.city %></td>
+                  </tr>
+                  <tr>
+                    <td>Country:</td>
+                    <td><%=user.country %></td>                           
+                  </tr>
+                  <tr>
+                    <td>Post Code:</td>
+                    <td><%=user.postcode %></td>                           
+                  </tr>
+                  <tr>
+                    <td>Wallet Id:</td>
+                    <td><%=user.wallet_id %></td>
+                  </tr>
+                  <tr>
+                    <td>Token Amount:</td>
+                    <td><%=user.token_balance %></td>                           
+                  </tr>
+                  <tr>
+                    <td>Point Amount:</td>
+                    <td><%=user.point_balance %></td>                           
+                  </tr>
+                  <tr>
+                    <td>Stance Level:</td>
+                    <td><%=user.stance %></td>                           
+                  </tr>
+                  <tr>
+                    <td>Ethnicity:</td>
+                    <td><%=user.ethnicity %></td>                           
+                  </tr>
+                  <tr>
+                    <td>Tag Line:</td>
+                    <td><%=user.tag_line %></td>                           
+                  </tr>
+                  <tr>
+                    <td>Other Badges:</td>
+                    <td><%=user.badges %></td>                           
+                  </tr>
+                  <tr>
+                    <td>Professional Badge:</td>
+                    <td>
+                      <div class="form-check form-check-switchery">
+                        <!-- <label class="form-check-label"> -->
+                          <input type="checkbox" class="form-check-input-switchery-info prof-badge-toggle" <%= (user.is_professional_badge==0) ? '' : 'checked'%> value="<%= user.is_professional_badge%>" userId="<%= user.id %>" data-fouc>
+                        <!-- </label> -->
+                      </div>
+                    </td>                           
+                  </tr>
+                  </tbody> 
+              </table>
+              <%if(user.status==1){%>
+              <div class="card-body">
+                <form action="<%-base_url%>/admin/transfer-token" method="post" name="transfertokenForm">
+                  <div class="form-group row">
+                    <label class="col-lg-3 col-form-label">Want to transfer some STT?: <span class="text-danger">*</span></label>
+                    <div class="col-lg-9">
+                      <input type="hidden" name="user" value="<%-user._id%>">
+                      <input type="text" name="amount" id="amount" class="amount form-control" required="required" placeholder="Enter STT amount">
+                    </div>
+                  </div>
+                  <div class="form-group text-center">
+                    <button class="btn btn-primary" type="submit">Transfer now <i class="icon-paperplane ml-2"></i></button>
+                  </div>
+                </form>
+              </div>
+              <% } %>
+            </div>
+    <!--/TAB 1-->
+
+    <!--TAB 2-->
+            <div class="tab-pane fade <%-(tab=='location') ? 'show active' : '' %>" id="bottom-tab2">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Location Name</th>
+                      <th>Category</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% 
+                      var i=1;
+                      if (properties.length > 0) {
+                            properties.forEach((property) => { %>
+                        <tr>
+                          <td><%= property.property_name%></td>
+                          <%
+                          var categoryList = [];
+                          if(property.category){
+                            (property.category).forEach((category) => { 
+                            categoryList.push(' '+category.category_name);                   
+                          }); } %>
+                          <td><%= categoryList.join()%></td>
+                          <td>
+                            <% if(property.status==0) { %>
+                              <span class="badge badge-info">Pending</span>
+                              <% } else if(property.status==1){ %>
+                              <span class="badge badge-success">Active</span>
+                              <% } else if(property.status==2) { %>
+                              <span class="badge badge-danger">Deactive</span>
+                              <% } %>
+                          </td>
+                          <td> 
+                            <div class="list-icons">
+                                <a href="<%-base_url+'/location/'+property.slug+'/details'%>" class="list-icons-item text-primary-600" data-popup="tooltip" title="View" data-container="body" target="_blank">
+                                <i class="icon-eye8"></i>
+                              </a>
+                              <!-- <a href="/admin/location-detail?id=<%=property.id%>" class="list-icons-item text-primary-600" data-popup="tooltip" title="View" data-container="body">
+                                <i class="icon-eye8"></i>
+                              </a> -->
+                            </div>
+                          </td>
+                        </tr>
+                      <% }) }else{ %>
+                        <tr>
+                          <td colspan="3" class="text-center">No Location added by user.</td>
+                        </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                </div>
+                <% if(page<total_pages){ %>
+                <form method="get" id="pagination-form">
+                  <input type="hidden" name="page" value="<%-page%>" id="page"/>
+                  <input type="hidden" name="id" value="<%-user.id%>" id="id"/>
+                  <input type="hidden" name="tab" value="location" id="tab"/>
+                  <input type="hidden" name="perpage" value="<%-perpage%>" id="perpage"/>
+                  <nav aria-label="footer" class="pagination-section">
+                    <ul class="pagination" id="pagination">
+                      <li class="page-item" data-id="0"><a class="page-link" href="javascript:void(0)">First</a></li>
+                      <%
+                      var lastPage = Math.ceil(total_count/perpage);
+                      var last = lastPage - 1;
+                      for(k=0;k<lastPage;k++){ 
+                      if(((k+3)==page) || ((k+2)==page) || ((k+1)==page) || (k==page) || ((k-1)==page) || ((k-2)==page) || ((k-3)==page)){
+                      %>
+
+                      <li class="page-item <% if(page==k){ %> active <%}%>" data-id="<%=k%>"><a class="page-link" href="javascript:void(0)"><%=k+1%></a></li>
+                      <% } }%>
+                      <li class="page-item" data-id="<%=last%>"><a class="page-link" href="javascript:void(0)">Last</a></li>
+                    </ul>  
+                  </nav>
+                </form>
+                <% } %>
+              </div>
+      <!--/TAB 2-->
+      
+      <!--TAB 3-->
+              <div class="tab-pane fade <%-(tab=='tokenlog') ? 'show active' : '' %>" id="bottom-tab3">
+                <div class="table-responsive">
+                  <table class="table">
+                  <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                  </tr>
+                  <% 
+                  if (tokens.length > 0) {
+                    tokens.forEach((token) => { %>
+                  <tr>
+                    <td><%= (token.created_date) ? moment(token.created_date).format("MM/DD/YYYY") : '' %></td>
+                    <td><%=token.description%></td>
+                    <td><%= (token.operation=='plus') ? '+' : ''%> <%=token.token_amount %></td>
+                  </tr>
+                  <% }) }else{ %>
+                  <tr>
+                    <td colspan="3" class="text-center">No Result Found.</td>
+                  </tr>
+                  <% } %>
+                </table>
+                </div>
+                  <% if(logpage<total_pages){ %>
+                <form method="get" id="pagination-form2">
+                  <input type="hidden" name="logpage" value="<%-logpage%>" id="logpage"/>
+                  <input type="hidden" name="id" value="<%-user.id%>" id="id"/>
+                  <input type="hidden" name="tab" value="tokenlog" id="tab"/>
+                  <input type="hidden" name="perpage" value="<%-perpage%>" id="perpage"/>
+                  <nav aria-label="footer" class="pagination-section">
+                    <ul class="pagination logspagination">
+                      <li class="page-item" data-id="0"><a class="page-link" href="javascript:void(0)">First</a></li>
+                      <%
+                      var lastPage = Math.ceil(total_log_count/perpage);
+                      var last = lastPage - 1;
+                      for(k1=0;k1<lastPage;k1++){ 
+                      if(((k1+3)==logpage) || ((k1+2)==logpage) || ((k1+1)==logpage) || (k1==logpage) || ((k1-1)==logpage) || ((k1-2)==logpage) || ((k1-3)==logpage)){
+                      %>
+
+                      <li class="page-item <% if(logpage==k1){ %> active <%}%>" data-id="<%=k1%>"><a class="page-link" href="javascript:void(0)"><%=k1+1%></a></li>
+                      <% } }%>
+                      <li class="page-item" data-id="<%=last%>"><a class="page-link" href="javascript:void(0)">Last</a></li>
+                    </ul>  
+                  </nav>
+                </form>
+                <% } %>
+              </div>
+              <!--/TAB 3-->
+               </div>
+          </div>
+          <div class="card-body text-right">
+            <button class="btn btn-primary" onclick="window.history.back();"><i class="icon-arrow-left7 position-left"> </i> Back to Listing</button>
+          </div>
+        </div>
+  </div>
+   </div>
+  </div>
+  <!-- /content area -->
+<% include template/subfooter%>
+<script src="/js/validation/transfertokenvalidation.js"></script>
+<script type="text/javascript">
+  $(function() {
+      $('.prof-badge-toggle').change(function() {
+          var userId = $(this).attr('userId');
+          var toggle_value = $(this).val();
+          $.ajax({
+              type: "POST",
+              url: '/admin/setprofesstionalbadge',
+              data: {is_checked: $(this).prop('checked'), userId: userId, toggle_value: toggle_value},
+              success: function(data){
+              },
+              error: function(){
+                console.log('error');
+              }
+          });
+      })
+
+      $("#pagination li").click(function(){
+          $("#page").val($(this).attr('data-id'));      
+          $("#pagination-form").submit();
+      });
+
+      $(".logspagination li").click(function(){   
+          $("#logpage").val($(this).attr('data-id'));   
+          $("#pagination-form2").submit();
+      });
+
+    });  
+</script>
+<% include template/footer%>
+      

@@ -1,0 +1,104 @@
+<% include template/head %>
+<script src="../assets/js/app.js"></script>
+<script type="text/javascript">
+</script>
+<% include template/subheader %>
+<!-- Page header -->
+  <div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+      <div class="page-title d-flex">
+        <h4> <span class="font-weight-semibold">Settings</span></h4>
+        <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+      </div>
+      <div class="header-elements d-none">
+        <div class="d-flex justify-content-center">
+          <a href="/admin/editsettings?edit=1" class="btn btn-primary btn-sm">Change Settings <i class="icon-pencil5 ml-2"></i></a>
+        </div>
+      </div>
+    </div>  
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+      <div class="d-flex">
+        <div class="breadcrumb">
+          <a href="home" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+          <span class="breadcrumb-item active"><i class="icon-gear mr-2"></i> Settings</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /page header -->
+  <!-- Content area -->
+  <div class="content">
+    <% include template/flashmessage %>  
+    <div class="card">          
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                <%
+                  if(settings){%>                  
+                <tr>
+                  <td>Site Title:</td>
+                  <td><%= settings.site_title%></td>
+                </tr>
+                <tr>
+                  <td>Admin Email Name:</td>
+                  <td><%= settings.admin_email%></td>
+                </tr>
+                <tr>
+                  <td>Developer Email:</td>
+                  <td><%= settings.developer_email%></td>
+                </tr>
+                <tr>
+                  <td>Monthly Featured Memberhip Token:</td>
+                  <td><%= settings.monthly_featuredmemberhip_token%></td>
+                </tr>                   
+                <tr> 
+                  <td>Monthly Featured Memberhip Flat:</td>
+                  <td><%= settings.monthly_featuredmemberhip_flat%></td>
+                </tr>
+                  <tr>
+                  <td>Yearly Featured Memberhip Token:</td>
+                  <td><%= settings.yearly_featuredmemberhip_token%></td>
+                </tr>
+                <tr>
+                  <td>Yearly Featured Memberhip Flat:</td>
+                  <td><%= settings.yearly_featuredmemberhip_flat%></td>
+                </tr>
+                <tr>
+                  <td>Token Price Rate:</td>
+                  <td><%= settings.token_price_rate%></td>
+                </tr>
+                <tr>
+                  <td>VAT Percentage:</td>
+                  <td><%= settings.vat_percentage%></td>
+                </tr>
+                <% }else{ %>
+                no
+                <%} %>
+                </tbody> 
+            </table>
+          </div>
+        </div>
+  </div>
+  <!-- /content area -->
+<% include template/subfooter%>
+<script src="/js/validation/transfertokenvalidation.js"></script>
+<script type="text/javascript">
+  $(function() {
+      $('.prof-badge-toggle').change(function() {
+          var userId = $(this).attr('userId');
+          var toggle_value = $(this).val();
+          $.ajax({
+              type: "POST",
+              url: '/admin/setprofesstionalbadge',
+              data: {is_checked: $(this).prop('checked'), userId: userId, toggle_value: toggle_value},
+              success: function(data){
+              },
+              error: function(){
+                console.log('error');
+              }
+          });
+      })
+    });  
+</script>
+<% include template/footer%>
+      

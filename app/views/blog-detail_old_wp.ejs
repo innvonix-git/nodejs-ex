@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include frontend/template/head %>
+    <link href="../css/blog.css" rel="stylesheet">
+    
+  </head>
+  <body>
+    <!-- Navigation -->
+    <!--<%-JSON.stringify(req.session); %>-->
+   <% include frontend/template/subnav %>
+    <!-- Masthead -->
+    <section class="blog-detail blog-details">
+        <div class="container">
+            <div class="col">
+                <h2 class='text-center page-title'>Blog</h2>        
+            </div>
+            <div class="panel panel-flat blog-detail-content blog-rev" id="<%=post.id%>">
+                <div class="panel-body">
+                    <div class="blog-img">
+                      <%if((post.featured_media)!=0){%>
+                        <img src="<%=post.featured_image_src%>" class="img-responsive" alt="<%=post.title.rendered%>" id="blogimg<%=post.id%>">
+                      <%}%>
+                    </div>
+                    <div class="blog-heading">
+                        <h2 class="panel-title"><strong><%=post.title.rendered%></strong></h2>
+                        <div class="text-muted">
+                            <% var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                            var dates = new Date(post.date);  %>
+                            <%=monthNames[dates.getMonth()]%> <%=dates.getDate()%>, <%=dates.getFullYear()%>
+                        </div>
+                    </div>
+                    <div class="about-text">
+                        <%- post.content.rendered %>
+                    </div>
+                </div>
+            </div>
+      </div>
+    </section>
+	<!-- Footer -->
+  <% include frontend/template/subfooter %>
+  </body>
+</html>
+<script type="text/javascript">
+  $(document).ready(function(){
+    //
+  });
+</script>
+
+
+
+   

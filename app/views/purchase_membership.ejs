@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+ <html lang="en">
+    <head>
+        <% include frontend/template/head %>
+    </head>
+    <body>
+        <% include frontend/template/subnav %>
+        <section class="testimonial-section text-justify">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 offset-md-1">
+                       <div class="panel panel-default listing-page-inner">
+                         <div class="panel-heading">Business Membership</div>
+                           <div class="panel-body">
+                             <% include frontend/template/error %>
+                             <% i=1; %>
+                                <p class="text-center"> You are on going to buy <b><%-plan.title%></b> Membership plan.</p>
+                                <form action="charge-membership" method="post">
+                                <input type="hidden" name="user_id" value="<%-req.session.user.id%>" />
+                                <input type="hidden" name="membership_id" value="<%-plan.id%>" />
+                                <input type="hidden" name="membership" value="<%-plan._id%>" />
+                                <input type="hidden" name="user" value="<%-req.session.user._id%>" />
+                                <input type="hidden" name="amount" value="<%-plan.amount%>" />
+                                <%
+                                if(user.stripe_card_id.length>0){ 
+                                    %>
+                                  <input type="submit" name="submit" value="Purchase now" class="btn btn-primary" />  
+                                <% }else{ %>
+                                    <p class="text-center"> <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="pk_test_3HpMocVmNc8PUsQbLBlmYYv0"
+    data-amount="<%-plan.amount%>"
+    data-name="Meet Your LTD"
+    data-description="Membership purchase"
+    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+    data-locale="auto"
+    data-currency="gbp">
+  </script></p>
+                                <% } %>
+                                %>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section> 
+   <!-- Footer -->
+   <% include frontend/template/subfooter %>
+   <script src="/js/validation/profilevalidation.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+   </body>
+ </html> 

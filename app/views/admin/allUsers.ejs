@@ -1,0 +1,174 @@
+<% include template/head %>
+  <script src="../global_assets/js/plugins/forms/selects/select2.min.js"></script>
+  <script src="../assets/js/app.js"></script>
+<% include template/subheader %>
+  <!-- Page header -->
+  <div class="page-header page-header-light">
+    <div class="page-header-content header-elements-md-inline">
+      <div class="page-title d-flex">
+        <h4> <span class="font-weight-semibold">Users</span></h4>
+        <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+      </div>
+
+      <div class="header-elements d-none">
+      </div>
+    </div>
+
+    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+      <div class="d-flex">
+        <div class="breadcrumb">
+          <a href="home" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+          <span class="breadcrumb-item active"><i class="icon-users4 mr-2"></i>Users</span>
+          <span class="breadcrumb-item active">Regular Users</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /page header -->
+  <!-- Content area -->
+  <div class="content">
+    <% include template/flashmessage %>
+    <div class="card">
+      <div class="card-body">
+        <form method="get" name="search_form" id="search_form">
+          <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+              <input type="hidden" name="page" value="0" />
+              <input type="hidden" name="ordered_column" id="ordered_column" value="<%-ordered_column%>" />
+              <input type="hidden" name="ordered_sort" id="ordered_sort" value="<%-ordered_sort%>" />
+              <input type="hidden" name="perpage" id="perpage" value="<%-perpage%>" />
+                <input type="text" name="keyword" value="<%-keyword%>" id="keyword" placeholder="Search user" class="form-control"/> 
+            </div>
+            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-xs-12 btndiv">
+              <button type="submit" class="btn btn-primary btn-sm">Search <i class="icon-search4 ml-2"></i></button>
+              <a href="<%-base_url%>/admin/users" class="btn btn-sm bg-slate" id="resetApplyBtn">Reset <i class="icon-reset ml-2"></i></a>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 perpagediv">
+              <label>
+                <span>Show</span>
+                <select class="form-control selectperpage" data-fouc>                  
+                  <option value="10" <%= (perpage==10) ? 'selected' : ''%>>10</option>
+                  <option value="25" <%= (perpage==25) ? 'selected' : ''%>>25</option>
+                  <option value="50" <%= (perpage==50) ? 'selected' : ''%>>50</option>
+                  <option value="100" <%= (perpage==100) ? 'selected' : ''%>>100</option>
+                </select>
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+                <th>#</th>
+                <th class="sorting filter-class first_name" data-order="<%= (ordered_column=='first_name') ? ordered_sort : -1 %>" data-column="first_name">First Name<i class="<%=(ordered_column!='first_name') ? 'fa fa-sort' : (ordered_sort==1) ? 'fa fa-sort-asc sorting-asc' : 'fa fa-sort-desc sorting-dsc'%> ml-2"></i></th>
+                
+
+                <th class="filter-class last_name" data-order="<%= (ordered_column=='last_name') ? ordered_sort : -1 %>" data-column="last_name">Last Name<i class="<%=(ordered_column!='last_name') ? 'fa fa-sort' : (ordered_sort==1) ? 'fa fa-sort-asc sorting-asc' : 'fa fa-sort-desc sorting-dsc'%> ml-2"></i></th></th>
+
+                <th class="filter-class mail" data-order="<%= (ordered_column=='mail') ? ordered_sort : -1 %>" data-column="mail">Email<i class="<%=(ordered_column!='mail') ? 'fa fa-sort' : (ordered_sort==1) ? 'fa fa-sort-asc sorting-asc' : 'fa fa-sort-desc sorting-dsc'%> ml-2"></i></th>
+
+                <th class="filter-class city" data-order="<%= (ordered_column=='city') ? ordered_sort : -1 %>" data-column="city">City<i class="<%=(ordered_column!='city') ? 'fa fa-sort' : (ordered_sort==1) ? 'fa fa-sort-asc sorting-asc' : 'fa fa-sort-desc sorting-dsc'%> ml-2"></i></th>
+
+                <th class="text-center filter-class status" data-order="<%= (ordered_column=='status') ? ordered_sort : -1 %>" data-column="status">Status<i class="<%=(ordered_column!='status') ? 'fa fa-sort' : (ordered_sort==1) ? 'fa fa-sort-asc sorting-asc' : 'fa fa-sort-desc sorting-dsc'%> ml-2"></i></th>
+                <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% 
+            var i=1;
+            if (users.length > 0) {
+                  users.forEach((user) => { %>
+              <tr>
+                <td><%-(page*perpage)+i %><%i++%></td>
+                <td><%= user.first_name %> </td>
+                <td><%= user.last_name %> </td>
+                <td><%= user.mail %> </td>
+                <td><%= user.city %> </td>
+                <td align="center"><% if(user.status==1){ %>
+                  <span class="badge badge-success">Active</span>
+                    <% } else if(user.status==3){ %>
+                  <span class="badge badge-danger">Suspended</span>
+                    <% } else{ %>
+                  <span class="badge badge-secondary">Inactive</span>
+                    <% } %>                        
+                </td>                  
+                </td>
+                 <td> 
+                  <div class="list-icons">
+                    <a href="/admin/userdetails?id=<%=user.id%>" class="list-icons-item text-primary-600" data-popup="tooltip" title="View Profile" data-container="body">
+                      <i class="icon-eye8"></i>
+                    </a>
+                
+                  <% if(user.status==1) { %>
+
+                  <a href="javascript:void(0)" class="list-icons-item text-danger-600" data-popup="tooltip" title="Suspend User" data-container="body" onclick="confirmmessage('Are you sure you want to suspend this user? ','/admin/users/suspend?id=<%=user.id%>')">
+                        <i class="icon-user-block"></i>
+                      </a>
+                    
+                       <% }else if(user.status==3) { %>
+
+                       <a href="javascript:void(0)" class="list-icons-item text-success-600" data-popup="tooltip" title="Activate User" data-container="body" onclick="confirmmessage('Are you sure you want to activate this user? ','/admin/users/active?id=<%=user.id%>')">
+                        <i class="icon-user-check"></i>
+                      </a>
+
+                      <% } %>
+                  </div>
+                </td>
+              </tr>
+              <% }) }else{ %>
+              <tr>
+                <td colspan="7" class="text-center">No Result Found.</td>
+              </tr>
+              <% }%>
+          </tbody>
+        </table>
+      </div>
+    </div>  
+    <% include template/pagignation%>
+  </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.selectperpage').select2({
+        minimumResultsForSearch: Infinity,
+        width: 80
+      });
+
+      $('.selectperpage').on('change',function(){
+        var selectedperpage = $(this).val();
+        $('#perpage').val(selectedperpage);
+        $("#search_form").submit();
+      })
+      $(".pagination li").click(function(){
+          $("#page").val($(this).attr('data-id'));
+          $("#pagination-form").submit();
+      });
+      $("#resetApplyBtn").click(function(){
+        $("#keyword").val('');
+        $("#page").val('');
+        $("#search_form").submit();
+      });
+
+      
+      if($('#ordered_sort').val()==1){
+        $("."+$("#ordered_column").val()).css('font-weight','bold');
+      }else{
+        $("."+$("#ordered_column").val()).css('font-weight','normal');
+      }
+
+      $(".filter-class").click(function(){
+        var order = $(this).data('order');
+        order = (order==1) ? -1 : 1;
+        $(this).data('order',order);
+        var column_order = $(this).data('order');
+        var column_name = $(this).data('column');
+        $('#ordered_column').val(column_name);
+        $('#ordered_sort').val(column_order);
+        $('#search_form').submit();
+      })
+    });
+  </script>
+  <!-- /content area -->
+<% include template/subfooter%>   
+<% include template/footer%>

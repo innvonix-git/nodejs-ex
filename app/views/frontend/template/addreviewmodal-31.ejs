@@ -1,0 +1,84 @@
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="container">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+              <div class="row">
+                <form method="post" action="/addreview" name="addReviewform" id="addReviewform" enctype="multipart/form-data">
+                  <input type="hidden" name="propertyId" id="propId" value="<%=property.id%>">
+                      <div class="review-title">
+                        <h2 class="edit-title text-center">Add Review</h2>
+                      </div>
+                      <div class="section-seprator"></div>
+                      <div class="row alert alert-success" id="addreviewres_msg"></div>
+                        <div class="row review-titles">
+                          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <h3 class="post-title">Post review as</h3>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <h3 class="post-title">
+                              <label for="addbtn-radio1">
+                                  <span><input type="radio" name="reviewUserName" class="radio-btn" id="addbtn-radio1" value="0" /></span>
+                                 Anonymous
+                              </label>
+                          </h3>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <h3 class="post-title">
+                              <label for="addbtn-radio2">
+                                <span class="checked"><input type="radio" name="reviewUserName" class="radio-btn" id="addbtn-radio2" checked="checked" value="1"></span>
+                                You
+                              </label>
+                            </h3>
+                          </div>
+                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 edit-rating">
+                            <span class="edit-rating-title post-title">Rating</span>
+                            <span class="edit-rating-stars">
+                                <div class="stars">  
+                                  <div class="ratingsForm">
+                                    <div class="stars" id="modalstar">
+                                      <input type="radio" name="addstar" class="star-1" id="addstar-11" value="1" />
+                                  <label class="star-1" for="addstar-11">1</label>
+                                  <input type="radio" name="addstar" class="star-2" id="addstar-12" value="2" />
+                                  <label class="star-2" for="addstar-12">2</label>
+                                  <input type="radio" name="addstar" class="star-3" id="addstar-13" value="3" />
+                                  <label class="star-3" for="addstar-13">3</label>
+                                  <input type="radio" name="addstar" class="star-4" id="addstar-14" value="4" />
+                                  <label class="star-4" for="addstar-14">4</label>
+                                  <input type="radio" name="addstar" class="star-5" id="addstar-15" value="5" />
+                                  <label class="star-5" for="addstar-15">5</label>
+                                  <span></span>
+                                    </div>
+                                  </div>
+                                </div>
+                            </span>
+                          </div>
+                        </div>  
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  edit-description form-group">
+                        <span class="post-title">Description</span>
+                        <textarea name="review_desc" id="review_desc"></textarea>
+                      </div>
+                      <div class="edit-media-section">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 edit-add-media error_msg form-group">
+                              <span class="post-title edit-add">Attach Photos</span>
+                              <label for="addfiles" class="btn-file">
+                                 <input type="file" id="addfiles" class="file-btn" name="review_images" multiple="multiple" accept="image/*">
+                              </label>
+                              <div class="addreviewfilemargin"></div>
+                              <div class="adduploadimg"></div>
+                           </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                              <button type="submit" id="saveReview" class="save-btn info-btn  pull-right">SAVE</button>
+                              <button type="button" id="addreviewclosebtn" class="save-btn info-btn  pull-right" onclick="window.location.reload()" style="display:none;">CLOSE</button>
+                           </div>
+                        </div>    
+                    </form>
+               </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
