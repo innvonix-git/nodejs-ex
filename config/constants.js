@@ -3,7 +3,7 @@ module.exports = {
 	'adminname': 'Rajaram',
 	'adminmail': 'test@gmail.com',
 	'adminemail': 'akash.patel@innvonix.com',
-	'host':"http://revstance-revstance.7e14.starter-us-west-2.openshiftapps.com/",
+	'host':"http://127.0.0.1:8084",
 	//'host':"http://localhost:8080",
 	'email_smtp_host':'smtp.gmail.com',
 	'email_smtp_port':587,
